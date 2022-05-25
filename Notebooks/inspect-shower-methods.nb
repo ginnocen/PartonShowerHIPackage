@@ -1,0 +1,391 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     14273,        383]
+NotebookOptionsPosition[     12407,        351]
+NotebookOutlinePosition[     12800,        367]
+CellTagsIndexPosition[     12757,        364]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Inspect tools for showers", "Title",ExpressionUUID->"32c1e667-a191-4a0d-b536-9cbca488f0fb"],
+
+Cell[TextData[{
+ "In this script we try to inspect the properties of this function ",
+ StyleBox["SingleSplittingPtOrdered",
+  FontWeight->"Bold"]
+}], "Text",ExpressionUUID->"2a9be038-aac0-4cef-aa10-d442eab5b4db"],
+
+Cell[BoxData[
+ StyleBox[
+  RowBox[{
+   RowBox[{"SingleSplittingPtOrdered", "[", 
+    RowBox[{
+    "sudakovgtogg_", ",", " ", "sudakovgtoqqbar_", ",", "mpt1_", ",", 
+     RowBox[{"parton_", ":", "\"\<g\>\""}], ",", 
+     RowBox[{"cutoffpt_", ":", "1."}]}], "]"}], ":=", "\n", "  ", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "rnd", ",", "possibleSplits", ",", "resultsp", ",", "nozero", ",", 
+       "results"}], "}"}], ",", "\n", "  ", 
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{"mpt1", ">", "cutoffpt"}], ",", "\n", "    ", 
+       RowBox[{
+        RowBox[{"possibleSplits", "=", 
+         RowBox[{"If", "[", 
+          RowBox[{
+           RowBox[{"parton", "==", "\"\<g\>\""}], ",", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"sudakovgtogg", ",", 
+               RowBox[{"{", 
+                RowBox[{"\"\<g\>\"", ",", "\"\<g\>\""}], "}"}]}], "}"}], ",", 
+             " ", 
+             RowBox[{"{", 
+              RowBox[{"sudakovgtoqqbar", ",", 
+               RowBox[{"{", 
+                RowBox[{"\"\<q\>\"", ",", "\"\<q\>\""}], "}"}]}], "}"}]}], 
+            "}"}], ",", "0"}], "]"}]}], ";", "\n", "    ", 
+        RowBox[{"rnd", " ", "=", " ", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"RandomReal", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"0.", ",", "1.0"}], "}"}], ",", 
+             RowBox[{"WorkingPrecision", "->", "4"}]}], "]"}], "&"}], "/@", 
+          "possibleSplits"}]}], ";", "\n", "    ", 
+        RowBox[{"resultsp", "=", 
+         RowBox[{"Table", "[", 
+          RowBox[{
+           RowBox[{"pt0", "//.", 
+            RowBox[{"FindRoot", "[", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{
+                 RowBox[{"possibleSplits", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"i", ",", "1"}], "]"}], "]"}], "//.", 
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{"pt1", "->", "mpt1"}], ",", 
+                   RowBox[{"CA", "->", "3"}], ",", 
+                   RowBox[{"\[Alpha]s", "->", "0.12"}]}], " ", "}"}]}], ")"}],
+                "-", 
+               RowBox[{"rnd", "[", 
+                RowBox[{"[", "i", "]"}], "]"}]}], ",", 
+              RowBox[{"{", 
+               RowBox[{"pt0", ",", "cutoffpt", ",", "mpt1"}], "}"}]}], 
+             "]"}]}], ",", 
+           RowBox[{"{", 
+            RowBox[{"i", ",", 
+             RowBox[{"Length", "[", 
+              RowBox[{"possibleSplits", "[", 
+               RowBox[{"[", 
+                RowBox[{";;", ",", "1"}], "]"}], "]"}], "]"}]}], "}"}]}], 
+          "]"}]}], ";", "\n", "    ", 
+        RowBox[{"nozero", "=", 
+         RowBox[{"Table", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{
+             RowBox[{"Abs", "[", 
+              RowBox[{"resultsp", "[", 
+               RowBox[{"[", "i", "]"}], "]"}], "]"}], ">", 
+             RowBox[{"10", "^", 
+              RowBox[{"-", "5"}]}]}], " ", "&&", " ", 
+            RowBox[{"Element", "[", 
+             RowBox[{
+              RowBox[{"resultsp", "[", 
+               RowBox[{"[", "i", "]"}], "]"}], ",", "Reals"}], "]"}]}], ",", 
+           RowBox[{"{", 
+            RowBox[{"i", ",", 
+             RowBox[{"Length", "[", 
+              RowBox[{"possibleSplits", "[", 
+               RowBox[{"[", 
+                RowBox[{";;", ",", "1"}], "]"}], "]"}], "]"}]}], "}"}]}], 
+          "]"}]}], ";", "\n", "    ", 
+        RowBox[{"results", " ", "=", " ", 
+         RowBox[{"Table", "[", 
+          RowBox[{
+           RowBox[{"If", "[", 
+            RowBox[{
+             RowBox[{"nozero", "[", 
+              RowBox[{"[", "i", "]"}], "]"}], ",", 
+             RowBox[{"resultsp", "[", 
+              RowBox[{"[", "i", "]"}], "]"}], ",", "0"}], "]"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"i", ",", 
+             RowBox[{"Length", "[", 
+              RowBox[{"possibleSplits", "[", 
+               RowBox[{"[", 
+                RowBox[{";;", ",", "1"}], "]"}], "]"}], "]"}]}], "}"}]}], 
+          "]"}]}], ";", "\n", "    ", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"MemberQ", "[", 
+           RowBox[{"nozero", ",", "True"}], "]"}], ",", "\n", "      ", 
+          RowBox[{
+           RowBox[{"splitindex", " ", "=", " ", 
+            RowBox[{
+             RowBox[{"Ordering", "[", 
+              RowBox[{"results", ",", 
+               RowBox[{"-", "1"}]}], "]"}], "[", 
+             RowBox[{"[", "1", "]"}], "]"}]}], ";", "\n", "      ", 
+           RowBox[{"Thread", "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"results", "[", 
+               RowBox[{"[", "splitindex", "]"}], "]"}], ",", 
+              RowBox[{"possibleSplits", "[", 
+               RowBox[{"[", 
+                RowBox[{"splitindex", ",", "2"}], "]"}], "]"}]}], "}"}], 
+            "]"}]}], ",", 
+          RowBox[{"{", 
+           RowBox[{"{", 
+            RowBox[{"0", ",", "parton"}], "}"}], "}"}]}], "]"}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", "parton"}], "}"}], "}"}]}], "]"}]}], "]"}]}], 
+  "CodeText"]], "Input",ExpressionUUID->"3d366e6d-729e-4f2b-aaf4-\
+49d05b37c597"],
+
+Cell[TextData[StyleBox["Lets inspect each piece step by step:",
+ FontWeight->"Bold"]], "Text",ExpressionUUID->"092ae67e-9026-4671-a11f-\
+c24f5a3add75"],
+
+Cell[BoxData[{
+ RowBox[{"<<", 
+  "\"\</Users/gianmicheleinnocenti/Desktop/PartonShowerSim/Package/\
+PartonShowerMCFull.wl\>\""}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"sudakovgtogg", "=", " ", "SudakovPgtoggvacuumLT"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"sudakovgtoqqbar", " ", "=", " ", 
+  "SudakovPgtoqqbarvacuumLT"}]}], "Input",ExpressionUUID->"1bef093d-2d16-4d0a-\
+9934-4e326a4871e7"],
+
+Cell[TextData[{
+ StyleBox["Step 1) ",
+  FontWeight->"Bold"],
+ "\[OpenCurlyDoubleQuote]possibleSplits\[CloseCurlyDoubleQuote] in case the \
+parton is a gluon creates the following list of lists \
+{{sudakovgtogg,{g,g}},{sudakovgtoqqbar,{q,q}}}"
+}], "Text",ExpressionUUID->"f0d7833b-af17-4b53-8f97-ffe0165c7e56"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"parton", "=", "\"\<g\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"possibleSplits", "=", 
+   RowBox[{"If", "[", 
+    RowBox[{
+     RowBox[{"parton", "==", "\"\<g\>\""}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"sudakovgtogg", ",", 
+         RowBox[{"{", 
+          RowBox[{"\"\<g\>\"", ",", "\"\<g\>\""}], "}"}]}], "}"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"sudakovgtoqqbar", ",", 
+         RowBox[{"{", 
+          RowBox[{"\"\<q\>\"", ",", "\"\<q\>\""}], "}"}]}], "}"}]}], "}"}], 
+     ",", "0"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Print", "[", "possibleSplits", "]"}]}], "Input",ExpressionUUID->\
+"9564ad22-491e-4212-9ee3-cc11330395bc"],
+
+Cell[BoxData[""], "Input",ExpressionUUID->"3805e9e6-3c68-47bf-b3fa-7072a23d1e91"],
+
+Cell[TextData[{
+ StyleBox["Step 2) ",
+  FontWeight->"Bold"],
+ "I extract two independent  random numbers from 0 to 1 for each possible \
+splitting. E.g.:"
+}], "Text",ExpressionUUID->"fdc9b85c-0cfd-4d38-bb7f-931cc8510c29"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"rnd", " ", "=", " ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"RandomReal", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"0.", ",", "1.0"}], "}"}], ",", 
+       RowBox[{"WorkingPrecision", "->", "4"}]}], "]"}], "&"}], "/@", 
+    "possibleSplits"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Print", "[", "rnd", "]"}]}], "Input",ExpressionUUID->"df379852-380a-\
+4679-99a1-914b6758a4fe"],
+
+Cell[TextData[{
+ StyleBox["Step 3) ",
+  FontWeight->"Bold"],
+ "It extract the corresponding pt values for the emission for the two \
+processes. "
+}], "Text",ExpressionUUID->"277269ec-b7b5-4e1a-a5b1-dd0a5682698b"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"mpt1", "=", " ", "100."}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"cutoffpt", "=", " ", "1."}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"resultsp", "=", 
+  RowBox[{"Table", "[", 
+   RowBox[{
+    RowBox[{"pt0", "//.", 
+     RowBox[{"FindRoot", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"possibleSplits", "[", 
+           RowBox[{"[", 
+            RowBox[{"i", ",", "1"}], "]"}], "]"}], "//.", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"pt1", "->", "mpt1"}], ",", 
+            RowBox[{"CA", "->", "3"}], ",", 
+            RowBox[{"\[Alpha]s", "->", "0.12"}]}], " ", "}"}]}], ")"}], "-", 
+        RowBox[{"rnd", "[", 
+         RowBox[{"[", "i", "]"}], "]"}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"pt0", ",", "cutoffpt", ",", "mpt1"}], "}"}]}], "]"}]}], ",", 
+    
+    RowBox[{"{", 
+     RowBox[{"i", ",", 
+      RowBox[{"Length", "[", 
+       RowBox[{"possibleSplits", "[", 
+        RowBox[{"[", 
+         RowBox[{";;", ",", "1"}], "]"}], "]"}], "]"}]}], "}"}]}], 
+   "]"}]}]}], "Input",ExpressionUUID->"2c0fdcfe-9b61-4c68-ae30-2325c4020c0d"],
+
+Cell["It then checks whether the pt values are non zero.", "Text",ExpressionUUID->"36c97998-988b-4ba3-9f88-2e0fa2225831"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"nozero", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"Abs", "[", 
+        RowBox[{"resultsp", "[", 
+         RowBox[{"[", "i", "]"}], "]"}], "]"}], ">", 
+       RowBox[{"10", "^", 
+        RowBox[{"-", "5"}]}]}], " ", "&&", " ", 
+      RowBox[{"Element", "[", 
+       RowBox[{
+        RowBox[{"resultsp", "[", 
+         RowBox[{"[", "i", "]"}], "]"}], ",", "Reals"}], "]"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", 
+       RowBox[{"Length", "[", 
+        RowBox[{"possibleSplits", "[", 
+         RowBox[{"[", 
+          RowBox[{";;", ",", "1"}], "]"}], "]"}], "]"}]}], "}"}]}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{"    ", 
+  RowBox[{
+   RowBox[{"results", " ", "=", " ", 
+    RowBox[{"Table", "[", 
+     RowBox[{
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"nozero", "[", 
+         RowBox[{"[", "i", "]"}], "]"}], ",", 
+        RowBox[{"resultsp", "[", 
+         RowBox[{"[", "i", "]"}], "]"}], ",", "0"}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"i", ",", 
+        RowBox[{"Length", "[", 
+         RowBox[{"possibleSplits", "[", 
+          RowBox[{"[", 
+           RowBox[{";;", ",", "1"}], "]"}], "]"}], "]"}]}], "}"}]}], "]"}]}], 
+   ";"}]}], "\[IndentingNewLine]", 
+ RowBox[{"Print", "[", "nozero", "]"}]}], "Input",ExpressionUUID->"96208d04-\
+4354-40cb-86d6-9db3276169b0"],
+
+Cell["\<\
+Then it fills the result list that has the non-negative values of the pt \
+extracted for gg and qqbar. Then it checks again if at least one of the two \
+if non zero with the function MemberQ that works as below:\
+\>", "Text",ExpressionUUID->"2055300a-c4bc-472b-bb7f-b70dad22e583"],
+
+Cell[BoxData[{
+ RowBox[{"MemberQ", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"True", ",", " ", "True"}], "}"}], ",", "True"}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"MemberQ", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"True", ",", " ", "False"}], "}"}], ",", "True"}], 
+  "]"}]}], "Input",ExpressionUUID->"5ac3bbb1-c807-4c67-abc8-15960fb7ef9a"],
+
+Cell["\<\
+It identify the index of the splitting that has the larger pt, and then it \
+outputs the two final partons associating the same pt extracted in the \
+Sudakov. E.g. 
+{{9.66724,g},{9.66724,g}}\
+\>", "Text",ExpressionUUID->"720ea03d-e0d9-401b-bec6-48c79d001ebb"]
+}, Open  ]]
+},
+WindowSize->{829, 659},
+WindowMargins->{{Automatic, 66}, {Automatic, 108}},
+FrontEndVersion->"12.3 for Mac OS X x86 (64-bit) (July 9, 2021)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"73b60d13-9eb2-4c34-b03d-46d00853d3bb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 97, 0, 98, "Title",ExpressionUUID->"32c1e667-a191-4a0d-b536-9cbca488f0fb"],
+Cell[680, 24, 212, 4, 35, "Text",ExpressionUUID->"2a9be038-aac0-4cef-aa10-d442eab5b4db"],
+Cell[895, 30, 5291, 137, 293, "Input",ExpressionUUID->"3d366e6d-729e-4f2b-aaf4-49d05b37c597"],
+Cell[6189, 169, 151, 2, 35, "Text",ExpressionUUID->"092ae67e-9026-4671-a11f-c24f5a3add75"],
+Cell[6343, 173, 404, 9, 73, "Input",ExpressionUUID->"1bef093d-2d16-4d0a-9934-4e326a4871e7"],
+Cell[6750, 184, 309, 6, 58, "Text",ExpressionUUID->"f0d7833b-af17-4b53-8f97-ffe0165c7e56"],
+Cell[7062, 192, 754, 20, 94, "Input",ExpressionUUID->"9564ad22-491e-4212-9ee3-cc11330395bc"],
+Cell[7819, 214, 81, 0, 30, "Input",ExpressionUUID->"3805e9e6-3c68-47bf-b3fa-7072a23d1e91"],
+Cell[7903, 216, 221, 5, 35, "Text",ExpressionUUID->"fdc9b85c-0cfd-4d38-bb7f-931cc8510c29"],
+Cell[8127, 223, 433, 12, 52, "Input",ExpressionUUID->"df379852-380a-4679-99a1-914b6758a4fe"],
+Cell[8563, 237, 212, 5, 35, "Text",ExpressionUUID->"277269ec-b7b5-4e1a-a5b1-dd0a5682698b"],
+Cell[8778, 244, 1171, 33, 115, "Input",ExpressionUUID->"2c0fdcfe-9b61-4c68-ae30-2325c4020c0d"],
+Cell[9952, 279, 121, 0, 35, "Text",ExpressionUUID->"36c97998-988b-4ba3-9f88-2e0fa2225831"],
+Cell[10076, 281, 1390, 42, 94, "Input",ExpressionUUID->"96208d04-4354-40cb-86d6-9db3276169b0"],
+Cell[11469, 325, 290, 4, 58, "Text",ExpressionUUID->"2055300a-c4bc-472b-bb7f-b70dad22e583"],
+Cell[11762, 331, 357, 10, 52, "Input",ExpressionUUID->"5ac3bbb1-c807-4c67-abc8-15960fb7ef9a"],
+Cell[12122, 343, 269, 5, 81, "Text",ExpressionUUID->"720ea03d-e0d9-401b-bec6-48c79d001ebb"]
+}, Open  ]]
+}
+]
+*)
+

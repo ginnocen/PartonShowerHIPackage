@@ -1,0 +1,87 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      2579,         79]
+NotebookOptionsPosition[      1963,         60]
+NotebookOutlinePosition[      2410,         77]
+CellTagsIndexPosition[      2367,         74]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["\<\
+Simple notebook for running the PartonShowerSim following all emissions\
+\>", "Title",ExpressionUUID->"333a0815-cdb0-44c7-bec8-316df1cbc2d2"],
+
+Cell[BoxData[{
+ RowBox[{"<<", 
+  "\"\</Users/gianmicheleinnocenti/Desktop/parton-shower-simulator/Kernel/\
+PartonShowerMCFull.wl\>\""}], "\[IndentingNewLine]", 
+ RowBox[{"Clear", "[", 
+  RowBox[{"nquarks", ",", "mylistnsplittings", ",", "descendants"}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ptinitial", " ", "=", " ", "100."}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"CA", "=", "3"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"alphas", "=", "0.12"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"cutoffpt", "=", "1."}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"maxevents", " ", "=", " ", "1"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Shower", "[", 
+  RowBox[{
+  "maxevents", ",", "ptinitial", ",", "cutoffpt", ",", 
+   "SudakovPgtoggvacuumLT", ",", " ", "SudakovPgtoqqbarvacuumLT"}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+  "Print", "[", 
+   "\"\<This is the complete list of the partons at the end of the \
+shower\>\"", "]"}], ";", 
+  RowBox[{"Print", "[", "descendants", "]"}]}]}], "Input",ExpressionUUID->\
+"b4cb4767-7fea-4194-ae88-ba6ae7118a2c"],
+
+Cell[BoxData[""], "Input",ExpressionUUID->"742d669f-223d-42cf-b792-8b2b35c12c01"]
+}, Open  ]]
+},
+WindowSize->{854, 1163},
+WindowMargins->{{Automatic, 307}, {-363, Automatic}},
+TaggingRules->Association["TryRealOnly" -> False],
+FrontEndVersion->"12.3 for Mac OS X x86 (64-bit) (July 9, 2021)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"0cc54c80-78b8-4291-840b-a2790758a248"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 151, 2, 160, "Title",ExpressionUUID->"333a0815-cdb0-44c7-bec8-316df1cbc2d2"],
+Cell[734, 26, 1129, 29, 211, "Input",ExpressionUUID->"b4cb4767-7fea-4194-ae88-ba6ae7118a2c"],
+Cell[1866, 57, 81, 0, 30, "Input",ExpressionUUID->"742d669f-223d-42cf-b792-8b2b35c12c01"]
+}, Open  ]]
+}
+]
+*)
+
