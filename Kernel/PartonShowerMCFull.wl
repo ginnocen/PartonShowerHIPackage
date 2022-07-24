@@ -188,8 +188,8 @@ ShowerFixed[partoninit_:100.,cutoffpt_:1.,sudakovgtogg_:SudakovPgtoggvacuumLT, s
 
 SingleSplittingPtOrderedFixedUrs[sudakovgtogg_, sudakovgtoqqbar_,fsplitgtogg_,fsplitgtoqqbar_, tscaleinit_:100, parton_:"g",zinit_:1,tscalecutoff_:1.]:=
 Module[{possibleSplits,tscalesplitting,splittingfunction},
-  output={{tscaleinit,parton,zinit}};
   If[parton == "q",output= {{tscalecutoff,parton,zinit}}];
+  If[tscaleinit==tscalecutoff,output={{tscaleinit,parton,zinit}};];
   If[tscaleinit>tscalecutoff  &&  parton == "g",(*if condition*)
      possibleSplits={{sudakovgtogg,{"g","g"}}, {sudakovgtoqqbar,{"q","q"}}};
      rnd = RandomReal[{0.,1.0},WorkingPrecision->4]&/@possibleSplits;
