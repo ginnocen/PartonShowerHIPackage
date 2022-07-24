@@ -186,6 +186,38 @@ ShowerFixed[partoninit_:100.,cutoffpt_:1.,sudakovgtogg_:SudakovPgtoggvacuumLT, s
 );
 
 
+SingleSplittingPtOrderedFixedUrs[sudakovgtogg_, sudakovgtoqqbar_,fsplitgtogg_,fsplitgtoqqbar_, tscaleinit_:100, parton_:"g",zinit_:1,tscalecutoff_:1.]:=
+Module[{possibleSplits,tscalesplitting,splittingfunction},
+  output= {{tscaleinit,parton,zinit}};
+  If[tscaleinit>tscalecutoff  &&  parton == "g",(*if condition*)
+     possibleSplits={{sudakovgtogg,{"g","g"}}, {sudakovgtoqqbar,{"q","q"}}};
+     rnd = RandomReal[{0.,1.0},WorkingPrecision->4]&/@possibleSplits;
+     resultsp=Table[pt0//.FindRoot[(possibleSplits[[i,1]]//.{pt1->tscaleinit,CA->3,\[Alpha]s->0.12 })-rnd[[i]],{pt0,tscalecutoff,tscaleinit}],{i,Length[possibleSplits[[;;,1]]]}];
+     nozero=Table[Abs[resultsp[[i]]]>10^-5 && Element[resultsp[[i]],Reals],{i,Length[possibleSplits[[;;,1]]]}];
+     results = Table[If[nozero[[i]],resultsp[[i]],0],{i,Length[possibleSplits[[;;,1]]]}];
+     processindex = Ordering[results,-1][[1]];
+     tscalesplitting = resultsp[[processindex]];
+     typesplittee = possibleSplits[[processindex,2]];
+     If [processindex==1, splittingfunction=fsplitgtogtg,splittingfunction=fsplitgtoqqbar];
+     If[MemberQ[nozero,True],(*if condition*)
+     distrib = ProbabilityDistribution[splittingfunction[z], {z, tscalecutoff/tscaleinit, 1.},Method -> "Normalize"];
+     zvalue=RandomVariate[distrib,1][[1]];
+     output={{tscalesplitting,typesplittee[[1]],zinit*zvalue},{tscalesplitting,typesplittee[[1]],zinit*(1-zvalue)}}](*end of if on MemberQ[nozero,True*)
+  ]; (*done if mpt1>cutoffpt  &&  parton == "g" is fullfilled*)
+  output
+]; (*end of function-module*)
+
+
+ShowerFixedUrs[tscaleinit_:100.,tscalecutoff_:1.,sudakovgtogg_:SudakovPgtoggvacuumLT, sudakovgtoqqbar_:SudakovPgtoqqbarvacuumLT,fsplitgtogg_:PgtoggvacuumNT,fsplitgtoqqbar_:PgtoqqbarvacuumLT, dodebug_:1]:=(
+  descendants={{tscaleinit,"g",1.}}; 
+  iter=0;Print["Here=",descendants];
+  While[MemberQ[Thread[descendants[[;;,1]]<tscalecutoff && iter<60],False],
+  iter = iter + 1;
+  descendants=Flatten[Table[SingleSplittingPtOrderedFixedUrs[sudakovgtogg,sudakovgtoqqbar,fsplitgtogg,fsplitgtoqqbar,descendants[[j,1]],descendants[[j,2]],descendants[[j,3]]],{j,Length[descendants]}],1];];
+  descendants
+)
+
+
 (* ::Text:: *)
 (*Some instructions on the structure of the shower utility. *)
 (*- mylistnsplittings is a list that is initialized to {0} before the shower process starts and contain the complete splitting history*)
