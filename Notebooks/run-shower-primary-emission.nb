@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[      4395,        121]
-NotebookOptionsPosition[      3416,         98]
-NotebookOutlinePosition[      3861,        115]
-CellTagsIndexPosition[      3818,        112]
+NotebookDataLength[      4402,        121]
+NotebookOptionsPosition[      3423,         98]
+NotebookOutlinePosition[      3868,        115]
+CellTagsIndexPosition[      3825,        112]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -26,7 +26,7 @@ Cell["First load the package with the command below:", "Text",ExpressionUUID->"3
 
 Cell[BoxData[
  RowBox[{"<<", 
-  "\"\</Users/gianmicheleinnocenti/Desktop/PartonShowerSim/Package/\
+  "\"\</Users/gianmicheleinnocenti/Desktop/parton-shower-simulator/Kernel/\
 PartonShowerMCFull.wl\>\""}]], "Input",ExpressionUUID->"00d1992d-afba-4c33-\
 b48c-62118a30485a"],
 
@@ -117,11 +117,11 @@ Notebook[{
 Cell[CellGroupData[{
 Cell[580, 22, 119, 0, 98, "Title",ExpressionUUID->"333a0815-cdb0-44c7-bec8-316df1cbc2d2"],
 Cell[702, 24, 117, 0, 35, "Text",ExpressionUUID->"3dc7cf83-dc23-4fd1-9d60-8637b216d673"],
-Cell[822, 26, 195, 4, 31, "Input",ExpressionUUID->"00d1992d-afba-4c33-b48c-62118a30485a"],
-Cell[1020, 32, 116, 0, 35, "Text",ExpressionUUID->"45c03ea8-eb7a-4d26-9623-ba40a37748f1"],
-Cell[1139, 34, 423, 10, 91, "Input",ExpressionUUID->"b4cb4767-7fea-4194-ae88-ba6ae7118a2c"],
-Cell[1565, 46, 168, 3, 35, "Text",ExpressionUUID->"5b97a75a-79c7-42d5-a92c-12a266475056"],
-Cell[1736, 51, 1664, 44, 230, "Input",ExpressionUUID->"23fa7c2a-9065-4ad6-82bb-058edf7472ed"]
+Cell[822, 26, 202, 4, 30, "Input",ExpressionUUID->"00d1992d-afba-4c33-b48c-62118a30485a"],
+Cell[1027, 32, 116, 0, 35, "Text",ExpressionUUID->"45c03ea8-eb7a-4d26-9623-ba40a37748f1"],
+Cell[1146, 34, 423, 10, 94, "Input",ExpressionUUID->"b4cb4767-7fea-4194-ae88-ba6ae7118a2c"],
+Cell[1572, 46, 168, 3, 35, "Text",ExpressionUUID->"5b97a75a-79c7-42d5-a92c-12a266475056"],
+Cell[1743, 51, 1664, 44, 219, "Input",ExpressionUUID->"23fa7c2a-9065-4ad6-82bb-058edf7472ed"]
 }, Open  ]]
 }
 ]

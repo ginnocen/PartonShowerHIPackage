@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[      2572,         79]
-NotebookOptionsPosition[      1956,         60]
-NotebookOutlinePosition[      2403,         77]
-CellTagsIndexPosition[      2360,         74]
+NotebookDataLength[      2579,         79]
+NotebookOptionsPosition[      1963,         60]
+NotebookOutlinePosition[      2410,         77]
+CellTagsIndexPosition[      2367,         74]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -26,7 +26,7 @@ Simple notebook for running the PartonShowerSim following all emissions\
 
 Cell[BoxData[{
  RowBox[{"<<", 
-  "\"\</Users/gianmicheleinnocenti/Desktop/PartonShowerSim/Package/\
+  "\"\</Users/gianmicheleinnocenti/Desktop/parton-shower-simulator/Kernel/\
 PartonShowerMCFull.wl\>\""}], "\[IndentingNewLine]", 
  RowBox[{"Clear", "[", 
   RowBox[{"nquarks", ",", "mylistnsplittings", ",", "descendants"}], 
@@ -78,8 +78,8 @@ CellTagsIndex->{}
 Notebook[{
 Cell[CellGroupData[{
 Cell[580, 22, 151, 2, 160, "Title",ExpressionUUID->"333a0815-cdb0-44c7-bec8-316df1cbc2d2"],
-Cell[734, 26, 1122, 29, 220, "Input",ExpressionUUID->"b4cb4767-7fea-4194-ae88-ba6ae7118a2c"],
-Cell[1859, 57, 81, 0, 30, "Input",ExpressionUUID->"742d669f-223d-42cf-b792-8b2b35c12c01"]
+Cell[734, 26, 1129, 29, 211, "Input",ExpressionUUID->"b4cb4767-7fea-4194-ae88-ba6ae7118a2c"],
+Cell[1866, 57, 81, 0, 30, "Input",ExpressionUUID->"742d669f-223d-42cf-b792-8b2b35c12c01"]
 }, Open  ]]
 }
 ]
