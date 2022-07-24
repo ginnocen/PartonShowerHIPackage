@@ -201,12 +201,10 @@ Module[{possibleSplits,tscalesplitting,splittingfunction},
      typesplittee = possibleSplits[[processindex,2]];
      If [processindex==1, splittingfunction=fsplitgtogg];
      If [processindex==2, splittingfunction=fsplitgtoqqbar;];
-     If[MemberQ[nozero,True],(*if condition*)
-        distrib = ProbabilityDistribution[splittingfunction[z], {z, tscalecutoff/tscaleinit, 1.},Method -> "Normalize"];
-        zvalue=RandomVariate[distrib,1][[1]];
-        If[tscalesplitting>tscalecutoff ,output={{tscalesplitting,typesplittee[[1]],zinit*zvalue},{tscalesplitting,typesplittee[[1]],zinit*(1-zvalue)}}];
-        If[tscalesplitting<=tscalecutoff ,output={{tscalecutoff,"g",zinit}}];   
-](*end of if on MemberQ[nozero,True*)
+     distrib = ProbabilityDistribution[splittingfunction[z], {z, tscalecutoff/tscaleinit, 1.},Method -> "Normalize"];
+     zvalue=RandomVariate[distrib,1][[1]];
+     If[tscalesplitting>tscalecutoff ,output={{tscalesplitting,typesplittee[[1]],zinit*zvalue},{tscalesplitting,typesplittee[[1]],zinit*(1-zvalue)}}];
+     If[tscalesplitting<=tscalecutoff ,output={{tscalecutoff,"g",zinit}}];
   ]; (*done if mpt1>cutoffpt  &&  parton == "g" is fullfilled*)
   output
 ]; 
