@@ -198,7 +198,7 @@ Module[{possibleSplits,tscalesplitting,splittingfunction},
      processindex = Ordering[results,-1][[1]];
      tscalesplitting = resultsp[[processindex]];
      typesplittee = possibleSplits[[processindex,2]];
-     If [processindex==1, splittingfunction=fsplitgtogtg,splittingfunction=fsplitgtoqqbar];
+     If [processindex==1, splittingfunction=fsplitgtogg,splittingfunction=fsplitgtoqqbar];
      If[MemberQ[nozero,True],(*if condition*)
      distrib = ProbabilityDistribution[splittingfunction[z], {z, tscalecutoff/tscaleinit, 1.},Method -> "Normalize"];
      zvalue=RandomVariate[distrib,1][[1]];
