@@ -188,7 +188,8 @@ ShowerFixed[partoninit_:100.,cutoffpt_:1.,sudakovgtogg_:SudakovPgtoggvacuumLT, s
 
 SingleSplittingPtOrderedFixedUrs[sudakovgtogg_, sudakovgtoqqbar_,fsplitgtogg_,fsplitgtoqqbar_, tscaleinit_:100, parton_:"g",zinit_:1,tscalecutoff_:1.]:=
 Module[{possibleSplits,tscalesplitting,splittingfunction},
-  output= {{tscaleinit,parton,zinit}};
+  output={{tscaleinit,parton,zinit}};
+  If[parton == "q",output= {{tscalecutoff,parton,zinit}}];
   If[tscaleinit>tscalecutoff  &&  parton == "g",(*if condition*)
      possibleSplits={{sudakovgtogg,{"g","g"}}, {sudakovgtoqqbar,{"q","q"}}};
      rnd = RandomReal[{0.,1.0},WorkingPrecision->4]&/@possibleSplits;
@@ -198,22 +199,28 @@ Module[{possibleSplits,tscalesplitting,splittingfunction},
      processindex = Ordering[results,-1][[1]];
      tscalesplitting = resultsp[[processindex]];
      typesplittee = possibleSplits[[processindex,2]];
-     If [processindex==1, splittingfunction=fsplitgtogg,splittingfunction=fsplitgtoqqbar];
+     If [processindex==1, splittingfunction=fsplitgtogg];
+     If [processindex==2, splittingfunction=fsplitgtoqqbar;];
      If[MemberQ[nozero,True],(*if condition*)
-     distrib = ProbabilityDistribution[splittingfunction[z], {z, tscalecutoff/tscaleinit, 1.},Method -> "Normalize"];
-     zvalue=RandomVariate[distrib,1][[1]];
-     output={{tscalesplitting,typesplittee[[1]],zinit*zvalue},{tscalesplitting,typesplittee[[1]],zinit*(1-zvalue)}}](*end of if on MemberQ[nozero,True*)
+        distrib = ProbabilityDistribution[splittingfunction[z], {z, tscalecutoff/tscaleinit, 1.},Method -> "Normalize"];
+        zvalue=RandomVariate[distrib,1][[1]];
+        If[tscalesplitting>tscalecutoff ,output={{tscalesplitting,typesplittee[[1]],zinit*zvalue},{tscalesplitting,typesplittee[[1]],zinit*(1-zvalue)}}];
+        If[tscalesplitting<=tscalecutoff ,output={{tscalecutoff,"g",zinit}}];   
+](*end of if on MemberQ[nozero,True*)
   ]; (*done if mpt1>cutoffpt  &&  parton == "g" is fullfilled*)
   output
-]; (*end of function-module*)
+]; 
 
 
-ShowerFixedUrs[tscaleinit_:100.,tscalecutoff_:1.,sudakovgtogg_:SudakovPgtoggvacuumLT, sudakovgtoqqbar_:SudakovPgtoqqbarvacuumLT,fsplitgtogg_:PgtoggvacuumNT,fsplitgtoqqbar_:PgtoqqbarvacuumLT, dodebug_:1]:=(
+ShowerFixedUrs[tscaleinit_:100.,tscalecutoff_:1.,sudakovgtogg_:SudakovPgtoggvacuumLT, sudakovgtoqqbar_:SudakovPgtoqqbarvacuumLT,fsplitgtogg_:PgtoggvacuumNT,fsplitgtoqqbar_:PgtoqqbarvacuumLT, dodebug_:1,maxiteration_:200]:=(
   descendants={{tscaleinit,"g",1.}}; 
-  iter=0;Print["Here=",descendants];
-  While[MemberQ[Thread[descendants[[;;,1]]<tscalecutoff && iter<60],False],
+  iter=0;
+  If[dodebug==1,Print["Starting from=",descendants];];
+  While[MemberQ[Thread[descendants[[;;,1]]<=tscalecutoff && iter<maxiteration],False],
+  If[dodebug==1,Print["Descendant list at iteration="iter," is= ",descendants];];
+  If[iter==maxiteration-1, Print["Check for an infinite loop or a very high-multiplicity event!!!"]];
   iter = iter + 1;
-  descendants=Flatten[Table[SingleSplittingPtOrderedFixedUrs[sudakovgtogg,sudakovgtoqqbar,fsplitgtogg,fsplitgtoqqbar,descendants[[j,1]],descendants[[j,2]],descendants[[j,3]]],{j,Length[descendants]}],1];];
+  descendants=Flatten[Table[SingleSplittingPtOrderedFixedUrs[sudakovgtogg,sudakovgtoqqbar,fsplitgtogg,fsplitgtoqqbar,descendants[[j,1]],descendants[[j,2]],descendants[[j,3]],tscalecutoff],{j,Length[descendants]}],1];];
   descendants
 )
 
