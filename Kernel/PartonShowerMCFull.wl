@@ -186,12 +186,17 @@ ShowerFixed[partoninit_:100.,cutoffpt_:1.,sudakovgtogg_:SudakovPgtoggvacuumLT, s
 );
 
 
-SingleSplittingPtOrderedFixedUrs[sudakovgtogg_, sudakovgtoqqbar_,fsplitgtogg_,fsplitgtoqqbar_, tscaleinit_:100, parton_:"g",zinit_:1,tscalecutoff_:1.]:=
-Module[{possibleSplits,tscalesplitting,splittingfunction,output},
+(* ::Text:: *)
+(*SingleSplittingPtOrderedFixedUrs*)
+
+
+SingleSplittingPtOrderedFixedUrs[sudakovgtogg_, sudakovgtoqqbar_,fsplitgtogg_,fsplitgtoqqbar_, tscaleinit_:100, parton_:"g",zinit_:1,tscalecutoff_:1.,dodebug_:1]:=
+Module[{possibleSplits,tscalesplitting,splittingfunction,output,zlowcutoff},
+  If[dodebug==1,Print["SingleSplittingPtOrderedFixedUrs::Debug, initial scale=",tscaleinit,", parton=",parton," , zinit=",zinit];];
   If[parton == "q",output={{tscalecutoff,parton,zinit}}];
   If[parton == "g" && tscaleinit==tscalecutoff,output={{tscaleinit,parton,zinit}};];
   If[tscaleinit>tscalecutoff  &&  parton == "g",(*if condition*)
-     possibleSplits={{sudakovgtogg,{"g","g"}}, {sudakovgtoqqbar,{"q","q"}}};
+     possibleSplits={{sudakovgtogg,{"g","g"},fsplitgtogg,tscalecutoff/tscaleinit}, {sudakovgtoqqbar,{"q","q"},fsplitgtoqqbar,tscalecutoff/tscaleinit}};
      rnd = RandomReal[{0.,1.0},WorkingPrecision->4]&/@possibleSplits;
      resultsp=Table[pt0//.FindRoot[(possibleSplits[[i,1]]//.{pt1->tscaleinit,CA->3,\[Alpha]s->0.12 })-rnd[[i]],{pt0,tscalecutoff,tscaleinit}],{i,Length[possibleSplits[[;;,1]]]}];
      nozero=Table[Abs[resultsp[[i]]]>10^-5 && Element[resultsp[[i]],Reals],{i,Length[possibleSplits[[;;,1]]]}];
@@ -199,12 +204,15 @@ Module[{possibleSplits,tscalesplitting,splittingfunction,output},
      processindex = Ordering[results,-1][[1]];
      tscalesplitting = resultsp[[processindex]];
      typesplittee = possibleSplits[[processindex,2]];
-     If [processindex==1, splittingfunction=fsplitgtogg];
-     If [processindex==2, splittingfunction=fsplitgtoqqbar;];
-     distrib = ProbabilityDistribution[splittingfunction[z], {z, tscalecutoff/tscaleinit, 1.},Method -> "Normalize"];
+     splittingfunction=possibleSplits[[processindex,3]];
+     zlowcutoff=possibleSplits[[processindex,4]];
+     If [zlowcutoff<0., Print["ERROR!!! z boundary for extraction is lower than 0"]];
+     distrib = ProbabilityDistribution[splittingfunction[z], {z, zlowcutoff, 1.},Method -> "Normalize"];
      zvalue=RandomVariate[distrib,1][[1]];
-     If[tscalesplitting>tscalecutoff ,output={{tscalesplitting,typesplittee[[1]],zinit*zvalue},{tscalesplitting,typesplittee[[1]],zinit*(1-zvalue)}}];
-     If[tscalesplitting<=tscalecutoff ,output={{tscalecutoff,"g",zinit}}];
+     If [zvalue<0. || zvalue>1., Print["ERROR!!! z value extracted is not in the correct boundaries [0,1], z=",zvalue]];
+     If[tscalesplitting>tscalecutoff, output={{tscalesplitting,typesplittee[[1]],zinit*zvalue},{tscalesplitting,typesplittee[[1]],zinit*(1-zvalue)}}];
+     If[tscalesplitting<=tscalecutoff, output={{tscalecutoff,"g",zinit}}];
+     If[dodebug==1,Print["SingleSplittingPtOrderedFixedUrs::Debug, list of descendants=",descendants];];
   ]; (*done if mpt1>cutoffpt  &&  parton == "g" is fullfilled*)
   output
 ]; 
@@ -218,7 +226,7 @@ ShowerFixedUrs[tscaleinit_:100.,tscalecutoff_:1.,sudakovgtogg_:SudakovPgtoggvacu
   If[dodebug==1,Print["Descendant list at iteration="iter," is= ",descendants];];
   If[iter==maxiteration-1, Print["Check for an infinite loop or a very high-multiplicity event!!!"]];
   iter = iter + 1;
-  descendants=Flatten[Table[SingleSplittingPtOrderedFixedUrs[sudakovgtogg,sudakovgtoqqbar,fsplitgtogg,fsplitgtoqqbar,descendants[[j,1]],descendants[[j,2]],descendants[[j,3]],tscalecutoff],{j,Length[descendants]}],1];];
+  descendants=Flatten[Table[SingleSplittingPtOrderedFixedUrs[sudakovgtogg,sudakovgtoqqbar,fsplitgtogg,fsplitgtoqqbar,descendants[[j,1]],descendants[[j,2]],descendants[[j,3]],tscalecutoff,dodebug],{j,Length[descendants]}],1];];
   nquarks=Count[descendants[[;;,2]],"q"];
   If [Mod[nquarks,2]==1, Print["This event has a odd number of quarks= ", nquarks];];
   If[dodebug==1,Print["Final list="iter," is= ",descendants];];
