@@ -187,9 +187,9 @@ ShowerFixed[partoninit_:100.,cutoffpt_:1.,sudakovgtogg_:SudakovPgtoggvacuumLT, s
 
 
 SingleSplittingPtOrderedFixedUrs[sudakovgtogg_, sudakovgtoqqbar_,fsplitgtogg_,fsplitgtoqqbar_, tscaleinit_:100, parton_:"g",zinit_:1,tscalecutoff_:1.]:=
-Module[{possibleSplits,tscalesplitting,splittingfunction},
-  If[parton == "q",output= {{tscalecutoff,parton,zinit}}];
-  If[tscaleinit==tscalecutoff,output={{tscaleinit,parton,zinit}};];
+Module[{possibleSplits,tscalesplitting,splittingfunction,output},
+  If[parton == "q",output={{tscalecutoff,parton,zinit}}];
+  If[parton == "g" && tscaleinit==tscalecutoff,output={{tscaleinit,parton,zinit}};];
   If[tscaleinit>tscalecutoff  &&  parton == "g",(*if condition*)
      possibleSplits={{sudakovgtogg,{"g","g"}}, {sudakovgtoqqbar,{"q","q"}}};
      rnd = RandomReal[{0.,1.0},WorkingPrecision->4]&/@possibleSplits;
@@ -219,6 +219,9 @@ ShowerFixedUrs[tscaleinit_:100.,tscalecutoff_:1.,sudakovgtogg_:SudakovPgtoggvacu
   If[iter==maxiteration-1, Print["Check for an infinite loop or a very high-multiplicity event!!!"]];
   iter = iter + 1;
   descendants=Flatten[Table[SingleSplittingPtOrderedFixedUrs[sudakovgtogg,sudakovgtoqqbar,fsplitgtogg,fsplitgtoqqbar,descendants[[j,1]],descendants[[j,2]],descendants[[j,3]],tscalecutoff],{j,Length[descendants]}],1];];
+  nquarks=Count[descendants[[;;,2]],"q"];
+  If [Mod[nquarks,2]==1, Print["This event has a odd number of quarks= ", nquarks];];
+  If[dodebug==1,Print["Final list="iter," is= ",descendants];];
   descendants
 )
 
