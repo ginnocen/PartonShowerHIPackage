@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[      5032,        144]
-NotebookOptionsPosition[      3822,        113]
-NotebookOutlinePosition[      4301,        131]
-CellTagsIndexPosition[      4258,        128]
+NotebookDataLength[      3768,        112]
+NotebookOptionsPosition[      2903,         88]
+NotebookOutlinePosition[      3381,        106]
+CellTagsIndexPosition[      3338,        103]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -66,53 +66,28 @@ Cell[BoxData[{
 "420475c2-a4f3-4eb7-b297-520e1b66ed8f"],
 
 Cell[BoxData["\<\"/Users/gianmicheleinnocenti/Desktop/parton-shower-simulator/\
-Kernel/PartonShowerMCFull.wl\"\>"], "Output",ExpressionUUID->"f741a4f8-f447-\
-4de7-9522-7723cb29b85a"]
+Kernel/PartonShowerMCFull.wl\"\>"], "Output",ExpressionUUID->"33f063f5-0405-\
+47d2-8b2c-b0e2daaf88d2"]
 }, Open  ]],
 
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"RunShowerMulti", "[", 
-  RowBox[{
-  "200", ",", "100", ",", "0.7", ",", "SudakovPgtoggvacuumNT", ",", 
-   "SudakovPgtoqqbarvacuumLT", ",", "PgtoggvacuumNT", ",", 
-   "PgtoqqbarvacuumLT", ",", "0", ",", "200", ",", "resultspath"}], 
-  "]"}]], "Input",ExpressionUUID->"0db2229c-6306-4e90-9655-d01c9949e316"],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Mean multiplicty=\"\>", "\[InvisibleSpace]", 
-   "6.440006439999999`"}],
-  SequenceForm["Mean multiplicty=", 6.440006439999999],
-  Editable->False]], "Print",ExpressionUUID->"f05b191d-a490-4335-9ea8-\
-c82a42fa7a7b"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{"\<\"Mean multiplicty quarks =\"\>", "\[InvisibleSpace]", "0.`"}],
-  SequenceForm["Mean multiplicty quarks =", 0.],
-  Editable->False]], "Print",ExpressionUUID->"dd7db0c0-2d56-43f4-a55a-\
-a974eb4bd492"]
-}, Open  ]],
-
-Cell[BoxData[
- RowBox[{"\<\"/Users/gianmicheleinnocenti/Desktop/parton-shower-simulator/\
-NotebooksNotebooks/histolog1overz_maxevents200_tscalecutoff0.7_scale100GeVc.\
-pdf\"\>", 
-  " ", "\<\"/Users/gianmicheleinnocenti/Desktop/parton-shower-simulator/\
-NotebooksNotebooks/histomultinit_maxevents200_tscalecutoff0.7_scale100GeVc.\
-pdf\"\>", 
-  " ", "\<\"/Users/gianmicheleinnocenti/Desktop/parton-shower-simulator/\
-NotebooksNotebooks/histonquarks_maxevents200_tscalecutoff0.7_scale100GeVc.pdf\
-\"\>"}]], "Output",ExpressionUUID->"58df6943-dff5-4732-8986-0dc8ba63cbcb"]
-}, Open  ]]
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"resultspath", " ", "=", " ", 
+   RowBox[{"StringJoin", "[", 
+    RowBox[{
+    "pathpackage", ",", "\"\</Notebooks/plots/plotsNTonlygtogg_\>\""}], 
+    "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"RunShowerMulti", "[", 
+   RowBox[{
+   "1000", ",", "100", ",", "1.", ",", "SudakovPgtoggvacuumNT", ",", 
+    "SudakovPgtoqqbarvacuumLT", ",", "PgtoggvacuumNT", ",", 
+    "PgtoqqbarvacuumLT", ",", "0", ",", "200", ",", "resultspath"}], "]"}], 
+  ";"}]}], "Input",ExpressionUUID->"0db2229c-6306-4e90-9655-d01c9949e316"]
 }, Open  ]]
 },
-WindowSize->{1288, 1009},
-WindowMargins->{{190, Automatic}, {-319, Automatic}},
+WindowSize->{1123, 691},
+WindowMargins->{{Automatic, 222}, {-320, Automatic}},
 TaggingRules->Association["TryRealOnly" -> False],
 Magnification:>1.25 Inherited,
 FrontEndVersion->"12.3 for Mac OS X x86 (64-bit) (July 9, 2021)",
@@ -135,16 +110,9 @@ Cell[580, 22, 141, 1, 123, "Title",ExpressionUUID->"0026e84d-a9f1-48bc-a135-bf6c
 Cell[724, 25, 201, 5, 44, "Text",ExpressionUUID->"a6a5fea3-c151-4164-ac0d-153c3feff104"],
 Cell[CellGroupData[{
 Cell[950, 34, 1172, 31, 246, "Input",ExpressionUUID->"420475c2-a4f3-4eb7-b297-520e1b66ed8f"],
-Cell[2125, 67, 182, 2, 42, "Output",ExpressionUUID->"f741a4f8-f447-4de7-9522-7723cb29b85a"]
+Cell[2125, 67, 182, 2, 42, "Output",ExpressionUUID->"33f063f5-0405-47d2-8b2c-b0e2daaf88d2"]
 }, Open  ]],
-Cell[CellGroupData[{
-Cell[2344, 74, 329, 6, 64, "Input",ExpressionUUID->"0db2229c-6306-4e90-9655-d01c9949e316"],
-Cell[CellGroupData[{
-Cell[2698, 84, 264, 6, 29, "Print",ExpressionUUID->"f05b191d-a490-4335-9ea8-c82a42fa7a7b"],
-Cell[2965, 92, 246, 5, 29, "Print",ExpressionUUID->"dd7db0c0-2d56-43f4-a55a-a974eb4bd492"]
-}, Open  ]],
-Cell[3226, 100, 568, 9, 173, "Output",ExpressionUUID->"58df6943-dff5-4732-8986-0dc8ba63cbcb"]
-}, Open  ]]
+Cell[2322, 72, 565, 13, 90, "Input",ExpressionUUID->"0db2229c-6306-4e90-9655-d01c9949e316"]
 }, Open  ]]
 }
 ]

@@ -172,9 +172,9 @@ RunShowerMulti[maxevents_:100.,tscaleinit_:100.,tscalecutoff_:1.,sudakovgtogg_:S
   Print["Mean multiplicty=", meanmult];
   Print["Mean multiplicty quarks =", meannquarks];
   PlotShowerQuantities[nmultiplicitytot, nmultiplicityquarkstot, zvaluestot,tscaleinit];
-  Export[StringJoin[path,StringTemplate["Notebooks/histomultinit_maxevents`1`_tscalecutoff`2`_scale`3`GeVc.pdf"][maxevents,tscalecutoff,tscaleinit]], histomult]
-  Export[StringJoin[path,StringTemplate["Notebooks/histonquarks_maxevents`1`_tscalecutoff`2`_scale`3`GeVc.pdf"][maxevents,tscalecutoff,tscaleinit]], histonquarks]
-  Export[StringJoin[path,StringTemplate["Notebooks/histolog1overz_maxevents`1`_tscalecutoff`2`_scale`3`GeVc.pdf"][maxevents,tscalecutoff,tscaleinit]], histolog1overz]
+  Export[StringJoin[path,StringTemplate["histomultinit_maxevents`1`_tscalecutoff`2`_scale`3`GeVc.pdf"][maxevents,tscalecutoff,tscaleinit]], histomult]
+  Export[StringJoin[path,StringTemplate["histonquarks_maxevents`1`_tscalecutoff`2`_scale`3`GeVc.pdf"][maxevents,tscalecutoff,tscaleinit]], histonquarks]
+  Export[StringJoin[path,StringTemplate["histolog1overz_maxevents`1`_tscalecutoff`2`_scale`3`GeVc.pdf"][maxevents,tscalecutoff,tscaleinit]], histolog1overz]
 )
 
 
