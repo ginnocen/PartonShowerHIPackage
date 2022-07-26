@@ -111,10 +111,18 @@ Module[{possibleSplits,tscalesplitting,splittingfunction,output,zlowcutoff},
      tscalesplitting = resultsp[[processindex]];
      typesplittee = possibleSplits[[processindex,2]];
      splittingfunction=possibleSplits[[processindex,3]];
+     funct[z_]:=(1-z)/z+z/(1-z)+z*(1-z);
      If[tscalesplitting>tscalecutoff,
        zlowcutoff=tscalecutoff/tscalesplitting;
+       (*Print[zlowcutoff];
+       Print[tscalesplitting];
+       Print[zlowcutoff];*)
+       lowb=100.;
+       highb=100.;
+       If[zlowcutoff>=0.5,lowb=1-zlowcutoff; highb=zlowcutoff];
+       If[zlowcutoff<0.5,lowb=zlowcutoff; highb=1-zlowcutoff];
        If [zlowcutoff<0., Print["ERROR!!! z boundary for extraction is lower than 0"]];
-       distrib = ProbabilityDistribution[splittingfunction[z], {z, zlowcutoff, 1.},Method -> "Normalize"];
+       distrib = ProbabilityDistribution[funct[z], {z, lowb, highb},Method -> "Normalize"];
        zvalue=RandomVariate[distrib,1][[1]];
        If [zvalue<0. || zvalue>1., Print["ERROR!!! z value extracted is not in the correct boundaries [0,1], z=", zvalue]];
        output={{tscalesplitting,typesplittee[[1]],zinit*zvalue},{tscalesplitting,typesplittee[[1]],zinit*(1-zvalue)}};
@@ -143,7 +151,7 @@ ShowerValidated[tscaleinit_:100.,tscalecutoff_:1.,sudakovgtogg_:SudakovPgtoggvac
 )
 
 
-RunShowerMulti[maxevents_:100.,tscaleinit_:100.,tscalecutoff_:1.,sudakovgtogg_:SudakovPgtoggvacuumLT, sudakovgtoqqbar_:SudakovPgtoqqbarvacuumLT,fsplitgtogg_:PgtoggvacuumNT,fsplitgtoqqbar_:PgtoqqbarvacuumLT, dodebug_:1,maxiteration_:200]:=(
+RunShowerMulti[maxevents_:100.,tscaleinit_:100.,tscalecutoff_:1.,sudakovgtogg_:SudakovPgtoggvacuumLT, sudakovgtoqqbar_:SudakovPgtoqqbarvacuumLT,fsplitgtogg_:PgtoggvacuumNT,fsplitgtoqqbar_:PgtoqqbarvacuumLT, dodebug_:1,maxiteration_:200,path_]:=(
   descendtot = {};
   zvaluestot = {};
   nmultiplicitytot = {};
@@ -159,14 +167,13 @@ RunShowerMulti[maxevents_:100.,tscaleinit_:100.,tscalecutoff_:1.,sudakovgtogg_:S
     AppendTo[nmultiplicitytot, Length[descendentevent]];
     AppendTo[nmultiplicityquarkstot, nquarks];
   ];  
-  meannquarks = Mean[nmultiplicityquarkstot]*1.000001;
-  meanmult = Mean[nmultiplicitytot]*1.000001;
-  Print["Mean multiplicty=", meanmult];
-  Print["Mean multiplicty quarks =", meannquarks];
   PlotShowerQuantities[nmultiplicitytot, nmultiplicityquarkstot, zvaluestot,tscaleinit];
-  Export[StringTemplate["/Users/gianmicheleinnocenti/Desktop/parton-shower-simulator/Notebooks/histomultinit_maxevents`1`_tscalecutoff`2`_scale`3`GeVc.pdf"][maxevents,tscalecutoff,tscaleinit], histomult]
-  Export[StringTemplate["/Users/gianmicheleinnocenti/Desktop/parton-shower-simulator/Notebooks/histonquarks_maxevents`1`_tscalecutoff`2`_scale`3`GeVc.pdf"][maxevents,tscalecutoff,tscaleinit], histonquarks]
-  Export[StringTemplate["/Users/gianmicheleinnocenti/Desktop/parton-shower-simulator/Notebooks/histolog1overz_maxevents`1`_tscalecutoff`2`_scale`3`GeVc.pdf"][maxevents,tscalecutoff,tscaleinit], histolog1overz]
+  Export[StringJoin[path,StringTemplate["histomultinit_maxevents`1`_tscalecutoff`2`_scale`3`GeVc.pdf"][maxevents,tscalecutoff,tscaleinit]], histomult]
+  Export[StringJoin[path,StringTemplate["histonquarks_maxevents`1`_tscalecutoff`2`_scale`3`GeVc.pdf"][maxevents,tscalecutoff,tscaleinit]], histonquarks]
+  Export[StringJoin[path,StringTemplate["histolog1overz_maxevents`1`_tscalecutoff`2`_scale`3`GeVc.pdf"][maxevents,tscalecutoff,tscaleinit]], histolog1overz]
+  histomult
+  histonquarks
+  histolog1overz
 )
 
 
@@ -199,7 +206,7 @@ Plot[{functGavin,functLT,functNTnopol,functNT},{pt0,1,inputpthigh},Frame->True, 
 
 
 PlotShowerQuantities[nmultiplicitytot_,nmultiplicityquarkstot_,zvaluestot_,ptinitial_]:=(
-histomult= Histogram[nmultiplicitytot,{-0.5,80.5,1.},"Probability", AxesLabel->{HoldForm["Parton multiplicity"],
+histomult= Histogram[nmultiplicitytot,{-0.5,80.5,1.},"Probability", Frame -> True, AxesLabel->{HoldForm["Parton multiplicity"],
           HoldForm[Entries]}, PlotLabel->StringTemplate["Distribution of parton multiplicity for initial gluon with t=`1` GeV"][ptinitial],
           LabelStyle->{FontFamily->"Helvetica", 12, GrayLevel[0]},ImageSize->Large];
 histonquarks= Histogram[nmultiplicityquarkstot,{-0.5,10.5,1.},"Probability", AxesLabel->{HoldForm["Quark multiplicity"],
@@ -208,9 +215,6 @@ histonquarks= Histogram[nmultiplicityquarkstot,{-0.5,10.5,1.},"Probability", Axe
 histolog1overz = Histogram[Log[1/Flatten[zvaluestot]],{0.,30.,0.5},"Probability", AxesLabel->{HoldForm[Log[1/x]],HoldForm[Entries]}, 
                            PlotLabel->StringTemplate["Distribution of Log[\!\(\*FractionBox[\(1\), \(x\)]\)] for initial gluon with t=`1` GeV"][ptinitial],
                            LabelStyle->{FontFamily->"Helvetica", 12, GrayLevel[0]},ImageSize->Large];
-Export[StringTemplate["histomultinit_maxevents`1`_tscalecutoff`2`_scale`3`GeVc.pdf"][maxevents,tscalecutoff,tscaleinit], histomult];
-Export[StringTemplate["histonquarks_maxevents`1`_tscalecutoff`2`_scale`3`GeVc.pdf"][maxevents,tscalecutoff,tscaleinit], histonquarks];
-Export[StringTemplate["histolog1overz_maxevents`1`_tscalecutoff`2`_scale`3`GeVc.pdf"][maxevents,tscalecutoff,tscaleinit], histolog1overz];
 )
 
 
