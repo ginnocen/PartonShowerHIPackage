@@ -206,13 +206,14 @@ Plot[{functGavin,functLT,functNTnopol,functNT},{pt0,1,inputpthigh},Frame->True, 
 
 
 PlotShowerQuantities[nmultiplicitytot_,nmultiplicityquarkstot_,zvaluestot_,ptinitial_]:=(
-histomult= Histogram[nmultiplicitytot,{-0.5,80.5,1.},"Probability", Frame -> True, AxesLabel->{HoldForm["Parton multiplicity"],
+meanmult=Mean[nmultiplicitytot]*1.000000001;
+histomult= Histogram[nmultiplicitytot,{-0.5,40.5,1.},"Probability", (*ScalingFunctions\[Rule]{"Log","Log"},*) Frame -> True, AxesLabel->{HoldForm["Parton multiplicity"],
           HoldForm[Entries]}, PlotLabel->StringTemplate["Distribution of parton multiplicity for initial gluon with t=`1` GeV"][ptinitial],
-          LabelStyle->{FontFamily->"Helvetica", 12, GrayLevel[0]},ImageSize->Large];
+          LabelStyle->{FontFamily->"Helvetica", 12, GrayLevel[0]},ImageSize->Large,Epilog->{Text[Style["<Mean>="<>ToString[meanmult],18,Black],Scaled[{0.55,0.85}]]}];
 histonquarks= Histogram[nmultiplicityquarkstot,{-0.5,10.5,1.},"Probability", AxesLabel->{HoldForm["Quark multiplicity"],
           HoldForm[Entries]}, PlotLabel->StringTemplate["Distribution of quark multiplicity for initial gluon of with t=`1` GeV"][ptinitial],
           LabelStyle->{FontFamily->"Helvetica", 12, GrayLevel[0]},ImageSize->Large];
-histolog1overz = Histogram[Log[1/Flatten[zvaluestot]],{0.,30.,0.5},"Probability", AxesLabel->{HoldForm[Log[1/x]],HoldForm[Entries]}, 
+histolog1overz = Histogram[Log[1/Flatten[zvaluestot]],{0.,15.,0.5},"Probability", AxesLabel->{HoldForm[Log[1/x]],HoldForm[Entries]}, 
                            PlotLabel->StringTemplate["Distribution of Log[\!\(\*FractionBox[\(1\), \(x\)]\)] for initial gluon with t=`1` GeV"][ptinitial],
                            LabelStyle->{FontFamily->"Helvetica", 12, GrayLevel[0]},ImageSize->Large];
 )
