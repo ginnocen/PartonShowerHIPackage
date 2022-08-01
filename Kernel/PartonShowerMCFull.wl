@@ -56,7 +56,10 @@ PgtoggvacuumLT[z_]:=2*1/z;
 (*FIXME: PgtoqqbarvacuumLT to be checked *)
 
 
-PgtoqqbarvacuumLT[z_]:=(z^2+(1-z)^2);
+PgtoqqbarvacuumLT[z_]:=(1./2.)*(z^2+(1-z)^2);
+
+
+PgtoqqbarvacuumLTsymmetric[z_]:=(z^2+(1-z)^2);
 
 
 PgtoggvacuumNT[z_]:=2*(1-z)/z +z*(1-z);
@@ -88,7 +91,7 @@ SudakovPgtoggvacuumLT= Exp[-2 \[Alpha]s*CA/Pi*Integrate[PgtoggvacuumLT[z]*Integr
 (*FIXME: the boundaries of SudakovPgtoqqbarvacuumLT  integration are to be checked *)
 
 
-SudakovPgtoqqbarvacuumLT= Exp[-2 \[Alpha]s*(4./3.)/Pi*Integrate[PgtoqqbarvacuumLT[z]*IntegralTheta,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]]
+SudakovPgtoqqbarvacuumLT= Exp[-2 \[Alpha]s*(1)/Pi*Integrate[PgtoqqbarvacuumLT[z]*IntegralTheta,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]]
 
 
 SudakovPgtoggvacuumNT=Exp[-2 \[Alpha]s*CA/Pi*Integrate[PgtoggvacuumNT[z]*IntegralTheta,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
@@ -136,7 +139,6 @@ Module[{possibleSplits,tscalesplitting,splittingfunction,output,zlowcutoff},
        If[zlowcutoff>=0.5,lowb=1-zlowcutoff; highb=zlowcutoff];
        If[zlowcutoff<0.5,lowb=zlowcutoff; highb=1-zlowcutoff];
        If [zlowcutoff<0., Print["ERROR!!! z boundary for extraction is lower than 0"]];
-
        If[typesplittee[[1]]=="g",
          distrib = ProbabilityDistribution[fsplitgtoggezextraction[z], {z, lowb, highb},Method -> "Normalize"];
          zvalue=RandomVariate[distrib,1][[1]];
@@ -149,8 +151,8 @@ Module[{possibleSplits,tscalesplitting,splittingfunction,output,zlowcutoff},
          If [zvalueqqbar<0. || zvalueqqbar>1., Print["ERROR!!! z value extracted is not in the correct boundaries [0,1], z=", zvalueqqbar]];
          qsquarethreshold = (tscalesplitting*tscalesplitting);
          (*qsquarethreshold = (tscalesplitting*tscalesplitting+qmassthresh*qmassthresh)/(zvalueqqbar*(1-zvalueqqbar));*)
-         If[qsquarethreshold>=(qmassthresh*qmassthresh),output={{tscalesplitting,typesplittee[[1]],zinit*zvalueqqbar},{tscalesplitting,typesplittee[[1]],zinit*(1-zvalueqqbar)}};];
-         If[qsquarethreshold<(qmassthresh*qmassthresh),output={{tscalecutoff,"g",zinit}};];
+         If[qsquarethreshold>=(4*qmassthresh*qmassthresh),output={{tscalesplitting,typesplittee[[1]],zinit*zvalueqqbar},{tscalesplitting,typesplittee[[1]],zinit*(1-zvalueqqbar)}};];
+         If[qsquarethreshold<(4*qmassthresh*qmassthresh),output={{tscalecutoff,"g",zinit}};];
        ]; (*end of if typesplittee[[1]]=="q"*)
      ]; (*If[Length[nozero]>=1 && tscalesplitting>tscalecutoff*)
      If[tscalesplitting<=tscalecutoff,
@@ -184,7 +186,7 @@ ShowerValidated[tscaleinit_,tscalecutoff_,sudakovgtogg_, sudakovgtoqqbar_,fsplit
 
 RunShowerMulti[maxevents_:1.,tscaleinit_:100.,tscalecutoff_:1.,sudakovgtogg_:SudakovPgtoggvacuumNT, sudakovgtoqqbar_:SudakovPgtoqqbarvacuumLT,
                fsplitgtogg_:PgtoggvacuumNT,fsplitgtoqqbar_:PgtoqqbarvacuumLT,
-               fsplitgtoggezextraction_:PgtoggvacuumNTsymmetric, fsplitgtoqqbarezextraction_:PgtoqqbarvacuumLT,
+               fsplitgtoggezextraction_:PgtoggvacuumNTsymmetric, fsplitgtoqqbarezextraction_:PgtoqqbarvacuumLTsymmetric,
                dodebug_:0,maxiteration_:200,activateqqbar_:0, qmassthresh_:1.3, path_]:=(
   (*If[dodebug==1, Print["RunShowerMulti::Debug: you have activated the debug mode. The maximum number of events will be limited to 1"]; maxevents=1;];*)
   descendtot = {};
