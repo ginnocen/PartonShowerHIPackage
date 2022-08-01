@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     12261,        314]
-NotebookOptionsPosition[     11391,        290]
-NotebookOutlinePosition[     11868,        308]
-CellTagsIndexPosition[     11825,        305]
+NotebookDataLength[     34423,        869]
+NotebookOptionsPosition[     32978,        834]
+NotebookOutlinePosition[     33452,        852]
+CellTagsIndexPosition[     33409,        849]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -29,6 +29,8 @@ Cell[TextData[{
   FontWeight->"Bold"],
  " below to your current package directory"
 }], "Text",ExpressionUUID->"a6a5fea3-c151-4164-ac0d-153c3feff104"],
+
+Cell[CellGroupData[{
 
 Cell[BoxData[{
  RowBox[{
@@ -59,13 +61,21 @@ Cell[BoxData[{
   ";"}], "\[IndentingNewLine]", 
  RowBox[{"<<", "\"\<PartonShowerMCFull.wl\>\""}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{"SilentErrors", "[", "]"}], ";", " ", 
+  RowBox[{"SilentErrors", "[", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
   RowBox[{"SetStandardSeeds", "[", "]"}], ";"}]}], "Input",ExpressionUUID->\
 "420475c2-a4f3-4eb7-b297-520e1b66ed8f"],
+
+Cell[BoxData["\<\"/Users/gianmicheleinnocenti/Desktop/parton-shower-simulator/\
+Kernel/PartonShowerMCFull.wl\"\>"], "Output",ExpressionUUID->"1008060d-192b-\
+4f96-bb18-f41090e2d1da"]
+}, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SetStandardSeeds", "[", "]"}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"resultspath", " ", "=", " ", 
    RowBox[{"StringJoin", "[", 
@@ -74,46 +84,37 @@ Cell[BoxData[{
     "]"}]}], ";"}], "\[IndentingNewLine]", 
  RowBox[{"RunShowerMulti", "[", 
   RowBox[{
-  "200", ",", "200", ",", "1.", ",", "SudakovPgtoggvacuumNT", ",", 
+  "1000", ",", "100", ",", "1.", ",", "SudakovPgtoggvacuumNT", ",", 
    "SudakovPgtoqqbarvacuumLT", ",", "PgtoggvacuumNT", ",", 
-   "PgtoqqbarvacuumLT", ",", "0", ",", "200", ",", "resultspath"}], 
-  "]"}], "\[IndentingNewLine]"}], "Input",ExpressionUUID->"0db2229c-6306-4e90-\
-9655-d01c9949e316"],
+   "PgtoqqbarvacuumLT", ",", "PgtoggvacuumNTsymmetric", ",", "0", ",", "200", 
+   ",", "0", ",", "resultspath"}], "]"}]}], "Input",ExpressionUUID->"5ea79920-\
+a559-471d-a1fb-8d3e309c440e"],
 
 Cell[BoxData[
  RowBox[{"\<\"/Users/gianmicheleinnocenti/Desktop/parton-shower-simulator/\
-Notebooks/plots/plotsNTonlygtogg_histolog1overz_maxevents200_tscalecutoff1.0_\
+Notebooks/plots/plotsNTonlygtogg_histolog1overz_maxevents300_tscalecutoff1.0_\
 scale100GeVc.pdf\"\>", 
   " ", "\<\"/Users/gianmicheleinnocenti/Desktop/parton-shower-simulator/\
-Notebooks/plots/plotsNTonlygtogg_histomultinit_maxevents200_tscalecutoff1.0_\
+Notebooks/plots/plotsNTonlygtogg_histomultinit_maxevents300_tscalecutoff1.0_\
 scale100GeVc.pdf\"\>", 
   " ", "\<\"/Users/gianmicheleinnocenti/Desktop/parton-shower-simulator/\
-Notebooks/plots/plotsNTonlygtogg_histonquarks_maxevents200_tscalecutoff1.0_\
+Notebooks/plots/plotsNTonlygtogg_histonquarks_maxevents300_tscalecutoff1.0_\
 scale100GeVc.pdf\"\>", " ", 
   GraphicsBox[{
     {RGBColor[0.987148, 0.8073604000000001, 0.49470040000000004`], EdgeForm[{
-     Opacity[0.119], Thickness[Small]}], {}, 
+     Opacity[0.39899999999999997`], Thickness[Small]}], {}, 
      {RGBColor[0.987148, 0.8073604000000001, 0.49470040000000004`], EdgeForm[{
-      Opacity[0.119], Thickness[Small]}], 
-      RectangleBox[{0.5, 0}, {1.5, 0.015},
-       RoundingRadius->0], RectangleBox[{1.5, 0}, {2.5, 0.095},
-       RoundingRadius->0], RectangleBox[{2.5, 0}, {3.5, 0.155},
-       RoundingRadius->0], RectangleBox[{3.5, 0}, {4.5, 0.22},
-       RoundingRadius->0], RectangleBox[{4.5, 0}, {5.5, 0.14},
-       RoundingRadius->0], RectangleBox[{5.5, 0}, {6.5, 0.09},
-       RoundingRadius->0], RectangleBox[{6.5, 0}, {7.5, 0.09},
-       RoundingRadius->0], RectangleBox[{7.5, 0}, {8.5, 0.07},
-       RoundingRadius->0], RectangleBox[{8.5, 0}, {9.5, 0.03},
-       RoundingRadius->0], RectangleBox[{9.5, 0}, {10.5, 0.04},
-       RoundingRadius->0], RectangleBox[{10.5, 0}, {11.5, 0.02},
-       RoundingRadius->0], RectangleBox[{11.5, 0}, {12.5, 0.01},
-       RoundingRadius->0], RectangleBox[{12.5, 0}, {13.5, 0.01},
-       RoundingRadius->0], RectangleBox[{13.5, 0}, {14.5, 0.005},
-       RoundingRadius->0], RectangleBox[{18.5, 0}, {19.5, 0.005},
-       RoundingRadius->0], RectangleBox[{22.5, 0}, {23.5, 0.005},
-       RoundingRadius->
-        0]}, {}, {}}, {{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, \
-{}, {}, {}}},
+      Opacity[0.39899999999999997`], Thickness[Small]}], 
+      RectangleBox[{0.5, 0}, {1.5, 0.04666666666666667},
+       RoundingRadius->0], RectangleBox[{1.5, 0}, {2.5, 0.3566666666666667},
+       RoundingRadius->0], RectangleBox[{2.5, 0}, {3.5, 0.2833333333333333},
+       RoundingRadius->0], RectangleBox[{3.5, 0}, {4.5, 0.23},
+       RoundingRadius->0], 
+      RectangleBox[{4.5, 0}, {5.5, 0.043333333333333335},
+       RoundingRadius->0], RectangleBox[{5.5, 0}, {6.5, 0.03333333333333333},
+       RoundingRadius->0], 
+      RectangleBox[{6.5, 0}, {7.5, 0.006666666666666667},
+       RoundingRadius->0]}, {}, {}}, {{}, {}, {}, {}, {}, {}, {}}},
    AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
    Axes->{True, True},
    AxesLabel->{
@@ -121,53 +122,26 @@ scale100GeVc.pdf\"\>", " ",
       TagBox["\"Parton multiplicity\"", HoldForm], TraditionalForm], 
      FormBox[
       TagBox["Entries", HoldForm], TraditionalForm]},
-   AxesOrigin->{-2.12, 0},
+   AxesOrigin->{-1.32, 0},
    Epilog->{
      InsetBox[
       FormBox[
-       StyleBox["\"Mean: Mean[d]\"", Bold, StripOnInput -> False], 
-       TraditionalForm], {-3, 23.6}, 
-      ImageScaled[{0, 
-        Rational[1, 2]}]], 
-     InsetBox[
-      FormBox[
-       StyleBox["\"Median: Median[d]\"", Bold, StripOnInput -> False], 
-       TraditionalForm], {-3, 22.2}, 
-      ImageScaled[{0, 
-        Rational[1, 2]}]], 
-     InsetBox[
-      FormBox[
-       StyleBox[
-       "\"Std. Dev.: StandardDeviation[d]\"", Bold, StripOnInput -> False], 
-       TraditionalForm], {-3, 20.8}, 
-      ImageScaled[{0, 
-        Rational[1, 2]}]], 
-     InsetBox[
-      FormBox[
-       StyleBox["\"Skewn.: Skewness[d]\"", Bold, StripOnInput -> False], 
-       TraditionalForm], {-3, 19.4}, 
-      ImageScaled[{0, 
-        Rational[1, 2]}]], 
-     InsetBox[
-      FormBox[
-       StyleBox["\"Kurt: Kurtosis[d]\"", Bold, StripOnInput -> False], 
-       TraditionalForm], {-3, 18.}, 
-      ImageScaled[{0, 
-        Rational[1, 2]}]]},
+       StyleBox["\"<Mean>=2.99333\"", 18, 
+        GrayLevel[0], StripOnInput -> False], TraditionalForm], 
+      Scaled[{0.55, 0.85}]]},
    Frame->True,
    FrameLabel->{{None, None}, {None, None}},
    FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
    GridLines->{None, None},
    GridLinesStyle->Directive[
      GrayLevel[0.5, 0.4]],
-   ImagePadding->{{Automatic, 2}, {Automatic, 2}},
    ImageSize->Large,
    LabelStyle->{FontFamily -> "Helvetica", 12, 
      GrayLevel[0]},
    PlotLabel->FormBox[
     "\"Distribution of parton multiplicity for initial gluon with t=100 \
 GeV\"", TraditionalForm],
-   PlotRange->{{-0.5, 80.5}, {All, All}},
+   PlotRange->{{-0.5, 40.5}, {All, All}},
    PlotRangePadding->{{
       Scaled[0.02], 
       Scaled[0.02]}, {None, 
@@ -175,33 +149,30 @@ GeV\"", TraditionalForm],
    Ticks->{Automatic, Automatic}], " ", 
   GraphicsBox[{
     {RGBColor[0.987148, 0.8073604000000001, 0.49470040000000004`], EdgeForm[{
-     Opacity[0.26599999999999996`], Thickness[Small]}], {}, 
+     Opacity[0.476], Thickness[Small]}], {}, 
      {RGBColor[0.987148, 0.8073604000000001, 0.49470040000000004`], EdgeForm[{
-      Opacity[0.26599999999999996`], Thickness[Small]}], 
-      RectangleBox[{0., 0}, {0.5, 0.05005107252298264},
-       RoundingRadius->0], RectangleBox[{0.5, 0}, {1., 0.1348314606741573},
-       RoundingRadius->0], RectangleBox[{1., 0}, {1.5, 0.13687436159346272},
-       RoundingRadius->0], RectangleBox[{1.5, 0}, {2., 0.1205311542390194},
-       RoundingRadius->0], RectangleBox[{2., 0}, {2.5, 0.12870275791624106},
-       RoundingRadius->0], RectangleBox[{2.5, 0}, {3., 0.11133810010214505},
-       RoundingRadius->0], RectangleBox[{3., 0}, {3.5, 0.08171603677221655},
-       RoundingRadius->0], RectangleBox[{3.5, 0}, {4., 0.05005107252298264},
-       RoundingRadius->0], RectangleBox[{4., 0}, {4.5, 0.05822267620020429},
-       RoundingRadius->0], RectangleBox[{4.5, 0}, {5., 0.04085801838610827},
-       RoundingRadius->0], RectangleBox[{5., 0}, {5.5, 0.03779366700715015},
-       RoundingRadius->0], RectangleBox[{5.5, 0}, {6., 0.017364657814096015},
-       RoundingRadius->0], RectangleBox[{6., 0}, {6.5, 0.008171603677221655},
-       RoundingRadius->0], RectangleBox[{6.5, 0}, {7., 0.011235955056179775},
-       RoundingRadius->0], RectangleBox[{7., 0}, {7.5, 0.005107252298263534},
+      Opacity[0.476], Thickness[Small]}], 
+      RectangleBox[{0., 0}, {0.5, 0.15033407572383073},
+       RoundingRadius->0], RectangleBox[{0.5, 0}, {1., 0.26948775055679286},
+       RoundingRadius->0], RectangleBox[{1., 0}, {1.5, 0.15256124721603564},
+       RoundingRadius->0], RectangleBox[{1.5, 0}, {2., 0.14699331848552338},
+       RoundingRadius->0], RectangleBox[{2., 0}, {2.5, 0.0935412026726058},
+       RoundingRadius->0], RectangleBox[{2.5, 0}, {3., 0.0801781737193764},
+       RoundingRadius->0], RectangleBox[{3., 0}, {3.5, 0.0378619153674833},
+       RoundingRadius->0], RectangleBox[{3.5, 0}, {4., 0.036748329621380846},
+       RoundingRadius->0], RectangleBox[{4., 0}, {4.5, 0.015590200445434299},
+       RoundingRadius->0], RectangleBox[{4.5, 0}, {5., 0.01002227171492205},
        RoundingRadius->0], 
-      RectangleBox[{7.5, 0}, {8., 0.0020429009193054137},
+      RectangleBox[{5., 0}, {5.5, 0.0033407572383073497},
        RoundingRadius->0], 
-      RectangleBox[{8., 0}, {8.5, 0.0020429009193054137},
+      RectangleBox[{5.5, 0}, {6., 0.0011135857461024498},
        RoundingRadius->0], 
-      RectangleBox[{8.5, 0}, {9., 0.0030643513789581204},
+      RectangleBox[{6., 0}, {6.5, 0.0011135857461024498},
+       RoundingRadius->0], 
+      RectangleBox[{7.5, 0}, {8., 0.0011135857461024498},
        RoundingRadius->
         0]}, {}, {}}, {{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, \
-{}, {}, {}, {}, {}}},
+{}}},
    AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
    Axes->{True, True},
    AxesLabel->{
@@ -211,7 +182,13 @@ GeV\"", TraditionalForm],
          FractionBox["1", "x"], ")"}], HoldForm], TraditionalForm], 
      FormBox[
       TagBox["Entries", HoldForm], TraditionalForm]},
-   AxesOrigin->{-0.6, 0},
+   AxesOrigin->{-0.3, 0},
+   Epilog->{
+     InsetBox[
+      FormBox[
+       StyleBox["\"<Mean>=1.53137\"", 18, 
+        GrayLevel[0], StripOnInput -> False], TraditionalForm], 
+      Scaled[{0.55, 0.85}]]},
    FrameLabel->{{None, None}, {None, None}},
    FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
    GridLines->{None, None},
@@ -223,7 +200,7 @@ GeV\"", TraditionalForm],
    PlotLabel->FormBox[
     "\"Distribution of Log[\\!\\(\\*FractionBox[\\(1\\), \\(x\\)]\\)] for \
 initial gluon with t=100 GeV\"", TraditionalForm],
-   PlotRange->{{0., 30.}, {All, All}},
+   PlotRange->{{0., 15.}, {All, All}},
    PlotRangePadding->{{
       Scaled[0.02], 
       Scaled[0.02]}, {
@@ -248,8 +225,9 @@ initial gluon with t=100 GeV\"", TraditionalForm],
                Opacity[0.66]}], {}, {}], 
             RectangleBox[{-0.5, 0}, {0.5, 1.}, "RoundingRadius" -> 0]},
            
-           ImageSizeCache->{{35.39506605284227, 
-            85.82718447485261}, {-147.17669725357158`, 181.4742338299989}}],
+           ImageSizeCache->{{21.590922738190557`, 
+            51.640571548147605`}, {-87.18024180955888, 108.62976053264725`}}],
+          
           "DelayedMouseEffectStyle"],
          StatusArea[#, 1]& ,
          TagBoxNote->"1"],
@@ -266,6 +244,12 @@ initial gluon with t=100 GeV\"", TraditionalForm],
      FormBox[
       TagBox["Entries", HoldForm], TraditionalForm]},
    AxesOrigin->{-0.72, 0},
+   Epilog->{
+     InsetBox[
+      FormBox[
+       StyleBox["\"<Mean>=0.\"", 18, 
+        GrayLevel[0], StripOnInput -> False], TraditionalForm], 
+      Scaled[{0.55, 0.85}]]},
    FrameLabel->{{None, None}, {None, None}},
    FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
    GridLines->{None, None},
@@ -283,15 +267,575 @@ initial gluon with t=100 GeV\"", TraditionalForm],
       Scaled[0.02]}, {
       Scaled[0.02], 
       Scaled[0.05]}},
-   Ticks->{Automatic, Automatic}]}]], "Output",ExpressionUUID->"8fac270a-8cac-\
-4201-9d57-3e023e63eb24"]
+   Ticks->{Automatic, Automatic}]}]], "Output",ExpressionUUID->"92839460-5668-\
+4ae9-ae48-ba907ce0bfaa"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SetStandardSeeds", "[", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"resultspath", " ", "=", " ", 
+   RowBox[{"StringJoin", "[", 
+    RowBox[{
+    "pathpackage", ",", "\"\</Notebooks/plots/plotsNTonlygtogg_\>\""}], 
+    "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"RunShowerMulti", "[", 
+  RowBox[{
+  "1000", ",", "100", ",", "1.", ",", "SudakovPgtoggvacuumNT", ",", 
+   "SudakovPgtoqqbarvacuumLT", ",", "PgtoggvacuumNT", ",", 
+   "PgtoqqbarvacuumLT", ",", "PgtoggvacuumNTsymmetric", ",", "0", ",", "200", 
+   ",", "1", ",", "resultspath"}], "]"}]}], "Input",ExpressionUUID->"3f72f49f-\
+2ce7-4d98-ab91-089184fd2691"],
+
+Cell[BoxData[
+ RowBox[{"\<\"/Users/gianmicheleinnocenti/Desktop/parton-shower-simulator/\
+Notebooks/plots/plotsNTonlygtogg_histolog1overz_maxevents300_tscalecutoff1.0_\
+scale100GeVc.pdf\"\>", 
+  " ", "\<\"/Users/gianmicheleinnocenti/Desktop/parton-shower-simulator/\
+Notebooks/plots/plotsNTonlygtogg_histomultinit_maxevents300_tscalecutoff1.0_\
+scale100GeVc.pdf\"\>", 
+  " ", "\<\"/Users/gianmicheleinnocenti/Desktop/parton-shower-simulator/\
+Notebooks/plots/plotsNTonlygtogg_histonquarks_maxevents300_tscalecutoff1.0_\
+scale100GeVc.pdf\"\>", " ", 
+  GraphicsBox[{
+    {RGBColor[0.987148, 0.8073604000000001, 0.49470040000000004`], EdgeForm[{
+     Opacity[0.39899999999999997`], Thickness[Small]}], {}, 
+     {RGBColor[0.987148, 0.8073604000000001, 0.49470040000000004`], EdgeForm[{
+      Opacity[0.39899999999999997`], Thickness[Small]}], 
+      RectangleBox[{0.5, 0}, {1.5, 0.02},
+       RoundingRadius->0], RectangleBox[{1.5, 0}, {2.5, 0.45},
+       RoundingRadius->0], RectangleBox[{2.5, 0}, {3.5, 0.22333333333333333},
+       RoundingRadius->0], RectangleBox[{3.5, 0}, {4.5, 0.16},
+       RoundingRadius->0], RectangleBox[{4.5, 0}, {5.5, 0.09666666666666666},
+       RoundingRadius->0], RectangleBox[{5.5, 0}, {6.5, 0.04},
+       RoundingRadius->0], 
+      RectangleBox[{6.5, 0}, {7.5, 0.006666666666666667},
+       RoundingRadius->0], 
+      RectangleBox[{8.5, 0}, {9.5, 0.0033333333333333335},
+       RoundingRadius->0]}, {}, {}}, {{}, {}, {}, {}, {}, {}, {}, {}}},
+   AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+   Axes->{True, True},
+   AxesLabel->{
+     FormBox[
+      TagBox["\"Parton multiplicity\"", HoldForm], TraditionalForm], 
+     FormBox[
+      TagBox["Entries", HoldForm], TraditionalForm]},
+   AxesOrigin->{-1.32, 0},
+   Epilog->{
+     InsetBox[
+      FormBox[
+       StyleBox["\"<Mean>=3.03\"", 18, 
+        GrayLevel[0], StripOnInput -> False], TraditionalForm], 
+      Scaled[{0.55, 0.85}]]},
+   Frame->True,
+   FrameLabel->{{None, None}, {None, None}},
+   FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+   GridLines->{None, None},
+   GridLinesStyle->Directive[
+     GrayLevel[0.5, 0.4]],
+   ImageSize->Large,
+   LabelStyle->{FontFamily -> "Helvetica", 12, 
+     GrayLevel[0]},
+   PlotLabel->FormBox[
+    "\"Distribution of parton multiplicity for initial gluon with t=100 \
+GeV\"", TraditionalForm],
+   PlotRange->{{-0.5, 40.5}, {All, All}},
+   PlotRangePadding->{{
+      Scaled[0.02], 
+      Scaled[0.02]}, {None, 
+      Scaled[0.05]}},
+   Ticks->{Automatic, Automatic}], " ", 
+  GraphicsBox[{
+    {RGBColor[0.987148, 0.8073604000000001, 0.49470040000000004`], EdgeForm[{
+     Opacity[0.476], Thickness[Small]}], {}, 
+     {RGBColor[0.987148, 0.8073604000000001, 0.49470040000000004`], EdgeForm[{
+      Opacity[0.476], Thickness[Small]}], 
+      RectangleBox[{0., 0}, {0.5, 0.15401540154015403},
+       RoundingRadius->0], RectangleBox[{0.5, 0}, {1., 0.24532453245324531},
+       RoundingRadius->0], RectangleBox[{1., 0}, {1.5, 0.1859185918591859},
+       RoundingRadius->0], RectangleBox[{1.5, 0}, {2., 0.10561056105610561},
+       RoundingRadius->0], RectangleBox[{2., 0}, {2.5, 0.1034103410341034},
+       RoundingRadius->0], RectangleBox[{2.5, 0}, {3., 0.0638063806380638},
+       RoundingRadius->0], RectangleBox[{3., 0}, {3.5, 0.047304730473047306},
+       RoundingRadius->0], RectangleBox[{3.5, 0}, {4., 0.039603960396039604},
+       RoundingRadius->0], RectangleBox[{4., 0}, {4.5, 0.022002200220022004},
+       RoundingRadius->0], RectangleBox[{4.5, 0}, {5., 0.0187018701870187},
+       RoundingRadius->0], RectangleBox[{5., 0}, {5.5, 0.007700770077007701},
+       RoundingRadius->0], 
+      RectangleBox[{5.5, 0}, {6., 0.0033003300330033004},
+       RoundingRadius->0], 
+      RectangleBox[{6., 0}, {6.5, 0.0033003300330033004},
+       RoundingRadius->
+        0]}, {}, {}}, {{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}}},
+   AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+   Axes->{True, True},
+   AxesLabel->{
+     FormBox[
+      TagBox[
+       RowBox[{"log", "(", 
+         FractionBox["1", "x"], ")"}], HoldForm], TraditionalForm], 
+     FormBox[
+      TagBox["Entries", HoldForm], TraditionalForm]},
+   AxesOrigin->{-0.3, 0},
+   Epilog->{
+     InsetBox[
+      FormBox[
+       StyleBox["\"<Mean>=1.60597\"", 18, 
+        GrayLevel[0], StripOnInput -> False], TraditionalForm], 
+      Scaled[{0.55, 0.85}]]},
+   FrameLabel->{{None, None}, {None, None}},
+   FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+   GridLines->{None, None},
+   GridLinesStyle->Directive[
+     GrayLevel[0.5, 0.4]],
+   ImageSize->Large,
+   LabelStyle->{FontFamily -> "Helvetica", 12, 
+     GrayLevel[0]},
+   PlotLabel->FormBox[
+    "\"Distribution of Log[\\!\\(\\*FractionBox[\\(1\\), \\(x\\)]\\)] for \
+initial gluon with t=100 GeV\"", TraditionalForm],
+   PlotRange->{{0., 15.}, {All, All}},
+   PlotRangePadding->{{
+      Scaled[0.02], 
+      Scaled[0.02]}, {
+      Scaled[0.02], 
+      Scaled[0.05]}},
+   Ticks->{Automatic, Automatic}], " ", 
+  GraphicsBox[{
+    {RGBColor[0.987148, 0.8073604000000001, 0.49470040000000004`], EdgeForm[{
+     Opacity[0.609], Thickness[Small]}], {}, 
+     {RGBColor[0.987148, 0.8073604000000001, 0.49470040000000004`], EdgeForm[{
+      Opacity[0.609], Thickness[Small]}], 
+      TagBox[
+       TooltipBox[
+        TagBox[
+         TagBox[
+          DynamicBox[{
+            FEPrivate`If[
+             CurrentValue["MouseOver"], 
+             EdgeForm[{
+               GrayLevel[0.5], 
+               AbsoluteThickness[1.5], 
+               Opacity[0.66]}], {}, {}], 
+            
+            RectangleBox[{-0.5, 0}, {0.5, 0.5633333333333334}, 
+             "RoundingRadius" -> 0]},
+           
+           ImageSizeCache->{{21.590922738190553`, 
+            51.640571548147605`}, {-87.18024180955881, 108.6297605326473}}],
+          "DelayedMouseEffectStyle"],
+         StatusArea[#, 0.5633333333333334]& ,
+         TagBoxNote->"0.5633333333333334"],
+        StyleBox[
+        "0.5633333333333334`", {FontFamily -> "Helvetica", FontSize -> 12, 
+          GrayLevel[0]}, StripOnInput -> False]],
+       Annotation[#, 
+        Style[
+        0.5633333333333334, {FontFamily -> "Helvetica", FontSize -> 12, 
+          GrayLevel[0]}], "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[
+        TagBox[
+         TagBox[
+          DynamicBox[{
+            FEPrivate`If[
+             CurrentValue["MouseOver"], 
+             EdgeForm[{
+               GrayLevel[0.5], 
+               AbsoluteThickness[1.5], 
+               Opacity[0.66]}], {}, {}], 
+            
+            RectangleBox[{1.5, 0}, {2.5, 0.3933333333333333}, 
+             "RoundingRadius" -> 0]},
+           
+           ImageSizeCache->{{80.94022035810465, 
+            110.98986916806172`}, {-28.202815067236244`, 108.6297605326473}}],
+          
+          "DelayedMouseEffectStyle"],
+         StatusArea[#, 0.3933333333333333]& ,
+         TagBoxNote->"0.3933333333333333"],
+        StyleBox[
+        "0.3933333333333333`", {FontFamily -> "Helvetica", FontSize -> 12, 
+          GrayLevel[0]}, StripOnInput -> False]],
+       Annotation[#, 
+        Style[
+        0.3933333333333333, {FontFamily -> "Helvetica", FontSize -> 12, 
+          GrayLevel[0]}], "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[
+        TagBox[
+         TagBox[
+          DynamicBox[{
+            FEPrivate`If[
+             CurrentValue["MouseOver"], 
+             EdgeForm[{
+               GrayLevel[0.5], 
+               AbsoluteThickness[1.5], 
+               Opacity[0.66]}], {}, {}], 
+            
+            RectangleBox[{3.5, 0}, {4.5, 0.043333333333333335`}, 
+             "RoundingRadius" -> 0]},
+           
+           ImageSizeCache->{{140.28951797801878`, 170.3391667879758}, {
+            93.22129881401605, 108.6297605326473}}],
+          "DelayedMouseEffectStyle"],
+         StatusArea[#, 0.043333333333333335`]& ,
+         TagBoxNote->"0.043333333333333335"],
+        StyleBox[
+        "0.043333333333333335`", {FontFamily -> "Helvetica", FontSize -> 12, 
+          GrayLevel[0]}, StripOnInput -> False]],
+       Annotation[#, 
+        Style[
+        0.043333333333333335`, {FontFamily -> "Helvetica", FontSize -> 12, 
+          GrayLevel[0]}], "Tooltip"]& ]}, {}, {}}, {{}, {}, {}}},
+   AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+   Axes->{True, True},
+   AxesLabel->{
+     FormBox[
+      TagBox["\"Quark multiplicity\"", HoldForm], TraditionalForm], 
+     FormBox[
+      TagBox["Entries", HoldForm], TraditionalForm]},
+   AxesOrigin->{-0.72, 0},
+   Epilog->{
+     InsetBox[
+      FormBox[
+       StyleBox["\"<Mean>=0.96\"", 18, 
+        GrayLevel[0], StripOnInput -> False], TraditionalForm], 
+      Scaled[{0.55, 0.85}]]},
+   FrameLabel->{{None, None}, {None, None}},
+   FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+   GridLines->{None, None},
+   GridLinesStyle->Directive[
+     GrayLevel[0.5, 0.4]],
+   ImageSize->Large,
+   LabelStyle->{FontFamily -> "Helvetica", 12, 
+     GrayLevel[0]},
+   PlotLabel->FormBox[
+    "\"Distribution of quark multiplicity for initial gluon of with t=100 GeV\
+\"", TraditionalForm],
+   PlotRange->{{-0.5, 10.5}, {All, All}},
+   PlotRangePadding->{{
+      Scaled[0.02], 
+      Scaled[0.02]}, {
+      Scaled[0.02], 
+      Scaled[0.05]}},
+   Ticks->{Automatic, Automatic}]}]], "Output",ExpressionUUID->"a5b99f30-7986-\
+41dc-9516-32cf85b7c771"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SetStandardSeeds", "[", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"resultspath", " ", "=", " ", 
+   RowBox[{"StringJoin", "[", 
+    RowBox[{
+    "pathpackage", ",", "\"\</Notebooks/plots/plotsNTonlygtogg_\>\""}], 
+    "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"RunShowerMulti", "[", 
+  RowBox[{
+  "1000", ",", "100", ",", "1.", ",", "SudakovPgtoggvacuumNTQ2Medium", ",", 
+   "SudakovPgtoqqbarvacuumLT", ",", "PgtoggvacuumNT", ",", 
+   "PgtoqqbarvacuumLT", ",", "PgtoggvacuumNTsymmetric", ",", "0", ",", "200", 
+   ",", "1", ",", "resultspath"}], "]"}]}], "Input",ExpressionUUID->"1b75320a-\
+aae4-4ec6-a229-25886ba0438e"],
+
+Cell[BoxData[
+ RowBox[{"\<\"/Users/gianmicheleinnocenti/Desktop/parton-shower-simulator/\
+Notebooks/plots/plotsNTonlygtogg_histolog1overz_maxevents300_tscalecutoff1.0_\
+scale100GeVc.pdf\"\>", 
+  " ", "\<\"/Users/gianmicheleinnocenti/Desktop/parton-shower-simulator/\
+Notebooks/plots/plotsNTonlygtogg_histomultinit_maxevents300_tscalecutoff1.0_\
+scale100GeVc.pdf\"\>", 
+  " ", "\<\"/Users/gianmicheleinnocenti/Desktop/parton-shower-simulator/\
+Notebooks/plots/plotsNTonlygtogg_histonquarks_maxevents300_tscalecutoff1.0_\
+scale100GeVc.pdf\"\>", " ", 
+  GraphicsBox[{
+    {RGBColor[0.987148, 0.8073604000000001, 0.49470040000000004`], EdgeForm[{
+     Opacity[0.39899999999999997`], Thickness[Small]}], {}, 
+     {RGBColor[0.987148, 0.8073604000000001, 0.49470040000000004`], EdgeForm[{
+      Opacity[0.39899999999999997`], Thickness[Small]}], 
+      RectangleBox[{0.5, 0}, {1.5, 0.0033333333333333335},
+       RoundingRadius->0], RectangleBox[{1.5, 0}, {2.5, 0.16333333333333333},
+       RoundingRadius->0], RectangleBox[{2.5, 0}, {3.5, 0.06666666666666667},
+       RoundingRadius->0], RectangleBox[{3.5, 0}, {4.5, 0.16666666666666666},
+       RoundingRadius->0], RectangleBox[{4.5, 0}, {5.5, 0.15},
+       RoundingRadius->0], RectangleBox[{5.5, 0}, {6.5, 0.14},
+       RoundingRadius->0], RectangleBox[{6.5, 0}, {7.5, 0.09333333333333334},
+       RoundingRadius->0], RectangleBox[{7.5, 0}, {8.5, 0.09},
+       RoundingRadius->0], 
+      RectangleBox[{8.5, 0}, {9.5, 0.016666666666666666},
+       RoundingRadius->0], RectangleBox[{9.5, 0}, {10.5, 0.04},
+       RoundingRadius->0], 
+      RectangleBox[{10.5, 0}, {11.5, 0.023333333333333334},
+       RoundingRadius->0], 
+      RectangleBox[{11.5, 0}, {12.5, 0.013333333333333334},
+       RoundingRadius->0], 
+      RectangleBox[{12.5, 0}, {13.5, 0.0033333333333333335},
+       RoundingRadius->0], RectangleBox[{13.5, 0}, {14.5, 0.01},
+       RoundingRadius->0], RectangleBox[{14.5, 0}, {15.5, 0.01},
+       RoundingRadius->0], 
+      RectangleBox[{17.5, 0}, {18.5, 0.006666666666666667},
+       RoundingRadius->0], 
+      RectangleBox[{23.5, 0}, {24.5, 0.0033333333333333335},
+       RoundingRadius->
+        0]}, {}, {}}, {{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, \
+{}, {}, {}, {}}},
+   AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+   Axes->{True, True},
+   AxesLabel->{
+     FormBox[
+      TagBox["\"Parton multiplicity\"", HoldForm], TraditionalForm], 
+     FormBox[
+      TagBox["Entries", HoldForm], TraditionalForm]},
+   AxesOrigin->{-1.32, 0},
+   Epilog->{
+     InsetBox[
+      FormBox[
+       StyleBox["\"<Mean>=5.66\"", 18, 
+        GrayLevel[0], StripOnInput -> False], TraditionalForm], 
+      Scaled[{0.55, 0.85}]]},
+   Frame->True,
+   FrameLabel->{{None, None}, {None, None}},
+   FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+   GridLines->{None, None},
+   GridLinesStyle->Directive[
+     GrayLevel[0.5, 0.4]],
+   ImageSize->Large,
+   LabelStyle->{FontFamily -> "Helvetica", 12, 
+     GrayLevel[0]},
+   PlotLabel->FormBox[
+    "\"Distribution of parton multiplicity for initial gluon with t=100 \
+GeV\"", TraditionalForm],
+   PlotRange->{{-0.5, 40.5}, {All, All}},
+   PlotRangePadding->{{
+      Scaled[0.02], 
+      Scaled[0.02]}, {None, 
+      Scaled[0.05]}},
+   Ticks->{Automatic, Automatic}], " ", 
+  GraphicsBox[{
+    {RGBColor[0.987148, 0.8073604000000001, 0.49470040000000004`], EdgeForm[{
+     Opacity[0.476], Thickness[Small]}], {}, 
+     {RGBColor[0.987148, 0.8073604000000001, 0.49470040000000004`], EdgeForm[{
+      Opacity[0.476], Thickness[Small]}], 
+      RectangleBox[{0., 0}, {0.5, 0.05653710247349823},
+       RoundingRadius->0], RectangleBox[{0.5, 0}, {1., 0.10129564193168433},
+       RoundingRadius->0], RectangleBox[{1., 0}, {1.5, 0.12367491166077739},
+       RoundingRadius->0], RectangleBox[{1.5, 0}, {2., 0.13898704358068315},
+       RoundingRadius->0], RectangleBox[{2., 0}, {2.5, 0.10541813898704358},
+       RoundingRadius->0], RectangleBox[{2.5, 0}, {3., 0.10070671378091872},
+       RoundingRadius->0], RectangleBox[{3., 0}, {3.5, 0.0895170789163722},
+       RoundingRadius->0], RectangleBox[{3.5, 0}, {4., 0.07891637220259129},
+       RoundingRadius->0], RectangleBox[{4., 0}, {4.5, 0.06007067137809187},
+       RoundingRadius->0], RectangleBox[{4.5, 0}, {5., 0.04181389870435807},
+       RoundingRadius->0], RectangleBox[{5., 0}, {5.5, 0.025323910482921083},
+       RoundingRadius->0], RectangleBox[{5.5, 0}, {6., 0.03356890459363958},
+       RoundingRadius->0], RectangleBox[{6., 0}, {6.5, 0.009422850412249705},
+       RoundingRadius->0], RectangleBox[{6.5, 0}, {7., 0.010011778563015312},
+       RoundingRadius->0], RectangleBox[{7., 0}, {7.5, 0.004711425206124852},
+       RoundingRadius->0], RectangleBox[{7.5, 0}, {8., 0.004711425206124852},
+       RoundingRadius->0], RectangleBox[{8., 0}, {8.5, 0.005889281507656066},
+       RoundingRadius->0], RectangleBox[{8.5, 0}, {9., 0.004711425206124852},
+       RoundingRadius->0], RectangleBox[{9., 0}, {9.5, 0.002355712603062426},
+       RoundingRadius->0], 
+      RectangleBox[{9.5, 0}, {10., 0.0017667844522968198},
+       RoundingRadius->0], 
+      RectangleBox[{10.5, 0}, {11., 0.0005889281507656066},
+       RoundingRadius->
+        0]}, {}, {}}, {{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, \
+{}, {}, {}, {}, {}, {}, {}, {}}},
+   AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+   Axes->{True, True},
+   AxesLabel->{
+     FormBox[
+      TagBox[
+       RowBox[{"log", "(", 
+         FractionBox["1", "x"], ")"}], HoldForm], TraditionalForm], 
+     FormBox[
+      TagBox["Entries", HoldForm], TraditionalForm]},
+   AxesOrigin->{-0.3, 0},
+   Epilog->{
+     InsetBox[
+      FormBox[
+       StyleBox["\"<Mean>=2.69605\"", 18, 
+        GrayLevel[0], StripOnInput -> False], TraditionalForm], 
+      Scaled[{0.55, 0.85}]]},
+   FrameLabel->{{None, None}, {None, None}},
+   FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+   GridLines->{None, None},
+   GridLinesStyle->Directive[
+     GrayLevel[0.5, 0.4]],
+   ImageSize->Large,
+   LabelStyle->{FontFamily -> "Helvetica", 12, 
+     GrayLevel[0]},
+   PlotLabel->FormBox[
+    "\"Distribution of Log[\\!\\(\\*FractionBox[\\(1\\), \\(x\\)]\\)] for \
+initial gluon with t=100 GeV\"", TraditionalForm],
+   PlotRange->{{0., 15.}, {All, All}},
+   PlotRangePadding->{{
+      Scaled[0.02], 
+      Scaled[0.02]}, {
+      Scaled[0.02], 
+      Scaled[0.05]}},
+   Ticks->{Automatic, Automatic}], " ", 
+  GraphicsBox[{
+    {RGBColor[0.987148, 0.8073604000000001, 0.49470040000000004`], EdgeForm[{
+     Opacity[0.609], Thickness[Small]}], {}, 
+     {RGBColor[0.987148, 0.8073604000000001, 0.49470040000000004`], EdgeForm[{
+      Opacity[0.609], Thickness[Small]}], 
+      TagBox[
+       TooltipBox[
+        TagBox[
+         TagBox[
+          DynamicBox[{
+            FEPrivate`If[
+             CurrentValue["MouseOver"], 
+             EdgeForm[{
+               GrayLevel[0.5], 
+               AbsoluteThickness[1.5], 
+               Opacity[0.66]}], {}, {}], 
+            
+            RectangleBox[{-0.5, 0}, {0.5, 0.4166666666666667}, 
+             "RoundingRadius" -> 0]},
+           
+           ImageSizeCache->{{21.590922738190557`, 
+            51.64057154814762}, {-67.49614085422876, 108.6297605326473}}],
+          "DelayedMouseEffectStyle"],
+         StatusArea[#, 0.4166666666666667]& ,
+         TagBoxNote->"0.4166666666666667"],
+        StyleBox[
+        "0.4166666666666667`", {FontFamily -> "Helvetica", FontSize -> 12, 
+          GrayLevel[0]}, StripOnInput -> False]],
+       Annotation[#, 
+        Style[
+        0.4166666666666667, {FontFamily -> "Helvetica", FontSize -> 12, 
+          GrayLevel[0]}], "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[
+        TagBox[
+         TagBox[
+          DynamicBox[{
+            FEPrivate`If[
+             CurrentValue["MouseOver"], 
+             EdgeForm[{
+               GrayLevel[0.5], 
+               AbsoluteThickness[1.5], 
+               Opacity[0.66]}], {}, {}], 
+            
+            RectangleBox[{1.5, 0}, {2.5, 0.4633333333333333}, 
+             "RoundingRadius" -> 0]},
+           
+           ImageSizeCache->{{80.94022035810468, 
+            110.98986916806173`}, {-87.18024180955886, 108.6297605326473}}],
+          "DelayedMouseEffectStyle"],
+         StatusArea[#, 0.4633333333333333]& ,
+         TagBoxNote->"0.4633333333333333"],
+        StyleBox[
+        "0.4633333333333333`", {FontFamily -> "Helvetica", FontSize -> 12, 
+          GrayLevel[0]}, StripOnInput -> False]],
+       Annotation[#, 
+        Style[
+        0.4633333333333333, {FontFamily -> "Helvetica", FontSize -> 12, 
+          GrayLevel[0]}], "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[
+        TagBox[
+         TagBox[
+          DynamicBox[{
+            FEPrivate`If[
+             CurrentValue["MouseOver"], 
+             EdgeForm[{
+               GrayLevel[0.5], 
+               AbsoluteThickness[1.5], 
+               Opacity[0.66]}], {}, {}], 
+            
+            RectangleBox[{3.5, 0}, {4.5, 0.10666666666666667`}, 
+             "RoundingRadius" -> 0]},
+           
+           ImageSizeCache->{{140.2895179780188, 170.33916678797584`}, {
+            63.26252977760703, 108.6297605326473}}],
+          "DelayedMouseEffectStyle"],
+         StatusArea[#, 0.10666666666666667`]& ,
+         TagBoxNote->"0.10666666666666667"],
+        StyleBox[
+        "0.10666666666666667`", {FontFamily -> "Helvetica", FontSize -> 12, 
+          GrayLevel[0]}, StripOnInput -> False]],
+       Annotation[#, 
+        Style[
+        0.10666666666666667`, {FontFamily -> "Helvetica", FontSize -> 12, 
+          GrayLevel[0]}], "Tooltip"]& ], 
+      TagBox[
+       TooltipBox[
+        TagBox[
+         TagBox[
+          DynamicBox[{
+            FEPrivate`If[
+             CurrentValue["MouseOver"], 
+             EdgeForm[{
+               GrayLevel[0.5], 
+               AbsoluteThickness[1.5], 
+               Opacity[0.66]}], {}, {}], 
+            
+            RectangleBox[{5.5, 0}, {6.5, 0.013333333333333334`}, 
+             "RoundingRadius" -> 0]},
+           
+           ImageSizeCache->{{199.63881559793293`, 229.68846440788997`}, {
+            102.63073168826726`, 108.6297605326473}}],
+          "DelayedMouseEffectStyle"],
+         StatusArea[#, 0.013333333333333334`]& ,
+         TagBoxNote->"0.013333333333333334"],
+        StyleBox[
+        "0.013333333333333334`", {FontFamily -> "Helvetica", FontSize -> 12, 
+          GrayLevel[0]}, StripOnInput -> False]],
+       Annotation[#, 
+        Style[
+        0.013333333333333334`, {FontFamily -> "Helvetica", FontSize -> 12, 
+          GrayLevel[0]}], "Tooltip"]& ]}, {}, {}}, {{}, {}, {}, {}}},
+   AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+   Axes->{True, True},
+   AxesLabel->{
+     FormBox[
+      TagBox["\"Quark multiplicity\"", HoldForm], TraditionalForm], 
+     FormBox[
+      TagBox["Entries", HoldForm], TraditionalForm]},
+   AxesOrigin->{-0.72, 0},
+   Epilog->{
+     InsetBox[
+      FormBox[
+       StyleBox["\"<Mean>=1.43333\"", 18, 
+        GrayLevel[0], StripOnInput -> False], TraditionalForm], 
+      Scaled[{0.55, 0.85}]]},
+   FrameLabel->{{None, None}, {None, None}},
+   FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+   GridLines->{None, None},
+   GridLinesStyle->Directive[
+     GrayLevel[0.5, 0.4]],
+   ImageSize->Large,
+   LabelStyle->{FontFamily -> "Helvetica", 12, 
+     GrayLevel[0]},
+   PlotLabel->FormBox[
+    "\"Distribution of quark multiplicity for initial gluon of with t=100 GeV\
+\"", TraditionalForm],
+   PlotRange->{{-0.5, 10.5}, {All, All}},
+   PlotRangePadding->{{
+      Scaled[0.02], 
+      Scaled[0.02]}, {
+      Scaled[0.02], 
+      Scaled[0.05]}},
+   Ticks->{Automatic, Automatic}]}]], "Output",ExpressionUUID->"7b340a2c-277f-\
+44d5-b6cc-48966b8df6b4"]
 }, Open  ]]
 }, Open  ]]
 },
-WindowSize->{1123, 691},
-WindowMargins->{{Automatic, 263}, {-80, Automatic}},
+WindowSize->{1776, 1328},
+WindowMargins->{{Automatic, 0}, {Automatic, 0}},
 TaggingRules->Association["TryRealOnly" -> False],
-Magnification:>1.25 Inherited,
+Magnification:>0.75 Inherited,
 FrontEndVersion->"12.3 for Mac OS X x86 (64-bit) (July 9, 2021)",
 StyleDefinitions->"Default.nb",
 ExpressionUUID->"0cc54c80-78b8-4291-840b-a2790758a248"
@@ -308,12 +852,23 @@ CellTagsIndex->{}
 (*NotebookFileOutline
 Notebook[{
 Cell[CellGroupData[{
-Cell[580, 22, 141, 1, 123, "Title",ExpressionUUID->"0026e84d-a9f1-48bc-a135-bf6c28238c86"],
-Cell[724, 25, 201, 5, 44, "Text",ExpressionUUID->"a6a5fea3-c151-4164-ac0d-153c3feff104"],
-Cell[928, 32, 1172, 31, 246, "Input",ExpressionUUID->"420475c2-a4f3-4eb7-b297-520e1b66ed8f"],
+Cell[580, 22, 141, 1, 75, "Title",ExpressionUUID->"0026e84d-a9f1-48bc-a135-bf6c28238c86"],
+Cell[724, 25, 201, 5, 27, "Text",ExpressionUUID->"a6a5fea3-c151-4164-ac0d-153c3feff104"],
 Cell[CellGroupData[{
-Cell[2125, 67, 567, 13, 116, "Input",ExpressionUUID->"0db2229c-6306-4e90-9655-d01c9949e316"],
-Cell[2695, 82, 8668, 204, 1624, "Output",ExpressionUUID->"8fac270a-8cac-4201-9d57-3e023e63eb24"]
+Cell[950, 34, 1202, 32, 153, "Input",ExpressionUUID->"420475c2-a4f3-4eb7-b297-520e1b66ed8f"],
+Cell[2155, 68, 182, 2, 28, "Output",ExpressionUUID->"1008060d-192b-4f96-bb18-f41090e2d1da"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2374, 75, 671, 15, 57, "Input",ExpressionUUID->"5ea79920-a559-471d-a1fb-8d3e309c440e"],
+Cell[3048, 92, 7336, 178, 363, "Output",ExpressionUUID->"92839460-5668-4ae9-ae48-ba907ce0bfaa"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[10421, 275, 671, 15, 57, "Input",ExpressionUUID->"3f72f49f-2ce7-4d98-ab91-089184fd2691"],
+Cell[11095, 292, 9367, 233, 363, "Output",ExpressionUUID->"a5b99f30-7986-41dc-9516-32cf85b7c771"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[20499, 530, 679, 15, 57, "Input",ExpressionUUID->"1b75320a-aae4-4ec6-a229-25886ba0438e"],
+Cell[21181, 547, 11769, 283, 363, "Output",ExpressionUUID->"7b340a2c-277f-44d5-b6cc-48966b8df6b4"]
 }, Open  ]]
 }, Open  ]]
 }

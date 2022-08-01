@@ -58,6 +58,9 @@ PgtoqqbarvacuumLT[z_]:=(z^2+(1-z)^2);
 PgtoggvacuumNT[z_]:=2*(1-z)/z +z*(1-z);
 
 
+PgtoggvacuumNTsymmetric[z_]:=(1-z)/z+z/(1-z)+z*(1-z);
+
+
 PgtoggvacuumNTnopol[z_]:=2*(1-z)/z
 
 
@@ -95,24 +98,25 @@ SudakovPgtoggvacuumNTQ2Medium=Exp[-2 \[Alpha]s*CA/Pi*Integrate[1/(2Q2)* Pgtoggva
 ptFromSudakov[sudakovValue_,CA_,alphas_,pt1_]:= pt1 * Exp[-Sqrt[Log[sudakovValue]/(-2*alphas*CA/Pi)]]
 
 
-SingleSplittingPtOrderedValidated[sudakovgtogg_, sudakovgtoqqbar_,fsplitgtogg_,fsplitgtoqqbar_, tscaleinit_:100, parton_:"g",zinit_:1,tscalecutoff_:1.,dodebug_:1]:=
+SingleSplittingPtOrderedValidated[sudakovgtogg_, sudakovgtoqqbar_,fsplitgtogg_,fsplitgtoqqbar_, fsplitgtoggezextraction_, tscaleinit_, parton_,zinit_,tscalecutoff_,dodebug_,activateqqbar_]:=
 Module[{possibleSplits,tscalesplitting,splittingfunction,output,zlowcutoff},
-  If[dodebug==1,Print["SingleSplittingPtOrderedValidated::Debug, initial scale=",tscaleinit,", parton=",parton," , zinit=",zinit];];
   If[parton == "q",output={{tscalecutoff,parton,zinit}}];
-  If[parton == "g" && tscaleinit==tscalecutoff,output={{tscaleinit,parton,zinit}};];
+  If[parton == "g" && tscaleinit<=tscalecutoff,output={{tscaleinit,parton,zinit}};];
   If[tscaleinit>tscalecutoff  &&  parton == "g",(*if condition*)
-     possibleSplits={{sudakovgtogg,{"g","g"},fsplitgtogg,tscalecutoff/tscaleinit}, {sudakovgtoqqbar,{"q","q"},fsplitgtoqqbar,tscalecutoff/tscaleinit}};
+     If[activateqqbar==0, possibleSplits={{sudakovgtogg,{"g","g"},fsplitgtogg}};];
+     If[activateqqbar==1, possibleSplits={{sudakovgtogg,{"g","g"},fsplitgtogg}, {sudakovgtoqqbar,{"q","q"},fsplitgtoqqbar}};];
+     If[activateqqbar!=0 && activateqqbar!=1, Print["ERROR: activateqqbar option is not 0 or 1 "]];
      rnd = RandomReal[{0.,1.0},WorkingPrecision->4]&/@possibleSplits;
      resultsp=Table[pt0//.FindRoot[(possibleSplits[[i,1]]//.{pt1->tscaleinit,CA->3,\[Alpha]s->0.12 })-rnd[[i]],{pt0,tscalecutoff,tscaleinit}],{i,Length[possibleSplits[[;;,1]]]}];
      nozero=Table[Abs[resultsp[[i]]]>10^-5 && Element[resultsp[[i]],Reals],{i,Length[possibleSplits[[;;,1]]]}];
      results = Table[If[nozero[[i]],resultsp[[i]],0],{i,Length[possibleSplits[[;;,1]]]}];
-     (*processindex = Ordering[results,-1][[1]];*)
-     processindex = 1;
-     tscalesplitting = resultsp[[processindex]];
+     If[Length[nozero]<1, output={{tscalecutoff,"g",zinit}}];
+     processindex = Ordering[results,-1][[1]];
+     tscalesplitting = results[[processindex]];
      typesplittee = possibleSplits[[processindex,2]];
      splittingfunction=possibleSplits[[processindex,3]];
-     funct[z_]:=(1-z)/z+z/(1-z)+z*(1-z);
-     If[tscalesplitting>tscalecutoff,
+     (*Print["we are here, ",parton, ", ", tscaleinit", ",zinit", ",tscalesplitting];*)
+     If[Length[nozero]>=1 && tscalesplitting>tscalecutoff,
        zlowcutoff=tscalecutoff/tscalesplitting;
        (*Print[zlowcutoff];
        Print[tscalesplitting];
@@ -122,44 +126,46 @@ Module[{possibleSplits,tscalesplitting,splittingfunction,output,zlowcutoff},
        If[zlowcutoff>=0.5,lowb=1-zlowcutoff; highb=zlowcutoff];
        If[zlowcutoff<0.5,lowb=zlowcutoff; highb=1-zlowcutoff];
        If [zlowcutoff<0., Print["ERROR!!! z boundary for extraction is lower than 0"]];
-       distrib = ProbabilityDistribution[funct[z], {z, lowb, highb},Method -> "Normalize"];
+       distrib = ProbabilityDistribution[fsplitgtoggezextraction[z], {z, lowb, highb},Method -> "Normalize"];
        zvalue=RandomVariate[distrib,1][[1]];
        If [zvalue<0. || zvalue>1., Print["ERROR!!! z value extracted is not in the correct boundaries [0,1], z=", zvalue]];
        output={{tscalesplitting,typesplittee[[1]],zinit*zvalue},{tscalesplitting,typesplittee[[1]],zinit*(1-zvalue)}};
      ];
      If[tscalesplitting<=tscalecutoff,
         output={{tscalecutoff,"g",zinit}}];
-     If[dodebug==1,Print["SingleSplittingPtOrderedValidated::Debug, list of descendants=",descendants];];
   ]; (*done if mpt1>cutoffpt  &&  parton == "g" is fullfilled*)
   output
 ]; 
 
 
-ShowerValidated[tscaleinit_:100.,tscalecutoff_:1.,sudakovgtogg_:SudakovPgtoggvacuumLT, sudakovgtoqqbar_:SudakovPgtoqqbarvacuumLT,fsplitgtogg_:PgtoggvacuumNT,fsplitgtoqqbar_:PgtoqqbarvacuumLT, dodebug_:1,maxiteration_:200]:=(
+ShowerValidated[tscaleinit_,tscalecutoff_,sudakovgtogg_, sudakovgtoqqbar_,fsplitgtogg_,fsplitgtoqqbar_, fsplitgtoggezextraction_, dodebug_,maxiteration_,activateqqbar_]:=(
   descendants={{tscaleinit,"g",1.}}; 
   iter=0;
-  If[dodebug==1,Print["Starting from=",descendants];];
+  If[dodebug==1,Print["partons of an event are given in a list of {{tscale, type, z fraction w.r.t to initial parton}, {}, {}}"];];
+  If[dodebug==1,Print["Initial parton      = ",descendants];];
   While[MemberQ[Thread[descendants[[;;,1]]<=tscalecutoff && iter<maxiteration],False],
-  If[dodebug==1,Print["Descendant list at iteration="iter," is= ",descendants];];
   If[iter==maxiteration-1, Print["Check for an infinite loop or a very high-multiplicity event!!!"]];
   iter = iter + 1;
-  descendants=Flatten[Table[SingleSplittingPtOrderedValidated[sudakovgtogg,sudakovgtoqqbar,fsplitgtogg,fsplitgtoqqbar,descendants[[j,1]],descendants[[j,2]],descendants[[j,3]],tscalecutoff,dodebug],{j,Length[descendants]}],1];];
+  descendants=Flatten[Table[SingleSplittingPtOrderedValidated[sudakovgtogg,sudakovgtoqqbar,fsplitgtogg,fsplitgtoqqbar,fsplitgtoggezextraction,descendants[[j,1]],descendants[[j,2]],descendants[[j,3]],tscalecutoff,dodebug,activateqqbar],{j,Length[descendants]}],1];
+  If[dodebug==1,Print["List of descendants = ",descendants];];
+  ]; (*end of While Loop*)
   nquarks=Count[descendants[[;;,2]],"q"];
   If [Mod[nquarks,2]==1, Print["This event has a odd number of quarks= ", nquarks];];
-  If[dodebug==1,Print["Final list="iter," is= ",descendants];];
   descendants
 )
 
 
-RunShowerMulti[maxevents_:100.,tscaleinit_:100.,tscalecutoff_:1.,sudakovgtogg_:SudakovPgtoggvacuumLT, sudakovgtoqqbar_:SudakovPgtoqqbarvacuumLT,fsplitgtogg_:PgtoggvacuumNT,fsplitgtoqqbar_:PgtoqqbarvacuumLT, dodebug_:1,maxiteration_:200,path_]:=(
+RunShowerMulti[maxevents_:1.,tscaleinit_:100.,tscalecutoff_:1.,sudakovgtogg_:SudakovPgtoggvacuumNT, sudakovgtoqqbar_:SudakovPgtoqqbarvacuumLT,fsplitgtogg_:PgtoggvacuumNT,fsplitgtoqqbar_:PgtoqqbarvacuumLT, fsplitgtoggezextraction_:PgtoggvacuumNTsymmetric, dodebug_:0,maxiteration_:200,activateqqbar_:0,path_]:=(
+  (*If[dodebug==1, Print["RunShowerMulti::Debug: you have activated the debug mode. The maximum number of events will be limited to 1"]; maxevents=1;];*)
   descendtot = {};
   zvaluestot = {};
   nmultiplicitytot = {};
   nmultiplicityquarkstot = {};
   nquarkstot = {};
   For[i = 0, i < maxevents, i++,
+    If[dodebug==1,Print["---------------------- New event, id= ",i, " --------------------- "];];
     Clear[descendentevent, zvaluesevent]; 
-    descendentevent = ShowerValidated[tscaleinit, tscalecutoff, SudakovPgtoggvacuumLT, SudakovPgtoqqbarvacuumLT, PgtoggvacuumLT, PgtoqqbarvacuumLT, 0, 200];
+    descendentevent = ShowerValidated[tscaleinit, tscalecutoff, sudakovgtogg, sudakovgtoqqbar, fsplitgtogg, fsplitgtoqqbar,fsplitgtoggezextraction, dodebug, maxiteration,activateqqbar];
     zvaluesevent = Table[descendentevent[[jendex]][[3]], {jendex, Length[descendentevent]}];
     nquarks = Count[descendentevent[[;; , 2]], "q"];
     AppendTo[descendtot, descendentevent];
@@ -168,9 +174,9 @@ RunShowerMulti[maxevents_:100.,tscaleinit_:100.,tscalecutoff_:1.,sudakovgtogg_:S
     AppendTo[nmultiplicityquarkstot, nquarks];
   ];  
   PlotShowerQuantities[nmultiplicitytot, nmultiplicityquarkstot, zvaluestot,tscaleinit];
-  Export[StringJoin[path,StringTemplate["histomultinit_maxevents`1`_tscalecutoff`2`_scale`3`GeVc.pdf"][maxevents,tscalecutoff,tscaleinit]], histomult]
-  Export[StringJoin[path,StringTemplate["histonquarks_maxevents`1`_tscalecutoff`2`_scale`3`GeVc.pdf"][maxevents,tscalecutoff,tscaleinit]], histonquarks]
-  Export[StringJoin[path,StringTemplate["histolog1overz_maxevents`1`_tscalecutoff`2`_scale`3`GeVc.pdf"][maxevents,tscalecutoff,tscaleinit]], histolog1overz]
+  Export[StringJoin[path,StringTemplate["histomultinit_maxevents`1`_tscalecutoff`2`_scale`3`GeVc_qqbar`4`.pdf"][maxevents,tscalecutoff,tscaleinit,activateqqbar]], histomult];
+  Export[StringJoin[path,StringTemplate["histonquarks_maxevents`1`_tscalecutoff`2`_scale`3`GeVc_qqbar`4`.pdf"][maxevents,tscalecutoff,tscaleinit,activateqqbar]], histonquarks];
+  Export[StringJoin[path,StringTemplate["histolog1overz_maxevents`1`_tscalecutoff`2`_scale`3`GeVc_qqbar`4`.pdf"][maxevents,tscalecutoff,tscaleinit,activateqqbar]], histolog1overz];
   histomult
   histonquarks
   histolog1overz
@@ -207,15 +213,17 @@ Plot[{functGavin,functLT,functNTnopol,functNT},{pt0,1,inputpthigh},Frame->True, 
 
 PlotShowerQuantities[nmultiplicitytot_,nmultiplicityquarkstot_,zvaluestot_,ptinitial_]:=(
 meanmult=Mean[nmultiplicitytot]*1.000000001;
+meanmultquark=Mean[nmultiplicityquarkstot]*1.000000001;
+meanlogz=Mean[Log[1/Flatten[zvaluestot]]]*1.000000001;
 histomult= Histogram[nmultiplicitytot,{-0.5,40.5,1.},"Probability", (*ScalingFunctions\[Rule]{"Log","Log"},*) Frame -> True, AxesLabel->{HoldForm["Parton multiplicity"],
           HoldForm[Entries]}, PlotLabel->StringTemplate["Distribution of parton multiplicity for initial gluon with t=`1` GeV"][ptinitial],
           LabelStyle->{FontFamily->"Helvetica", 12, GrayLevel[0]},ImageSize->Large,Epilog->{Text[Style["<Mean>="<>ToString[meanmult],18,Black],Scaled[{0.55,0.85}]]}];
 histonquarks= Histogram[nmultiplicityquarkstot,{-0.5,10.5,1.},"Probability", AxesLabel->{HoldForm["Quark multiplicity"],
           HoldForm[Entries]}, PlotLabel->StringTemplate["Distribution of quark multiplicity for initial gluon of with t=`1` GeV"][ptinitial],
-          LabelStyle->{FontFamily->"Helvetica", 12, GrayLevel[0]},ImageSize->Large];
+          LabelStyle->{FontFamily->"Helvetica", 12, GrayLevel[0]},ImageSize->Large,Epilog->{Text[Style["<Mean>="<>ToString[meanmultquark],18,Black],Scaled[{0.55,0.85}]]}];
 histolog1overz = Histogram[Log[1/Flatten[zvaluestot]],{0.,15.,0.5},"Probability", AxesLabel->{HoldForm[Log[1/x]],HoldForm[Entries]}, 
                            PlotLabel->StringTemplate["Distribution of Log[\!\(\*FractionBox[\(1\), \(x\)]\)] for initial gluon with t=`1` GeV"][ptinitial],
-                           LabelStyle->{FontFamily->"Helvetica", 12, GrayLevel[0]},ImageSize->Large];
+                           LabelStyle->{FontFamily->"Helvetica", 12, GrayLevel[0]},ImageSize->Large,Epilog->{Text[Style["<Mean>="<>ToString[meanlogz],18,Black],Scaled[{0.55,0.85}]]}];
 )
 
 
