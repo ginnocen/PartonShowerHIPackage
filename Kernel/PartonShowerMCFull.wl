@@ -115,22 +115,26 @@ Module[{possibleSplits,tscalesplitting,splittingfunction,output,zlowcutoff},
      tscalesplitting = results[[processindex]];
      typesplittee = possibleSplits[[processindex,2]];
      splittingfunction=possibleSplits[[processindex,3]];
-     (*Print["we are here, ",parton, ", ", tscaleinit", ",zinit", ",tscalesplitting];*)
      If[Length[nozero]>=1 && tscalesplitting>tscalecutoff,
        zlowcutoff=tscalecutoff/tscalesplitting;
-       (*Print[zlowcutoff];
-       Print[tscalesplitting];
-       Print[zlowcutoff];*)
        lowb=100.;
        highb=100.;
        If[zlowcutoff>=0.5,lowb=1-zlowcutoff; highb=zlowcutoff];
        If[zlowcutoff<0.5,lowb=zlowcutoff; highb=1-zlowcutoff];
        If [zlowcutoff<0., Print["ERROR!!! z boundary for extraction is lower than 0"]];
-       distrib = ProbabilityDistribution[fsplitgtoggezextraction[z], {z, lowb, highb},Method -> "Normalize"];
-       zvalue=RandomVariate[distrib,1][[1]];
-       If [zvalue<0. || zvalue>1., Print["ERROR!!! z value extracted is not in the correct boundaries [0,1], z=", zvalue]];
-       output={{tscalesplitting,typesplittee[[1]],zinit*zvalue},{tscalesplitting,typesplittee[[1]],zinit*(1-zvalue)}};
-     ];
+       If[typesplittee[[1]]=="g",
+         distrib = ProbabilityDistribution[fsplitgtoggezextraction[z], {z, lowb, highb},Method -> "Normalize"];
+         zvalue=RandomVariate[distrib,1][[1]];
+         If [zvalue<0. || zvalue>1., Print["ERROR!!! z value extracted is not in the correct boundaries [0,1], z=", zvalue]];
+         output={{tscalesplitting,typesplittee[[1]],zinit*zvalue},{tscalesplitting,typesplittee[[1]],zinit*(1-zvalue)}};
+       ];
+       If[typesplittee[[1]]=="q",
+         distrib = ProbabilityDistribution[fsplitgtoggezextraction[z], {z, lowb, highb},Method -> "Normalize"];
+         zvalue=RandomVariate[distrib,1][[1]];
+         If [zvalue<0. || zvalue>1., Print["ERROR!!! z value extracted is not in the correct boundaries [0,1], z=", zvalue]];
+         output={{tscalesplitting,typesplittee[[1]],zinit*zvalue},{tscalesplitting,typesplittee[[1]],zinit*(1-zvalue)}};
+       ];
+     ]; (*If[Length[nozero]>=1 && tscalesplitting>tscalecutoff*)
      If[tscalesplitting<=tscalecutoff,
         output={{tscalecutoff,"g",zinit}}];
   ]; (*done if mpt1>cutoffpt  &&  parton == "g" is fullfilled*)
