@@ -80,7 +80,8 @@ SudakovPgtoggvacuumGavinOrig= Exp[- 2*\[Alpha]s*CA/Pi*Log[pt1/pt0]^2]
 SudakovPgtoggvacuumLT= Exp[-2 \[Alpha]s*CA/Pi*Integrate[PgtoggvacuumLT[z]*IntegralThetaPgtoggvacuum,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]]
 
 
-SudakovPgtoqqbarvacuumLT= Exp[-2 \[Alpha]s*CA/Pi*Integrate[PgtoqqbarvacuumLT[z]*IntegralThetaPgtoggvacuum,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]]
+CF = 1;
+SudakovPgtoqqbarvacuumLT= Exp[-2 \[Alpha]s*CF/Pi*Integrate[PgtoqqbarvacuumLT[z]*IntegralThetaPgtoggvacuum,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]]
 
 
 SudakovPgtoggvacuumNT=Exp[-2 \[Alpha]s*CA/Pi*Integrate[PgtoggvacuumNT[z]*IntegralThetaPgtoggvacuum,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
