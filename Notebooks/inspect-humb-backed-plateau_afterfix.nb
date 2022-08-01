@@ -12,8 +12,8 @@ NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
 NotebookDataLength[      4721,        135]
 NotebookOptionsPosition[      3797,        111]
-NotebookOutlinePosition[      4242,        128]
-CellTagsIndexPosition[      4199,        125]
+NotebookOutlinePosition[      4241,        128]
+CellTagsIndexPosition[      4198,        125]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -67,8 +67,8 @@ Cell[BoxData[{
 "420475c2-a4f3-4eb7-b297-520e1b66ed8f"],
 
 Cell[BoxData["\<\"/Users/gianmicheleinnocenti/Desktop/parton-shower-simulator/\
-Kernel/PartonShowerMCFull.wl\"\>"], "Output",ExpressionUUID->"bef63ba3-dec7-\
-4553-b5fe-ea3d673832b6"]
+Kernel/PartonShowerMCFull.wl\"\>"], "Output",ExpressionUUID->"e7096669-b0ba-\
+41db-a017-5edec661311b"]
 }, Open  ]],
 
 Cell[BoxData[{
@@ -84,7 +84,7 @@ Cell[BoxData[{
   RowBox[{
   "1000", ",", "100.", ",", "1.", ",", "SudakovPgtoggvacuumNT", ",", 
    "SudakovPgtoqqbarvacuumLT", ",", "PgtoggvacuumNT", ",", 
-   "PgtoqqbarvacuumLT", ",", "PgtoggvacuumNTsymmetric", ",", "0", ",", "200", 
+   "PgtoqqbarvacuumLT", ",", "PgtoggvacuumNTsymmetric", ",", "1", ",", "200", 
    ",", "1", ",", "resultspath"}], "]"}]}], "Input",ExpressionUUID->"3f72f49f-\
 2ce7-4d98-ab91-089184fd2691"],
 
@@ -109,8 +109,8 @@ Cell[BoxData[{
 UUID->"7e27bdd3-2cc1-4f45-9baa-fc6a48e5a358"]
 }, Open  ]]
 },
-WindowSize->{1786, 1009},
-WindowMargins->{{Automatic, 0}, {Automatic, 321}},
+WindowSize->{906, 908},
+WindowMargins->{{Automatic, 0}, {-219, Automatic}},
 TaggingRules->Association["TryRealOnly" -> False],
 FrontEndVersion->"12.3 for Mac OS X x86 (64-bit) (July 9, 2021)",
 StyleDefinitions->"Default.nb",
@@ -132,10 +132,10 @@ Cell[580, 22, 141, 1, 98, "Title",ExpressionUUID->"0026e84d-a9f1-48bc-a135-bf6c2
 Cell[724, 25, 201, 5, 35, "Text",ExpressionUUID->"a6a5fea3-c151-4164-ac0d-153c3feff104"],
 Cell[CellGroupData[{
 Cell[950, 34, 1202, 32, 199, "Input",ExpressionUUID->"420475c2-a4f3-4eb7-b297-520e1b66ed8f"],
-Cell[2155, 68, 182, 2, 34, "Output",ExpressionUUID->"bef63ba3-dec7-4553-b5fe-ea3d673832b6"]
+Cell[2155, 68, 182, 2, 34, "Output",ExpressionUUID->"e7096669-b0ba-41db-a017-5edec661311b"]
 }, Open  ]],
-Cell[2352, 73, 672, 15, 73, "Input",ExpressionUUID->"3f72f49f-2ce7-4d98-ab91-089184fd2691"],
-Cell[3027, 90, 754, 18, 73, "Input",ExpressionUUID->"7e27bdd3-2cc1-4f45-9baa-fc6a48e5a358"]
+Cell[2352, 73, 672, 15, 94, "Input",ExpressionUUID->"3f72f49f-2ce7-4d98-ab91-089184fd2691"],
+Cell[3027, 90, 754, 18, 115, "Input",ExpressionUUID->"7e27bdd3-2cc1-4f45-9baa-fc6a48e5a358"]
 }, Open  ]]
 }
 ]
