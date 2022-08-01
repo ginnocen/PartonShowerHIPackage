@@ -19,7 +19,7 @@ PgtoggvacuumNTnopol::usage = "Splitting function g -> gg as function of z with m
 PgtoggvacuumNT::usage = "Splitting function g -> gg as function of z with more terms"
 
 
-IntegralThetaPgtoggvacuum::usage = "Part of Sudakov over theta function g -> gg"
+IntegralTheta::usage = "Part of Sudakov over theta"
 
 
 SudakovPgtoggvacuumLT::usage = "Sudakov function g -> gg LT";
@@ -52,6 +52,10 @@ SingleSplittingPtOrdered::usage = "Generate single splitting from g-> gg, g->qqb
 PgtoggvacuumLT[z_]:=2*1/z;
 
 
+(* ::Text:: *)
+(*FIXME: PgtoqqbarvacuumLT to be checked *)
+
+
 PgtoqqbarvacuumLT[z_]:=(z^2+(1-z)^2);
 
 
@@ -64,11 +68,11 @@ PgtoggvacuumNTsymmetric[z_]:=(1-z)/z+z/(1-z)+z*(1-z);
 PgtoggvacuumNTnopol[z_]:=2*(1-z)/z
 
 
-IntegralThetaPgtoggvacuum =  Integrate[1/(theta),{theta, pt0/(z*pt1),1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]
+IntegralTheta =  Integrate[1/(theta),{theta, pt0/(z*pt1),1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]
 
 
 (* ::Text:: *)
-(*The function IntegralQ2Pgtoggvacuum is expected to be equivalent to IntegralThetaPgtoggvacuum after a change of variable theta->Q2. *)
+(*The function IntegralQ2Pgtoggvacuum is expected to be equivalent to IntegralTheta after a change of variable theta->Q2. *)
 
 
 IntegralQ2Pgtoggvacuum =  Integrate[1/(2Q2),{Q2, pt0*pt0/z,z*pt1*pt1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]
@@ -77,16 +81,20 @@ IntegralQ2Pgtoggvacuum =  Integrate[1/(2Q2),{Q2, pt0*pt0/z,z*pt1*pt1},Assumption
 SudakovPgtoggvacuumGavinOrig= Exp[- 2*\[Alpha]s*CA/Pi*Log[pt1/pt0]^2]
 
 
-SudakovPgtoggvacuumLT= Exp[-2 \[Alpha]s*CA/Pi*Integrate[PgtoggvacuumLT[z]*IntegralThetaPgtoggvacuum,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]]
+SudakovPgtoggvacuumLT= Exp[-2 \[Alpha]s*CA/Pi*Integrate[PgtoggvacuumLT[z]*IntegralTheta,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]]
 
 
-SudakovPgtoqqbarvacuumLT= Exp[-2 \[Alpha]s*(4./3.)/Pi*Integrate[PgtoqqbarvacuumLT[z]*IntegralThetaPgtoggvacuum,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]]
+(* ::Text:: *)
+(*FIXME: the boundaries of SudakovPgtoqqbarvacuumLT  integration are to be checked *)
 
 
-SudakovPgtoggvacuumNT=Exp[-2 \[Alpha]s*CA/Pi*Integrate[PgtoggvacuumNT[z]*IntegralThetaPgtoggvacuum,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
+SudakovPgtoqqbarvacuumLT= Exp[-2 \[Alpha]s*(4./3.)/Pi*Integrate[PgtoqqbarvacuumLT[z]*IntegralTheta,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]]
 
 
-SudakovPgtoggvacuumNTnopol=Exp[-2 \[Alpha]s*CA/Pi*Integrate[PgtoggvacuumNTnopol[z]*IntegralThetaPgtoggvacuum,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
+SudakovPgtoggvacuumNT=Exp[-2 \[Alpha]s*CA/Pi*Integrate[PgtoggvacuumNT[z]*IntegralTheta,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
+
+
+SudakovPgtoggvacuumNTnopol=Exp[-2 \[Alpha]s*CA/Pi*Integrate[PgtoggvacuumNTnopol[z]*IntegralTheta,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
 
 
 SudakovPgtoggvacuumNTQ2=Exp[-2 \[Alpha]s*CA/Pi*Integrate[1/(2Q2)* PgtoggvacuumNT[z],{z, pt0/pt1,1},{Q2, pt0*pt0/z,z*pt1*pt1}, Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
@@ -96,6 +104,10 @@ SudakovPgtoggvacuumNTQ2Medium=Exp[-2 \[Alpha]s*CA/Pi*Integrate[1/(2Q2)* Pgtoggva
 
 
 ptFromSudakov[sudakovValue_,CA_,alphas_,pt1_]:= pt1 * Exp[-Sqrt[Log[sudakovValue]/(-2*alphas*CA/Pi)]]
+
+
+(* ::Text:: *)
+(*FIXME: the boundaries of ProbabilityDistribution extraction for z in the g to qqbar case are not currently consistent with the integration boundaries for the Sudakov *)
 
 
 SingleSplittingPtOrderedValidated[sudakovgtogg_, sudakovgtoqqbar_,fsplitgtogg_,fsplitgtoqqbar_,
@@ -130,7 +142,7 @@ Module[{possibleSplits,tscalesplitting,splittingfunction,output,zlowcutoff},
          zvalue=RandomVariate[distrib,1][[1]];
          If [zvalue<0. || zvalue>1., Print["ERROR!!! z value extracted is not in the correct boundaries [0,1], z=", zvalue]];
          output={{tscalesplitting,typesplittee[[1]],zinit*zvalue},{tscalesplitting,typesplittee[[1]],zinit*(1-zvalue)}};
-       ];
+       ]; (*end of if typesplittee[[1]]=="q"*)
        If[typesplittee[[1]]=="q",
          distribqqbar = ProbabilityDistribution[fsplitgtoqqbarezextraction[z], {z, lowb, highb},Method -> "Normalize"];
          zvalueqqbar=RandomVariate[distribqqbar,1][[1]];
@@ -139,7 +151,7 @@ Module[{possibleSplits,tscalesplitting,splittingfunction,output,zlowcutoff},
          (*qsquarethreshold = (tscalesplitting*tscalesplitting+qmassthresh*qmassthresh)/(zvalueqqbar*(1-zvalueqqbar));*)
          If[qsquarethreshold>=(qmassthresh*qmassthresh),output={{tscalesplitting,typesplittee[[1]],zinit*zvalueqqbar},{tscalesplitting,typesplittee[[1]],zinit*(1-zvalueqqbar)}};];
          If[qsquarethreshold<(qmassthresh*qmassthresh),output={{tscalecutoff,"g",zinit}};];
-       ];
+       ]; (*end of if typesplittee[[1]]=="q"*)
      ]; (*If[Length[nozero]>=1 && tscalesplitting>tscalecutoff*)
      If[tscalesplitting<=tscalecutoff,
         output={{tscalecutoff,"g",zinit}};
