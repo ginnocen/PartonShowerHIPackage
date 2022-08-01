@@ -19,7 +19,7 @@ PgtoggvacuumNTnopol::usage = "Splitting function g -> gg as function of z with m
 PgtoggvacuumNT::usage = "Splitting function g -> gg as function of z with more terms"
 
 
-IntegralThetaPgtoggvacuum::usage = "Part of Sudakov over theta function g -> gg"
+IntegralTheta::usage = "Part of Sudakov over theta"
 
 
 SudakovPgtoggvacuumLT::usage = "Sudakov function g -> gg LT";
@@ -52,7 +52,14 @@ SingleSplittingPtOrdered::usage = "Generate single splitting from g-> gg, g->qqb
 PgtoggvacuumLT[z_]:=2*1/z;
 
 
-PgtoqqbarvacuumLT[z_]:=(z^2+(1-z)^2);
+(* ::Text:: *)
+(*FIXME: PgtoqqbarvacuumLT to be checked *)
+
+
+PgtoqqbarvacuumLT[z_]:=(1./2.)*(z^2+(1-z)^2);
+
+
+PgtoqqbarvacuumLTsymmetric[z_]:=(z^2+(1-z)^2);
 
 
 PgtoggvacuumNT[z_]:=2*(1-z)/z +z*(1-z);
@@ -64,11 +71,11 @@ PgtoggvacuumNTsymmetric[z_]:=(1-z)/z+z/(1-z)+z*(1-z);
 PgtoggvacuumNTnopol[z_]:=2*(1-z)/z
 
 
-IntegralThetaPgtoggvacuum =  Integrate[1/(theta),{theta, pt0/(z*pt1),1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]
+IntegralTheta =  Integrate[1/(theta),{theta, pt0/(z*pt1),1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]
 
 
 (* ::Text:: *)
-(*The function IntegralQ2Pgtoggvacuum is expected to be equivalent to IntegralThetaPgtoggvacuum after a change of variable theta->Q2. *)
+(*The function IntegralQ2Pgtoggvacuum is expected to be equivalent to IntegralTheta after a change of variable theta->Q2. *)
 
 
 IntegralQ2Pgtoggvacuum =  Integrate[1/(2Q2),{Q2, pt0*pt0/z,z*pt1*pt1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]
@@ -77,16 +84,20 @@ IntegralQ2Pgtoggvacuum =  Integrate[1/(2Q2),{Q2, pt0*pt0/z,z*pt1*pt1},Assumption
 SudakovPgtoggvacuumGavinOrig= Exp[- 2*\[Alpha]s*CA/Pi*Log[pt1/pt0]^2]
 
 
-SudakovPgtoggvacuumLT= Exp[-2 \[Alpha]s*CA/Pi*Integrate[PgtoggvacuumLT[z]*IntegralThetaPgtoggvacuum,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]]
+SudakovPgtoggvacuumLT= Exp[-2 \[Alpha]s*CA/Pi*Integrate[PgtoggvacuumLT[z]*IntegralTheta,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]]
 
 
-SudakovPgtoqqbarvacuumLT= Exp[-2 \[Alpha]s*(4./3.)/Pi*Integrate[PgtoqqbarvacuumLT[z]*IntegralThetaPgtoggvacuum,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]]
+(* ::Text:: *)
+(*FIXME: the boundaries of SudakovPgtoqqbarvacuumLT  integration are to be checked *)
 
 
-SudakovPgtoggvacuumNT=Exp[-2 \[Alpha]s*CA/Pi*Integrate[PgtoggvacuumNT[z]*IntegralThetaPgtoggvacuum,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
+SudakovPgtoqqbarvacuumLT= Exp[-2 \[Alpha]s*(1)/Pi*Integrate[PgtoqqbarvacuumLT[z]*IntegralTheta,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]]
 
 
-SudakovPgtoggvacuumNTnopol=Exp[-2 \[Alpha]s*CA/Pi*Integrate[PgtoggvacuumNTnopol[z]*IntegralThetaPgtoggvacuum,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
+SudakovPgtoggvacuumNT=Exp[-2 \[Alpha]s*CA/Pi*Integrate[PgtoggvacuumNT[z]*IntegralTheta,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
+
+
+SudakovPgtoggvacuumNTnopol=Exp[-2 \[Alpha]s*CA/Pi*Integrate[PgtoggvacuumNTnopol[z]*IntegralTheta,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
 
 
 SudakovPgtoggvacuumNTQ2=Exp[-2 \[Alpha]s*CA/Pi*Integrate[1/(2Q2)* PgtoggvacuumNT[z],{z, pt0/pt1,1},{Q2, pt0*pt0/z,z*pt1*pt1}, Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
@@ -98,7 +109,13 @@ SudakovPgtoggvacuumNTQ2Medium=Exp[-2 \[Alpha]s*CA/Pi*Integrate[1/(2Q2)* Pgtoggva
 ptFromSudakov[sudakovValue_,CA_,alphas_,pt1_]:= pt1 * Exp[-Sqrt[Log[sudakovValue]/(-2*alphas*CA/Pi)]]
 
 
-SingleSplittingPtOrderedValidated[sudakovgtogg_, sudakovgtoqqbar_,fsplitgtogg_,fsplitgtoqqbar_, fsplitgtoggezextraction_, tscaleinit_, parton_,zinit_,tscalecutoff_,dodebug_,activateqqbar_]:=
+(* ::Text:: *)
+(*FIXME: the boundaries of ProbabilityDistribution extraction for z in the g to qqbar case are not currently consistent with the integration boundaries for the Sudakov *)
+
+
+SingleSplittingPtOrderedValidated[sudakovgtogg_, sudakovgtoqqbar_,fsplitgtogg_,fsplitgtoqqbar_,
+                                   fsplitgtoggezextraction_, fsplitgtoqqbarezextraction_,
+                                   tscaleinit_, parton_,zinit_,tscalecutoff_,dodebug_,activateqqbar_,qmassthresh_]:=
 Module[{possibleSplits,tscalesplitting,splittingfunction,output,zlowcutoff},
   If[parton == "q",output={{tscalecutoff,parton,zinit}}];
   If[parton == "g" && tscaleinit<=tscalecutoff,output={{tscaleinit,parton,zinit}};];
@@ -115,30 +132,39 @@ Module[{possibleSplits,tscalesplitting,splittingfunction,output,zlowcutoff},
      tscalesplitting = results[[processindex]];
      typesplittee = possibleSplits[[processindex,2]];
      splittingfunction=possibleSplits[[processindex,3]];
-     (*Print["we are here, ",parton, ", ", tscaleinit", ",zinit", ",tscalesplitting];*)
      If[Length[nozero]>=1 && tscalesplitting>tscalecutoff,
        zlowcutoff=tscalecutoff/tscalesplitting;
-       (*Print[zlowcutoff];
-       Print[tscalesplitting];
-       Print[zlowcutoff];*)
        lowb=100.;
        highb=100.;
        If[zlowcutoff>=0.5,lowb=1-zlowcutoff; highb=zlowcutoff];
        If[zlowcutoff<0.5,lowb=zlowcutoff; highb=1-zlowcutoff];
        If [zlowcutoff<0., Print["ERROR!!! z boundary for extraction is lower than 0"]];
-       distrib = ProbabilityDistribution[fsplitgtoggezextraction[z], {z, lowb, highb},Method -> "Normalize"];
-       zvalue=RandomVariate[distrib,1][[1]];
-       If [zvalue<0. || zvalue>1., Print["ERROR!!! z value extracted is not in the correct boundaries [0,1], z=", zvalue]];
-       output={{tscalesplitting,typesplittee[[1]],zinit*zvalue},{tscalesplitting,typesplittee[[1]],zinit*(1-zvalue)}};
-     ];
+       If[typesplittee[[1]]=="g",
+         distrib = ProbabilityDistribution[fsplitgtoggezextraction[z], {z, lowb, highb},Method -> "Normalize"];
+         zvalue=RandomVariate[distrib,1][[1]];
+         If [zvalue<0. || zvalue>1., Print["ERROR!!! z value extracted is not in the correct boundaries [0,1], z=", zvalue]];
+         output={{tscalesplitting,typesplittee[[1]],zinit*zvalue},{tscalesplitting,typesplittee[[1]],zinit*(1-zvalue)}};
+       ]; (*end of if typesplittee[[1]]=="q"*)
+       If[typesplittee[[1]]=="q",
+         distribqqbar = ProbabilityDistribution[fsplitgtoqqbarezextraction[z], {z, lowb, highb},Method -> "Normalize"];
+         zvalueqqbar=RandomVariate[distribqqbar,1][[1]];
+         If [zvalueqqbar<0. || zvalueqqbar>1., Print["ERROR!!! z value extracted is not in the correct boundaries [0,1], z=", zvalueqqbar]];
+         qsquarethreshold = (tscalesplitting*tscalesplitting);
+         (*qsquarethreshold = (tscalesplitting*tscalesplitting+qmassthresh*qmassthresh)/(zvalueqqbar*(1-zvalueqqbar));*)
+         If[qsquarethreshold>=(4*qmassthresh*qmassthresh),output={{tscalesplitting,typesplittee[[1]],zinit*zvalueqqbar},{tscalesplitting,typesplittee[[1]],zinit*(1-zvalueqqbar)}};];
+         If[qsquarethreshold<(4*qmassthresh*qmassthresh),output={{tscalecutoff,"g",zinit}};];
+       ]; (*end of if typesplittee[[1]]=="q"*)
+     ]; (*If[Length[nozero]>=1 && tscalesplitting>tscalecutoff*)
      If[tscalesplitting<=tscalecutoff,
-        output={{tscalecutoff,"g",zinit}}];
-  ]; (*done if mpt1>cutoffpt  &&  parton == "g" is fullfilled*)
+        output={{tscalecutoff,"g",zinit}};
+     ];
+  ]; (*end if tscaleinit>tscalecutoff  &&  parton == "g"*)
   output
 ]; 
 
 
-ShowerValidated[tscaleinit_,tscalecutoff_,sudakovgtogg_, sudakovgtoqqbar_,fsplitgtogg_,fsplitgtoqqbar_, fsplitgtoggezextraction_, dodebug_,maxiteration_,activateqqbar_]:=(
+ShowerValidated[tscaleinit_,tscalecutoff_,sudakovgtogg_, sudakovgtoqqbar_,fsplitgtogg_,fsplitgtoqqbar_,
+                fsplitgtoggezextraction_, fsplitgtoqqbarezextraction_, dodebug_,maxiteration_,activateqqbar_,qmassthresh_]:=(
   descendants={{tscaleinit,"g",1.}}; 
   iter=0;
   If[dodebug==1,Print["partons of an event are given in a list of {{tscale, type, z fraction w.r.t to initial parton}, {}, {}}"];];
@@ -146,7 +172,10 @@ ShowerValidated[tscaleinit_,tscalecutoff_,sudakovgtogg_, sudakovgtoqqbar_,fsplit
   While[MemberQ[Thread[descendants[[;;,1]]<=tscalecutoff && iter<maxiteration],False],
   If[iter==maxiteration-1, Print["Check for an infinite loop or a very high-multiplicity event!!!"]];
   iter = iter + 1;
-  descendants=Flatten[Table[SingleSplittingPtOrderedValidated[sudakovgtogg,sudakovgtoqqbar,fsplitgtogg,fsplitgtoqqbar,fsplitgtoggezextraction,descendants[[j,1]],descendants[[j,2]],descendants[[j,3]],tscalecutoff,dodebug,activateqqbar],{j,Length[descendants]}],1];
+  descendants=Flatten[Table[SingleSplittingPtOrderedValidated[sudakovgtogg,sudakovgtoqqbar,fsplitgtogg,fsplitgtoqqbar,
+                                                              fsplitgtoggezextraction,fsplitgtoqqbarezextraction,
+                                                              descendants[[j,1]],descendants[[j,2]],descendants[[j,3]],
+                                                              tscalecutoff,dodebug,activateqqbar,qmassthresh],{j,Length[descendants]}],1];
   If[dodebug==1,Print["List of descendants = ",descendants];];
   ]; (*end of While Loop*)
   nquarks=Count[descendants[[;;,2]],"q"];
@@ -155,7 +184,10 @@ ShowerValidated[tscaleinit_,tscalecutoff_,sudakovgtogg_, sudakovgtoqqbar_,fsplit
 )
 
 
-RunShowerMulti[maxevents_:1.,tscaleinit_:100.,tscalecutoff_:1.,sudakovgtogg_:SudakovPgtoggvacuumNT, sudakovgtoqqbar_:SudakovPgtoqqbarvacuumLT,fsplitgtogg_:PgtoggvacuumNT,fsplitgtoqqbar_:PgtoqqbarvacuumLT, fsplitgtoggezextraction_:PgtoggvacuumNTsymmetric, dodebug_:0,maxiteration_:200,activateqqbar_:0,path_]:=(
+RunShowerMulti[maxevents_:1.,tscaleinit_:100.,tscalecutoff_:1.,sudakovgtogg_:SudakovPgtoggvacuumNT, sudakovgtoqqbar_:SudakovPgtoqqbarvacuumLT,
+               fsplitgtogg_:PgtoggvacuumNT,fsplitgtoqqbar_:PgtoqqbarvacuumLT,
+               fsplitgtoggezextraction_:PgtoggvacuumNTsymmetric, fsplitgtoqqbarezextraction_:PgtoqqbarvacuumLTsymmetric,
+               dodebug_:0,maxiteration_:200,activateqqbar_:0, qmassthresh_:1.3, path_]:=(
   (*If[dodebug==1, Print["RunShowerMulti::Debug: you have activated the debug mode. The maximum number of events will be limited to 1"]; maxevents=1;];*)
   descendtot = {};
   zvaluestot = {};
@@ -165,7 +197,9 @@ RunShowerMulti[maxevents_:1.,tscaleinit_:100.,tscalecutoff_:1.,sudakovgtogg_:Sud
   For[i = 0, i < maxevents, i++,
     If[dodebug==1,Print["---------------------- New event, id= ",i, " --------------------- "];];
     Clear[descendentevent, zvaluesevent]; 
-    descendentevent = ShowerValidated[tscaleinit, tscalecutoff, sudakovgtogg, sudakovgtoqqbar, fsplitgtogg, fsplitgtoqqbar,fsplitgtoggezextraction, dodebug, maxiteration,activateqqbar];
+    descendentevent = ShowerValidated[tscaleinit, tscalecutoff, sudakovgtogg, sudakovgtoqqbar, fsplitgtogg, fsplitgtoqqbar,
+                                      fsplitgtoggezextraction, fsplitgtoqqbarezextraction,
+                                      dodebug, maxiteration,activateqqbar,qmassthresh];
     zvaluesevent = Table[descendentevent[[jendex]][[3]], {jendex, Length[descendentevent]}];
     nquarks = Count[descendentevent[[;; , 2]], "q"];
     AppendTo[descendtot, descendentevent];
