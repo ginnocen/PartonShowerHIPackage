@@ -98,7 +98,9 @@ SudakovPgtoggvacuumNTQ2Medium=Exp[-2 \[Alpha]s*CA/Pi*Integrate[1/(2Q2)* Pgtoggva
 ptFromSudakov[sudakovValue_,CA_,alphas_,pt1_]:= pt1 * Exp[-Sqrt[Log[sudakovValue]/(-2*alphas*CA/Pi)]]
 
 
-SingleSplittingPtOrderedValidated[sudakovgtogg_, sudakovgtoqqbar_,fsplitgtogg_,fsplitgtoqqbar_, fsplitgtoggezextraction_, fsplitgtoqqbarezextraction_, tscaleinit_, parton_,zinit_,tscalecutoff_,dodebug_,activateqqbar_]:=
+SingleSplittingPtOrderedValidated[sudakovgtogg_, sudakovgtoqqbar_,fsplitgtogg_,fsplitgtoqqbar_,
+                                   fsplitgtoggezextraction_, fsplitgtoqqbarezextraction_,
+                                   tscaleinit_, parton_,zinit_,tscalecutoff_,dodebug_,activateqqbar_,qmassthresh_]:=
 Module[{possibleSplits,tscalesplitting,splittingfunction,output,zlowcutoff},
   If[parton == "q",output={{tscalecutoff,parton,zinit}}];
   If[parton == "g" && tscaleinit<=tscalecutoff,output={{tscaleinit,parton,zinit}};];
@@ -130,12 +132,13 @@ Module[{possibleSplits,tscalesplitting,splittingfunction,output,zlowcutoff},
          output={{tscalesplitting,typesplittee[[1]],zinit*zvalue},{tscalesplitting,typesplittee[[1]],zinit*(1-zvalue)}};
        ];
        If[typesplittee[[1]]=="q",
-         (*Print["aaaaa=",fsplitgtoqqbarezextraction[z]];
-         Print["bbbb=",fsplitgtoggezextraction[z]];*)
          distribqqbar = ProbabilityDistribution[fsplitgtoqqbarezextraction[z], {z, lowb, highb},Method -> "Normalize"];
          zvalueqqbar=RandomVariate[distribqqbar,1][[1]];
          If [zvalueqqbar<0. || zvalueqqbar>1., Print["ERROR!!! z value extracted is not in the correct boundaries [0,1], z=", zvalueqqbar]];
-         output={{tscalesplitting,typesplittee[[1]],zinit*zvalueqqbar},{tscalesplitting,typesplittee[[1]],zinit*(1-zvalueqqbar)}};
+         qsquarethreshold = (tscalesplitting*tscalesplitting);
+         (*qsquarethreshold = (tscalesplitting*tscalesplitting+qmassthresh*qmassthresh)/(zvalueqqbar*(1-zvalueqqbar));*)
+         If[qsquarethreshold>=(qmassthresh*qmassthresh),output={{tscalesplitting,typesplittee[[1]],zinit*zvalueqqbar},{tscalesplitting,typesplittee[[1]],zinit*(1-zvalueqqbar)}};];
+         If[qsquarethreshold<(qmassthresh*qmassthresh),output={{tscalecutoff,"g",zinit}};];
        ];
      ]; (*If[Length[nozero]>=1 && tscalesplitting>tscalecutoff*)
      If[tscalesplitting<=tscalecutoff,
@@ -146,7 +149,8 @@ Module[{possibleSplits,tscalesplitting,splittingfunction,output,zlowcutoff},
 ]; 
 
 
-ShowerValidated[tscaleinit_,tscalecutoff_,sudakovgtogg_, sudakovgtoqqbar_,fsplitgtogg_,fsplitgtoqqbar_, fsplitgtoggezextraction_, fsplitgtoqqbarezextraction_, dodebug_,maxiteration_,activateqqbar_]:=(
+ShowerValidated[tscaleinit_,tscalecutoff_,sudakovgtogg_, sudakovgtoqqbar_,fsplitgtogg_,fsplitgtoqqbar_,
+                fsplitgtoggezextraction_, fsplitgtoqqbarezextraction_, dodebug_,maxiteration_,activateqqbar_,qmassthresh_]:=(
   descendants={{tscaleinit,"g",1.}}; 
   iter=0;
   If[dodebug==1,Print["partons of an event are given in a list of {{tscale, type, z fraction w.r.t to initial parton}, {}, {}}"];];
@@ -154,7 +158,10 @@ ShowerValidated[tscaleinit_,tscalecutoff_,sudakovgtogg_, sudakovgtoqqbar_,fsplit
   While[MemberQ[Thread[descendants[[;;,1]]<=tscalecutoff && iter<maxiteration],False],
   If[iter==maxiteration-1, Print["Check for an infinite loop or a very high-multiplicity event!!!"]];
   iter = iter + 1;
-  descendants=Flatten[Table[SingleSplittingPtOrderedValidated[sudakovgtogg,sudakovgtoqqbar,fsplitgtogg,fsplitgtoqqbar,fsplitgtoggezextraction,fsplitgtoqqbarezextraction,descendants[[j,1]],descendants[[j,2]],descendants[[j,3]],tscalecutoff,dodebug,activateqqbar],{j,Length[descendants]}],1];
+  descendants=Flatten[Table[SingleSplittingPtOrderedValidated[sudakovgtogg,sudakovgtoqqbar,fsplitgtogg,fsplitgtoqqbar,
+                                                              fsplitgtoggezextraction,fsplitgtoqqbarezextraction,
+                                                              descendants[[j,1]],descendants[[j,2]],descendants[[j,3]],
+                                                              tscalecutoff,dodebug,activateqqbar,qmassthresh],{j,Length[descendants]}],1];
   If[dodebug==1,Print["List of descendants = ",descendants];];
   ]; (*end of While Loop*)
   nquarks=Count[descendants[[;;,2]],"q"];
@@ -163,7 +170,10 @@ ShowerValidated[tscaleinit_,tscalecutoff_,sudakovgtogg_, sudakovgtoqqbar_,fsplit
 )
 
 
-RunShowerMulti[maxevents_:1.,tscaleinit_:100.,tscalecutoff_:1.,sudakovgtogg_:SudakovPgtoggvacuumNT, sudakovgtoqqbar_:SudakovPgtoqqbarvacuumLT,fsplitgtogg_:PgtoggvacuumNT,fsplitgtoqqbar_:PgtoqqbarvacuumLT, fsplitgtoggezextraction_:PgtoggvacuumNTsymmetric, fsplitgtoqqbarezextraction_:PgtoqqbarvacuumLT,dodebug_:0,maxiteration_:200,activateqqbar_:0,path_]:=(
+RunShowerMulti[maxevents_:1.,tscaleinit_:100.,tscalecutoff_:1.,sudakovgtogg_:SudakovPgtoggvacuumNT, sudakovgtoqqbar_:SudakovPgtoqqbarvacuumLT,
+               fsplitgtogg_:PgtoggvacuumNT,fsplitgtoqqbar_:PgtoqqbarvacuumLT,
+               fsplitgtoggezextraction_:PgtoggvacuumNTsymmetric, fsplitgtoqqbarezextraction_:PgtoqqbarvacuumLT,
+               dodebug_:0,maxiteration_:200,activateqqbar_:0, qmassthresh_:1.3, path_]:=(
   (*If[dodebug==1, Print["RunShowerMulti::Debug: you have activated the debug mode. The maximum number of events will be limited to 1"]; maxevents=1;];*)
   descendtot = {};
   zvaluestot = {};
@@ -173,7 +183,9 @@ RunShowerMulti[maxevents_:1.,tscaleinit_:100.,tscalecutoff_:1.,sudakovgtogg_:Sud
   For[i = 0, i < maxevents, i++,
     If[dodebug==1,Print["---------------------- New event, id= ",i, " --------------------- "];];
     Clear[descendentevent, zvaluesevent]; 
-    descendentevent = ShowerValidated[tscaleinit, tscalecutoff, sudakovgtogg, sudakovgtoqqbar, fsplitgtogg, fsplitgtoqqbar,fsplitgtoggezextraction, fsplitgtoqqbarezextraction, dodebug, maxiteration,activateqqbar];
+    descendentevent = ShowerValidated[tscaleinit, tscalecutoff, sudakovgtogg, sudakovgtoqqbar, fsplitgtogg, fsplitgtoqqbar,
+                                      fsplitgtoggezextraction, fsplitgtoqqbarezextraction,
+                                      dodebug, maxiteration,activateqqbar,qmassthresh];
     zvaluesevent = Table[descendentevent[[jendex]][[3]], {jendex, Length[descendentevent]}];
     nquarks = Count[descendentevent[[;; , 2]], "q"];
     AppendTo[descendtot, descendentevent];
