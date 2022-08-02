@@ -49,26 +49,31 @@ MakeShowerGavin::usage = "Shower g-> gg using original implementation of Gavin"
 SingleSplittingPtOrdered::usage = "Generate single splitting from g-> gg, g->qqbar shower"
 
 
-PgtoggvacuumLT[z_]:=2*1/z;
+PgtoggvacuumLT[z_]:=4*CA*1/z;
 
 
 (* ::Text:: *)
 (*FIXME: PgtoqqbarvacuumLT to be checked *)
 
 
-PgtoqqbarvacuumLT[z_]:=(1./4.)*(z^2+(1-z)^2);
+TR=0.5;
+PgtoqqbarvacuumLT[z_]:=TR*(z^2+(1-z)^2);
 
 
-PgtoqqbarvacuumLTsymmetric[z_]:=(z^2+(1-z)^2);
+TR=0.5;
+PgtoqqbarvacuumLT[z_]:=TR*(z^2+(1-z)^2);
 
 
-PgtoggvacuumNT[z_]:=2*(1-z)/z +z*(1-z);
+CA=3;
+PgtoggvacuumNT[z_]:=2*CA*(2*(1-z)/z +z*(1-z));
 
 
-PgtoggvacuumNTsymmetric[z_]:=(1-z)/z+z/(1-z)+z*(1-z);
+CA=3;
+PgtoggvacuumNTsymmetric[z_]:=2*CA*((1-z)/z +z/(1-z)+z*(1-z));
 
 
-PgtoggvacuumNTnopol[z_]:=2*(1-z)/z
+CA=3;
+PgtoggvacuumNTnopol[z_]:=4*CA*(1-z)/z
 
 
 IntegralTheta =  Integrate[1/(theta),{theta, pt0/(z*pt1),1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]
@@ -81,29 +86,29 @@ IntegralTheta =  Integrate[1/(theta),{theta, pt0/(z*pt1),1},Assumptions->{pt0\[E
 IntegralQ2Pgtoggvacuum =  Integrate[1/(2Q2),{Q2, pt0*pt0/z,z*pt1*pt1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]
 
 
-SudakovPgtoggvacuumGavinOrig= Exp[- 2*\[Alpha]s*CA/Pi*Log[pt1/pt0]^2]
+SudakovPgtoggvacuumGavinOrig= Exp[-\[Alpha]s/Pi*Log[pt1/pt0]^2]
 
 
-SudakovPgtoggvacuumLT= Exp[-2 \[Alpha]s*CA/Pi*Integrate[PgtoggvacuumLT[z]*IntegralTheta,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]]
+SudakovPgtoggvacuumLT= Exp[-\[Alpha]s/Pi*Integrate[PgtoggvacuumLT[z]*IntegralTheta,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]]
 
 
 (* ::Text:: *)
 (*FIXME: the boundaries of SudakovPgtoqqbarvacuumLT  integration are to be checked *)
 
 
-SudakovPgtoqqbarvacuumLT= Exp[-2 \[Alpha]s*(1)/Pi*Integrate[PgtoqqbarvacuumLT[z]*IntegralTheta,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]]
+SudakovPgtoqqbarvacuumLT= Exp[-\[Alpha]s/Pi*Integrate[PgtoqqbarvacuumLT[z]*IntegralTheta,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]]
 
 
-SudakovPgtoggvacuumNT=Exp[-2 \[Alpha]s*CA/Pi*Integrate[PgtoggvacuumNT[z]*IntegralTheta,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
+SudakovPgtoggvacuumNT=Exp[-\[Alpha]s/Pi*Integrate[PgtoggvacuumNT[z]*IntegralTheta,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
 
 
-SudakovPgtoggvacuumNTnopol=Exp[-2 \[Alpha]s*CA/Pi*Integrate[PgtoggvacuumNTnopol[z]*IntegralTheta,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
+SudakovPgtoggvacuumNTnopol=Exp[-\[Alpha]s/Pi*Integrate[PgtoggvacuumNTnopol[z]*IntegralTheta,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
 
 
-SudakovPgtoggvacuumNTQ2=Exp[-2 \[Alpha]s*CA/Pi*Integrate[1/(2Q2)* PgtoggvacuumNT[z],{z, pt0/pt1,1},{Q2, pt0*pt0/z,z*pt1*pt1}, Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
+SudakovPgtoggvacuumNTQ2=Exp[-\[Alpha]s/Pi*Integrate[1/(2Q2)* PgtoggvacuumNT[z],{z, pt0/pt1,1},{Q2, pt0*pt0/z,z*pt1*pt1}, Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
 
 
-SudakovPgtoggvacuumNTQ2Medium=Exp[-2 \[Alpha]s*CA/Pi*Integrate[1/(2Q2)* PgtoggvacuumNT[z]+ 1/Q2,{z, pt0/pt1,1},{Q2, pt0*pt0/z,z*pt1*pt1}, Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
+SudakovPgtoggvacuumNTQ2Medium=Exp[-\[Alpha]s/Pi*Integrate[1/(2Q2)* PgtoggvacuumNT[z]+ 1/Q2,{z, pt0/pt1,1},{Q2, pt0*pt0/z,z*pt1*pt1}, Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
 
 
 ptFromSudakov[sudakovValue_,CA_,alphas_,pt1_]:= pt1 * Exp[-Sqrt[Log[sudakovValue]/(-2*alphas*CA/Pi)]]
