@@ -56,7 +56,7 @@ PgtoggvacuumLT[z_]:=2*1/z;
 (*FIXME: PgtoqqbarvacuumLT to be checked *)
 
 
-PgtoqqbarvacuumLT[z_]:=(1./2.)*(z^2+(1-z)^2);
+PgtoqqbarvacuumLT[z_]:=(1./4.)*(z^2+(1-z)^2);
 
 
 PgtoqqbarvacuumLTsymmetric[z_]:=(z^2+(1-z)^2);
