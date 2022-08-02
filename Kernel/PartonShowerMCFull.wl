@@ -61,7 +61,7 @@ PgtoqqbarvacuumLT[z_]:=TR*(z^2+(1-z)^2);
 
 
 TR=0.5;
-PgtoqqbarvacuumLT[z_]:=TR*(z^2+(1-z)^2);
+PgtoqqbarvacuumLTsymmetric[z_]:=TR*(z^2+(1-z)^2);
 
 
 CA=3;
