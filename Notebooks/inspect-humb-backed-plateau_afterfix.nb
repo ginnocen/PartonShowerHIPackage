@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[      4409,        127]
-NotebookOptionsPosition[      3768,        107]
-NotebookOutlinePosition[      4242,        125]
-CellTagsIndexPosition[      4199,        122]
+NotebookDataLength[      7066,        193]
+NotebookOptionsPosition[      6419,        173]
+NotebookOutlinePosition[      6894,        191]
+CellTagsIndexPosition[      6851,        188]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -22,13 +22,6 @@ Notebook[{
 Cell[CellGroupData[{
 Cell[" \[OpenCurlyDoubleQuote]Hump-backed plateau\[CloseCurlyDoubleQuote]", \
 "Title",ExpressionUUID->"0026e84d-a9f1-48bc-a135-bf6c28238c86"],
-
-Cell[TextData[{
- "Make sure you set the ",
- StyleBox["pathpackage",
-  FontWeight->"Bold"],
- " below to your current package directory"
-}], "Text",ExpressionUUID->"a6a5fea3-c151-4164-ac0d-153c3feff104"],
 
 Cell[BoxData[{
  RowBox[{
@@ -76,8 +69,7 @@ Cell[BoxData[{
  RowBox[{
   RowBox[{"vtscaleptinit", " ", "=", "100."}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{"vtscalecutoff", " ", "=", " ", "1."}], 
-  ";"}], "\[IndentingNewLine]", 
+  RowBox[{"vtscalecutoff", " ", "=", " ", "1"}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
    RowBox[{"vmaxiteration", " ", "=", " ", "200"}], ";"}], " ", 
@@ -102,11 +94,85 @@ Cell[BoxData[{
    "Pgtoqqbarvacuum", ",", "\[IndentingNewLine]", 
    "                               ", "vactivatedebug", ",", "vmaxiteration", 
    ",", "vactivateqqbar", ",", "veffectivemassquark", ",", "resultspath"}], 
-  "]"}]}], "Input",ExpressionUUID->"9cdb467d-2462-4131-bcb4-3e1b0cefc1f6"]
+  "]"}]}], "Input",ExpressionUUID->"1846d85e-b049-48f3-a024-c81fc426e221"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+  "pathpackage", "=", 
+   "\"\</Users/gianmicheleinnocenti/Desktop/parton-shower-simulator\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Clear", "[", 
+   RowBox[{"kernelpath", ",", "notebookpath"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"kernelpath", " ", "=", " ", 
+   RowBox[{"StringJoin", "[", 
+    RowBox[{"pathpackage", ",", "\"\</Kernel\>\""}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"resultspath", " ", "=", " ", 
+   RowBox[{"StringJoin", "[", 
+    RowBox[{"pathpackage", ",", "\"\</Notebooks/plots\>\""}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"pathmain", " ", "=", " ", 
+  RowBox[{"StringJoin", "[", 
+   RowBox[{"kernelpath", ",", "\"\</PartonShowerMCFull.wl\>\""}], 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SetDirectory", "[", "kernelpath", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"<<", "\"\<PartonShowerMCFull.wl\>\""}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SilentErrors", "[", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SetStandardSeeds", "[", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"resultspath", " ", "=", " ", 
+   RowBox[{"StringJoin", "[", 
+    RowBox[{
+    "pathpackage", ",", "\"\</Notebooks/plots/plotsNTonlygtogg_\>\""}], 
+    "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"vactivatedebug", " ", "=", " ", "0"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"vnevents", " ", "=", " ", "1000"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"vtscaleptinit", " ", "=", "100."}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"vtscalecutoff", " ", "=", " ", "1"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"vmaxiteration", " ", "=", " ", "200"}], ";"}], " ", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{
+    "just", " ", "a", " ", "satefy", " ", "tool", " ", "to", " ", "avoid", 
+     " ", "infinite", " ", "loops"}], ",", " ", 
+    RowBox[{"value", " ", "is", " ", "not", " ", "meaningful"}]}], 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"vactivateqqbar", " ", "=", " ", "1"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"veffectivemassquark", " ", "=", " ", "1.5"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"RunShowerMulti", "[", 
+  RowBox[{
+  "vnevents", ",", "vtscaleptinit", ",", "vtscalecutoff", ",", 
+   "SudakovPgtoggvacuumNTQ2Medium", ",", "SudakovPgtoqqbarvacuum", ",", 
+   RowBox[{"Pgtoggvacuum", "+", "Pmed"}], ",", "Pgtoqqbarvacuum", ",", 
+   "Pgtoggvacuumsymmetric", ",", "Pgtoqqbarvacuum", ",", 
+   "\[IndentingNewLine]", "                               ", "vactivatedebug",
+    ",", "vmaxiteration", ",", "vactivateqqbar", ",", "veffectivemassquark", 
+   ",", "resultspath"}], "]"}]}], "Input",ExpressionUUID->"3fe34945-102a-41d0-\
+a44c-c2c4f2b2d665"]
 }, Open  ]]
 },
-WindowSize->{1494, 794},
-WindowMargins->{{Automatic, 35}, {Automatic, 0}},
+WindowSize->{1021, 956},
+WindowMargins->{{Automatic, 35}, {-3, Automatic}},
 TaggingRules->Association["TryRealOnly" -> False],
 Magnification:>0.75 Inherited,
 FrontEndVersion->"12.3 for Mac OS X x86 (64-bit) (July 9, 2021)",
@@ -126,8 +192,8 @@ CellTagsIndex->{}
 Notebook[{
 Cell[CellGroupData[{
 Cell[580, 22, 141, 1, 75, "Title",ExpressionUUID->"0026e84d-a9f1-48bc-a135-bf6c28238c86"],
-Cell[724, 25, 201, 5, 27, "Text",ExpressionUUID->"a6a5fea3-c151-4164-ac0d-153c3feff104"],
-Cell[928, 32, 2824, 72, 313, "Input",ExpressionUUID->"9cdb467d-2462-4131-bcb4-3e1b0cefc1f6"]
+Cell[724, 25, 2820, 71, 329, "Input",ExpressionUUID->"1846d85e-b049-48f3-a024-c81fc426e221"],
+Cell[3547, 98, 2856, 72, 329, "Input",ExpressionUUID->"3fe34945-102a-41d0-a44c-c2c4f2b2d665"]
 }, Open  ]]
 }
 ]
