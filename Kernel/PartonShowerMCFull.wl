@@ -1,121 +1,112 @@
 (* ::Package:: *)
 
 (* ::Text:: *)
-(*This code includes the main utilities for simulating the parton shower*)
+(*Main utilities for simulating parton shower*)
 
 
 BeginPackage["PartonShowerMCFull`"];
 
 
-PgtoggvacuumLT::usage = "Splitting function g -> gg as function of z LT (~1/z)";
+PgtoggvacuumLT::usage = "Splitting function g -> gg as function of z leading term (1/z)";
 
 
-PgtoqqbarvacuumLT::usage = "Splitting function g -> gg as function of z";
+Pgtoqqbarvacuum::usage = "Splitting function g -> qqbar as function of z";
 
 
-PgtoggvacuumNTnopol::usage = "Splitting function g -> gg as function of z with more terms"
+PgtoggvacuumNTnopol::usage = "Splitting function g -> gg as function of z with more terms but no polinomial terms"
 
 
-PgtoggvacuumNT::usage = "Splitting function g -> gg as function of z with more terms"
+Pgtoggvacuum::usage = "Splitting function g -> gg as function of z with all terms, asymmetric"
 
 
-IntegralTheta::usage = "Part of Sudakov over theta"
+IntegralTheta::usage = "Integral of the theta part of the Sudakov integration"
 
 
-SudakovPgtoggvacuumLT::usage = "Sudakov function g -> gg LT";
-
-
-SudakovPgtoqqbarvacuumLT::usage = "Sudakov function g -> qqbar LT"
+IntegralQ2Pgtoggvacuum::usage = "Integral of the Q2 part of the Sudakov integration, for the case in which one performs a change of variable theta->Q2"
 
 
 SudakovPgtoggvacuumGavinOrig::usage = "Sudakov function g -> gg as in Gavin's example"
 
 
-SudakovPgtoggvacuumNT::usage = "Sudakov function g -> gg with more terms";
+ptFromSudakov::usage = "inverse function of Gavin's Sudakov function = directly extract the pt of the emission"
 
 
-SudakovPgtoggvacuumNTnopol::usage = "Sudakov function g -> gg with more terms but no pol";
+SudakovPgtoggvacuumLT::usage = "Sudakov function g -> gg LT";
 
 
-PlotCompareSudakov::usage = "Compare Sudakov factor dependence LT and NT"
+SudakovPgtoggvacuumNTnopol::usage = "Sudakov function g -> gg with more terms but no polinomial terms";
 
 
-ptFromSudakov::usage = "ptFromSudakov function as in Gavin's example"
+SudakovPgtoggvacuum::usage = "Sudakov function g -> gg with more terms with asymmetric splitting function";
+
+
+SudakovPgtoqqbarvacuum::usage = "Sudakov function g -> qqbar"
+
+
+SingleSplittingPtOrdered::usage = "Generate single splitting from A->(B,C) for a generic parton in the shower"
+
+
+ShowerValidated::usage = "function for generating the shower on a single event"
+
+
+RunShowerMulti::usage = "function for generating the shower on multiple event"
 
 
 MakeShowerGavin::usage = "Shower g-> gg using original implementation of Gavin"
 
 
-SingleSplittingPtOrdered::usage = "Generate single splitting from g-> gg, g->qqbar shower"
+PlotCompareSudakov::usage = "Compare Sudakov factor dependence LT and NT"
 
 
-PgtoggvacuumLT[z_]:=4*CA*1/z;
+PgtoggvacuumLT[z_]:=4*3*1/z; (*CR=3;*)
 
 
-(* ::Text:: *)
-(*FIXME: PgtoqqbarvacuumLT to be checked *)
+Pgtoqqbarvacuum[z_]:=0.5*(z^2+(1-z)^2); (*TR=0.5;*)
 
 
-(*TR=0.5;*)
-PgtoqqbarvacuumLT[z_]:=0.5*(z^2+(1-z)^2);
+Pgtoggvacuum[z_]:=2*3*(2*(1-z)/z +z*(1-z)); (*CA=3;*)
 
 
-(*TR=0.5;*)
-PgtoqqbarvacuumLTsymmetric[z_]:=0.5*(z^2+(1-z)^2);
+Pmed[Q2]:=2*3*1/Q2;
+
+Pgtoggvacuumsymmetric[z_]:=2*3*((1-z)/z +z/(1-z)+z*(1-z)); (*CA=3;*)
 
 
-(*CA=3;*)
-PgtoggvacuumNT[z_]:=2*3*(2*(1-z)/z +z*(1-z));
+PgtoggvacuumNTnopol[z_]:=4*3*(1-z)/z; (*CA=3;*)
 
 
-(*CA=3;*)
-PgtoggvacuumNTsymmetric[z_]:=2*3*((1-z)/z +z/(1-z)+z*(1-z));
-
-
-(*CA=3;*)
-PgtoggvacuumNTnopol[z_]:=4*3*(1-z)/z
-
-
-IntegralTheta =  Integrate[1/(theta),{theta, pt0/(z*pt1),1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]
-
-
-(* ::Text:: *)
-(*The function IntegralQ2Pgtoggvacuum is expected to be equivalent to IntegralTheta after a change of variable theta->Q2. *)
+IntegralTheta = Integrate[1/(theta),{theta, pt0/(z*pt1),1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]
 
 
 IntegralQ2Pgtoggvacuum =  Integrate[1/(2Q2),{Q2, pt0*pt0/z,z*pt1*pt1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]
 
 
-SudakovPgtoggvacuumGavinOrig= Exp[-\[Alpha]s/Pi*Log[pt1/pt0]^2]
+SudakovPgtoggvacuumGavinOrig= Exp[-2*CA*\[Alpha]s/Pi*Log[pt1/pt0]^2]
 
 
 SudakovPgtoggvacuumLT= Exp[-\[Alpha]s/Pi*Integrate[PgtoggvacuumLT[z]*IntegralTheta,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]]
 
 
 (* ::Text:: *)
-(*FIXME: the boundaries of SudakovPgtoqqbarvacuumLT  integration are to be checked *)
+(*FIXME: the boundaries of SudakovPgtoqqbarvacuum  integration are to be checked. The boundaries of ProbabilityDistribution extraction for z in the g to qqbar case are not currently consistent with the integration boundaries for the Sudakov *)
 
 
-SudakovPgtoqqbarvacuumLT= Exp[-\[Alpha]s/Pi*Integrate[PgtoqqbarvacuumLT[z]*IntegralTheta,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]]
+SudakovPgtoqqbarvacuum= Exp[-\[Alpha]s/Pi*Integrate[Pgtoqqbarvacuum[z]*IntegralTheta,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]]
 
 
-SudakovPgtoggvacuumNT=Exp[-\[Alpha]s/Pi*Integrate[PgtoggvacuumNT[z]*IntegralTheta,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
+SudakovPgtoggvacuum=Exp[-\[Alpha]s/Pi*Integrate[Pgtoggvacuum[z]*IntegralTheta,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
 
 
 SudakovPgtoggvacuumNTnopol=Exp[-\[Alpha]s/Pi*Integrate[PgtoggvacuumNTnopol[z]*IntegralTheta,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
 
 
-SudakovPgtoggvacuumNTQ2=Exp[-\[Alpha]s/Pi*Integrate[1/(2Q2)* PgtoggvacuumNT[z],{z, pt0/pt1,1},{Q2, pt0*pt0/z,z*pt1*pt1}, Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
+SudakovPgtoggvacuumNTQ2=Exp[-\[Alpha]s/Pi*Integrate[1/(2Q2)* Pgtoggvacuum[z],{z, pt0/pt1,1},{Q2, pt0*pt0/z,z*pt1*pt1}, Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
 
 
-SudakovPgtoggvacuumNTQ2Medium=Exp[-\[Alpha]s/Pi*Integrate[1/(2Q2)* PgtoggvacuumNT[z]+ 1/Q2,{z, pt0/pt1,1},{Q2, pt0*pt0/z,z*pt1*pt1}, Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
+SudakovPgtoggvacuumNTQ2Medium=Exp[-\[Alpha]s/Pi*Integrate[1/(2Q2)* (Pgtoggvacuum[z]+ Pmed[Q2]),{z, pt0/pt1,1},{Q2, pt0*pt0/z,z*pt1*pt1}, Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
 
 
 ptFromSudakov[sudakovValue_,CA_,alphas_,pt1_]:= pt1 * Exp[-Sqrt[Log[sudakovValue]/(-2*alphas*CA/Pi)]]
-
-
-(* ::Text:: *)
-(*FIXME: the boundaries of ProbabilityDistribution extraction for z in the g to qqbar case are not currently consistent with the integration boundaries for the Sudakov *)
 
 
 SingleSplittingPtOrderedValidated[sudakovgtogg_, sudakovgtoqqbar_,fsplitgtogg_,fsplitgtoqqbar_,
@@ -189,9 +180,9 @@ ShowerValidated[tscaleinit_,tscalecutoff_,sudakovgtogg_, sudakovgtoqqbar_,fsplit
 )
 
 
-RunShowerMulti[maxevents_:1.,tscaleinit_:100.,tscalecutoff_:1.,sudakovgtogg_:SudakovPgtoggvacuumNT, sudakovgtoqqbar_:SudakovPgtoqqbarvacuumLT,
-               fsplitgtogg_:PgtoggvacuumNT,fsplitgtoqqbar_:PgtoqqbarvacuumLT,
-               fsplitgtoggezextraction_:PgtoggvacuumNTsymmetric, fsplitgtoqqbarezextraction_:PgtoqqbarvacuumLTsymmetric,
+RunShowerMulti[maxevents_:1.,tscaleinit_:100.,tscalecutoff_:1.,sudakovgtogg_:SudakovPgtoggvacuum, sudakovgtoqqbar_:SudakovPgtoqqbarvacuum,
+               fsplitgtogg_:Pgtoggvacuum,fsplitgtoqqbar_:Pgtoqqbarvacuum,
+               fsplitgtoggezextraction_:Pgtoggvacuumsymmetric, fsplitgtoqqbarezextraction_:PgtoqqbarvacuumLTsymmetric,
                dodebug_:0,maxiteration_:200,activateqqbar_:0, qmassthresh_:1.3, path_]:=(
   (*If[dodebug==1, Print["RunShowerMulti::Debug: you have activated the debug mode. The maximum number of events will be limited to 1"]; maxevents=1;];*)
   descendtot = {};
@@ -234,7 +225,7 @@ RunShowerMulti[maxevents_:1.,tscaleinit_:100.,tscalecutoff_:1.,sudakovgtogg_:Sud
 
 
 PlotCompareSudakovThetaQ2[inputpthigh_,inputCA_,input\[Alpha]s_]:=Module[{functNT,functNTQ2,functNTQ2medium},
-functNT= SudakovPgtoggvacuumNT//.{pt1->inputpthigh, CA->inputCA, \[Alpha]s->input\[Alpha]s};
+functNT= SudakovPgtoggvacuum//.{pt1->inputpthigh, CA->inputCA, \[Alpha]s->input\[Alpha]s};
 functNTQ2= SudakovPgtoggvacuumNTQ2//.{pt1->inputpthigh, CA->inputCA, \[Alpha]s->input\[Alpha]s};
 functNTQ2medium= SudakovPgtoggvacuumNTQ2Medium//.{pt1->inputpthigh, CA->inputCA, \[Alpha]s->input\[Alpha]s};
 Plot[{functNT,functNTQ2,functNTQ2medium},{pt0,1,100},Frame->True,FrameStyle->Black,PlotStyle -> {Thickness[0.03], Thickness[0.015],Thickness[0.01]}, PlotLegends->{"P(g to gg)= 2*(1-z)/z +z*(1-z)","P(g to gg)= 2*(1-z)/z +z*(1-z) \!\(\*SuperscriptBox[\(Q\), \(2\)]\)-integrated", "P(g to gg)= 2*(1-z)/z +z*(1-z)+1/\!\(\*SuperscriptBox[\(Q\), \(2\)]\)-integrated \!\(\*SuperscriptBox[\(Q\), \(2\)]\)"}]]
@@ -244,7 +235,7 @@ PlotCompareSudakovWithGavin[inputpthigh_,inputCA_,input\[Alpha]s_]:=Module[{func
 functGavin= SudakovPgtoggvacuumGavinOrig//.{pt1->inputpthigh, CA->inputCA, \[Alpha]s->input\[Alpha]s};
 functLT= SudakovPgtoggvacuumLT//.{pt1->inputpthigh, CA->inputCA, \[Alpha]s->input\[Alpha]s};
 functNTnopol = SudakovPgtoggvacuumNTnopol//.{pt1->inputpthigh, CA->inputCA, \[Alpha]s->input\[Alpha]s};
-functNT = SudakovPgtoggvacuumNT//.{pt1->inputpthigh, CA->inputCA, \[Alpha]s->input\[Alpha]s};
+functNT = SudakovPgtoggvacuum//.{pt1->inputpthigh, CA->inputCA, \[Alpha]s->input\[Alpha]s};
 Plot[{functGavin,functLT,functNTnopol,functNT},{pt0,1,inputpthigh},Frame->True, AxesLabel->{"p_{T,0}","Sudakov (no splitting prob.)"}, 
                                                        PlotStyle -> {Thickness[0.03], Thickness[0.015],Thickness[0.01],Thickness[0.01]}, FrameStyle->Black, 
                                                        PlotLegends->{"exp{-2*\[Alpha]s*\!\(\*SubscriptBox[\(C\), \(A\)]\)/\[Pi]*Log(\!\(\*SubscriptBox[\(p\), \(T, 1\)]\)/\!\(\*SubscriptBox[\(p\), \(T, 0\)]\)\!\(\*SuperscriptBox[\()\), \(2\)]\)} from Gavin ","P(g to gg)= 2*1/z","P(g to gg)= 2*(1-z)/z", "P(g to gg)= 2*(1-z)/z +z*(1-z)"}]]
@@ -281,7 +272,8 @@ Off[FindRoot::lstol];
 Off[Part::partd];
 Off[General::stop];
 Off[General::szero];
-Off[General::ovfl];)
+Off[General::ovfl];
+Off[General::unfl];)
 
 
 SetStandardSeeds[]:=(
