@@ -56,24 +56,24 @@ PgtoggvacuumLT[z_]:=4*CA*1/z;
 (*FIXME: PgtoqqbarvacuumLT to be checked *)
 
 
-TR=0.5;
-PgtoqqbarvacuumLT[z_]:=TR*(z^2+(1-z)^2);
+(*TR=0.5;*)
+PgtoqqbarvacuumLT[z_]:=0.5*(z^2+(1-z)^2);
 
 
-TR=0.5;
-PgtoqqbarvacuumLTsymmetric[z_]:=TR*(z^2+(1-z)^2);
+(*TR=0.5;*)
+PgtoqqbarvacuumLTsymmetric[z_]:=0.5*(z^2+(1-z)^2);
 
 
-CA=3;
-PgtoggvacuumNT[z_]:=2*CA*(2*(1-z)/z +z*(1-z));
+(*CA=3;*)
+PgtoggvacuumNT[z_]:=2*3*(2*(1-z)/z +z*(1-z));
 
 
-CA=3;
-PgtoggvacuumNTsymmetric[z_]:=2*CA*((1-z)/z +z/(1-z)+z*(1-z));
+(*CA=3;*)
+PgtoggvacuumNTsymmetric[z_]:=2*3*((1-z)/z +z/(1-z)+z*(1-z));
 
 
-CA=3;
-PgtoggvacuumNTnopol[z_]:=4*CA*(1-z)/z
+(*CA=3;*)
+PgtoggvacuumNTnopol[z_]:=4*3*(1-z)/z
 
 
 IntegralTheta =  Integrate[1/(theta),{theta, pt0/(z*pt1),1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]
