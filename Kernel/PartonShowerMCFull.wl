@@ -67,8 +67,7 @@ Pgtoqqbarvacuum[z_]:=0.5*(z^2+(1-z)^2); (*TR=0.5;*)
 Pgtoggvacuum[z_]:=2*3*(2*(1-z)/z +z*(1-z)); (*CA=3;*)
 
 
-Pmed[Q2]:=2*3*4/Q2;
-
+Pmed[Q2]:=2*3*1/Q2;
 
 Pgtoggvacuumsymmetric[z_]:=2*3*((1-z)/z +z/(1-z)+z*(1-z)); (*CA=3;*)
 
