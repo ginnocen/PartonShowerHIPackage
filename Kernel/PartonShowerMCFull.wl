@@ -49,7 +49,7 @@ MakeShowerGavin::usage = "Shower g-> gg using original implementation of Gavin"
 SingleSplittingPtOrdered::usage = "Generate single splitting from g-> gg, g->qqbar shower"
 
 
-PgtoggvacuumLT[z_]:=4*CA*1/z;
+PgtoggvacuumLT[z_]:=4*3*1/z;
 
 
 (* ::Text:: *)
