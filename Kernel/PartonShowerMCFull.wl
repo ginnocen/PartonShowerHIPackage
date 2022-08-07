@@ -67,10 +67,22 @@ Pgtoqqbarvacuum[z_,Q2_]:=0.5*(z^2+(1-z)^2); (*TR=0.5;*)
 Pgtoggvacuum[z_,Q2_]:=2*3*(2*(1-z)/z +z*(1-z)); (*CA=3;*)
 
 
-Pgtoggmedium1[z_,Q2_]:=2*3*(2*(1-z)/z +z*(1-z)+1./Q2);
+Pgtoggmedium1qhatL1[z_,Q2_]:=2*3*(2*(1-z)/z +z*(1-z)+1./Q2);
 
 
-Pgtoggmedium1symmetric[z_,Q2_]:=2*3*((1-z)/z +z/(1-z)+z*(1-z)+1./Q2);
+Pgtoggmedium1qhatL2[z_,Q2_]:=2*3*(2*(1-z)/z +z*(1-z)+2./Q2);
+
+
+Pgtoggmedium1qhatL4[z_,Q2_]:=2*3*(2*(1-z)/z +z*(1-z)+4./Q2);
+
+
+Pgtoggmedium1symmetricqhatL1[z_,Q2_]:=2*3*((1-z)/z +z/(1-z)+z*(1-z)+1./Q2);
+
+
+Pgtoggmedium1symmetricqhatL2[z_,Q2_]:=2*3*((1-z)/z +z/(1-z)+z*(1-z)+2./Q2);
+
+
+Pgtoggmedium1symmetricqhatL4[z_,Q2_]:=2*3*((1-z)/z +z/(1-z)+z*(1-z)+4./Q2);
 
 
 Pgtoggvacuumsymmetric[z_,Q2_]:=2*3*((1-z)/z +z/(1-z)+z*(1-z)); (*CA=3;*)
@@ -107,7 +119,13 @@ SudakovPgtoggvacuumNTnopol=Exp[-\[Alpha]s/Pi*Integrate[PgtoggvacuumNTnopol[z,Q2]
 SudakovPgtoggvacuumNTQ2=Exp[-\[Alpha]s/Pi*Integrate[1/(2Q2)* Pgtoggvacuum[z,Q2],{z, pt0/pt1,1},{Q2, pt0*pt0/z,z*pt1*pt1}, Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
 
 
-SudakovPgtoggvacuumNTQ2Medium1=Exp[-\[Alpha]s/Pi*Integrate[1/(2Q2)* (Pgtoggmedium1[z,Q2]),{z, pt0/pt1,1},{Q2, pt0*pt0/z,z*pt1*pt1}, Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
+SudakovPgtoggvacuumNTQ2Medium1qhatL1=Exp[-\[Alpha]s/Pi*Integrate[1/(2Q2)* (Pgtoggmedium1qhatL1[z,Q2]),{z, pt0/pt1,1},{Q2, pt0*pt0/z,z*pt1*pt1}, Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
+
+
+SudakovPgtoggvacuumNTQ2Medium1qhatL2=Exp[-\[Alpha]s/Pi*Integrate[1/(2Q2)* (Pgtoggmedium1qhatL2[z,Q2]),{z, pt0/pt1,1},{Q2, pt0*pt0/z,z*pt1*pt1}, Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
+
+
+SudakovPgtoggvacuumNTQ2Medium1qhatL4=Exp[-\[Alpha]s/Pi*Integrate[1/(2Q2)* (Pgtoggmedium1qhatL4[z,Q2]),{z, pt0/pt1,1},{Q2, pt0*pt0/z,z*pt1*pt1}, Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
 
 
 ptFromSudakov[sudakovValue_,CA_,alphas_,pt1_]:= pt1 * Exp[-Sqrt[Log[sudakovValue]/(-2*alphas*CA/Pi)]]
