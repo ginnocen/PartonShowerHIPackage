@@ -107,9 +107,6 @@ SudakovPgtoggvacuumNTnopol=Exp[-\[Alpha]s/Pi*Integrate[PgtoggvacuumNTnopol[z,Q2]
 SudakovPgtoggvacuumNTQ2=Exp[-\[Alpha]s/Pi*Integrate[1/(2Q2)* Pgtoggvacuum[z,Q2],{z, pt0/pt1,1},{Q2, pt0*pt0/z,z*pt1*pt1}, Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
 
 
-SudakovPgtoggvacuumNTQ2Medium=Exp[-\[Alpha]s/Pi*Integrate[1/(2Q2)* (Pgtoggvacuum[z,Q2]+ Pmed[Q2]),{z, pt0/pt1,1},{Q2, pt0*pt0/z,z*pt1*pt1}, Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
-
-
 SudakovPgtoggvacuumNTQ2Medium1=Exp[-\[Alpha]s/Pi*Integrate[1/(2Q2)* (Pgtoggmedium1[z,Q2]),{z, pt0/pt1,1},{Q2, pt0*pt0/z,z*pt1*pt1}, Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
 
 
