@@ -58,21 +58,37 @@ MakeShowerGavin::usage = "Shower g-> gg using original implementation of Gavin"
 PlotCompareSudakov::usage = "Compare Sudakov factor dependence LT and NT"
 
 
-PgtoggvacuumLT[z_]:=4*3*1/z; (*CR=3;*)
+PgtoggvacuumLT[z_,Q2_]:=4*3*1/z; (*CR=3;*)
 
 
-Pgtoqqbarvacuum[z_]:=0.5*(z^2+(1-z)^2); (*TR=0.5;*)
+Pgtoqqbarvacuum[z_,Q2_]:=0.5*(z^2+(1-z)^2); (*TR=0.5;*)
 
 
-Pgtoggvacuum[z_]:=2*3*(2*(1-z)/z +z*(1-z)); (*CA=3;*)
+Pgtoggvacuum[z_,Q2_]:=2*3*(2*(1-z)/z +z*(1-z)); (*CA=3;*)
 
 
-Pmed[Q2]:=2*3*1/Q2;
-
-Pgtoggvacuumsymmetric[z_]:=2*3*((1-z)/z +z/(1-z)+z*(1-z)); (*CA=3;*)
+Pgtoggmedium1qhatL1[z_,Q2_]:=2*3*(2*(1-z)/z +z*(1-z)+1./Q2);
 
 
-PgtoggvacuumNTnopol[z_]:=4*3*(1-z)/z; (*CA=3;*)
+Pgtoggmedium1qhatL2[z_,Q2_]:=2*3*(2*(1-z)/z +z*(1-z)+2./Q2);
+
+
+Pgtoggmedium1qhatL4[z_,Q2_]:=2*3*(2*(1-z)/z +z*(1-z)+4./Q2);
+
+
+Pgtoggmedium1symmetricqhatL1[z_,Q2_]:=2*3*((1-z)/z +z/(1-z)+z*(1-z)+1./Q2);
+
+
+Pgtoggmedium1symmetricqhatL2[z_,Q2_]:=2*3*((1-z)/z +z/(1-z)+z*(1-z)+2./Q2);
+
+
+Pgtoggmedium1symmetricqhatL4[z_,Q2_]:=2*3*((1-z)/z +z/(1-z)+z*(1-z)+4./Q2);
+
+
+Pgtoggvacuumsymmetric[z_,Q2_]:=2*3*((1-z)/z +z/(1-z)+z*(1-z)); (*CA=3;*)
+
+
+PgtoggvacuumNTnopol[z_,Q2_]:=4*3*(1-z)/z; (*CA=3;*)
 
 
 IntegralTheta = Integrate[1/(theta),{theta, pt0/(z*pt1),1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]
@@ -84,26 +100,32 @@ IntegralQ2Pgtoggvacuum =  Integrate[1/(2Q2),{Q2, pt0*pt0/z,z*pt1*pt1},Assumption
 SudakovPgtoggvacuumGavinOrig= Exp[-2*CA*\[Alpha]s/Pi*Log[pt1/pt0]^2]
 
 
-SudakovPgtoggvacuumLT= Exp[-\[Alpha]s/Pi*Integrate[PgtoggvacuumLT[z]*IntegralTheta,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]]
+SudakovPgtoggvacuumLT= Exp[-\[Alpha]s/Pi*Integrate[PgtoggvacuumLT[z,Q2]*IntegralTheta,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]]
 
 
 (* ::Text:: *)
 (*FIXME: the boundaries of SudakovPgtoqqbarvacuum  integration are to be checked. The boundaries of ProbabilityDistribution extraction for z in the g to qqbar case are not currently consistent with the integration boundaries for the Sudakov *)
 
 
-SudakovPgtoqqbarvacuum= Exp[-\[Alpha]s/Pi*Integrate[Pgtoqqbarvacuum[z]*IntegralTheta,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]]
+SudakovPgtoqqbarvacuum= Exp[-\[Alpha]s/Pi*Integrate[Pgtoqqbarvacuum[z,Q2]*IntegralTheta,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]]
 
 
-SudakovPgtoggvacuum=Exp[-\[Alpha]s/Pi*Integrate[Pgtoggvacuum[z]*IntegralTheta,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
+SudakovPgtoggvacuum=Exp[-\[Alpha]s/Pi*Integrate[Pgtoggvacuum[z,Q2]*IntegralTheta,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
 
 
-SudakovPgtoggvacuumNTnopol=Exp[-\[Alpha]s/Pi*Integrate[PgtoggvacuumNTnopol[z]*IntegralTheta,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
+SudakovPgtoggvacuumNTnopol=Exp[-\[Alpha]s/Pi*Integrate[PgtoggvacuumNTnopol[z,Q2]*IntegralTheta,{z, pt0/pt1,1},Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
 
 
-SudakovPgtoggvacuumNTQ2=Exp[-\[Alpha]s/Pi*Integrate[1/(2Q2)* Pgtoggvacuum[z],{z, pt0/pt1,1},{Q2, pt0*pt0/z,z*pt1*pt1}, Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
+SudakovPgtoggvacuumNTQ2=Exp[-\[Alpha]s/Pi*Integrate[1/(2Q2)* Pgtoggvacuum[z,Q2],{z, pt0/pt1,1},{Q2, pt0*pt0/z,z*pt1*pt1}, Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
 
 
-SudakovPgtoggvacuumNTQ2Medium=Exp[-\[Alpha]s/Pi*Integrate[1/(2Q2)* (Pgtoggvacuum[z]+ Pmed[Q2]),{z, pt0/pt1,1},{Q2, pt0*pt0/z,z*pt1*pt1}, Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
+SudakovPgtoggvacuumNTQ2Medium1qhatL1=Exp[-\[Alpha]s/Pi*Integrate[1/(2Q2)* (Pgtoggmedium1qhatL1[z,Q2]),{z, pt0/pt1,1},{Q2, pt0*pt0/z,z*pt1*pt1}, Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
+
+
+SudakovPgtoggvacuumNTQ2Medium1qhatL2=Exp[-\[Alpha]s/Pi*Integrate[1/(2Q2)* (Pgtoggmedium1qhatL2[z,Q2]),{z, pt0/pt1,1},{Q2, pt0*pt0/z,z*pt1*pt1}, Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
+
+
+SudakovPgtoggvacuumNTQ2Medium1qhatL4=Exp[-\[Alpha]s/Pi*Integrate[1/(2Q2)* (Pgtoggmedium1qhatL4[z,Q2]),{z, pt0/pt1,1},{Q2, pt0*pt0/z,z*pt1*pt1}, Assumptions->{pt0\[Element] Reals,pt1\[Element] Reals , pt1>pt0, pt0>0,z<1, z>0, pt0!=pt1*z}]];
 
 
 ptFromSudakov[sudakovValue_,CA_,alphas_,pt1_]:= pt1 * Exp[-Sqrt[Log[sudakovValue]/(-2*alphas*CA/Pi)]]
@@ -136,13 +158,13 @@ Module[{possibleSplits,tscalesplitting,splittingfunction,output,zlowcutoff},
        If[zlowcutoff<0.5,lowb=zlowcutoff; highb=1-zlowcutoff];
        If [zlowcutoff<0., Print["ERROR!!! z boundary for extraction is lower than 0"]];
        If[typesplittee[[1]]=="g",
-         distrib = ProbabilityDistribution[fsplitgtoggezextraction[z], {z, lowb, highb},Method -> "Normalize"];
+         distrib = ProbabilityDistribution[fsplitgtoggezextraction[z,tscalesplitting*tscalesplitting], {z, lowb, highb},Method -> "Normalize"];
          zvalue=RandomVariate[distrib,1][[1]];
          If [zvalue<0. || zvalue>1., Print["ERROR!!! z value extracted is not in the correct boundaries [0,1], z=", zvalue]];
          output={{tscalesplitting,typesplittee[[1]],zinit*zvalue},{tscalesplitting,typesplittee[[1]],zinit*(1-zvalue)}};
        ]; (*end of if typesplittee[[1]]=="q"*)
        If[typesplittee[[1]]=="q",
-         distribqqbar = ProbabilityDistribution[fsplitgtoqqbarezextraction[z], {z, lowb, highb},Method -> "Normalize"];
+         distribqqbar = ProbabilityDistribution[fsplitgtoqqbarezextraction[z,Q2], {z, lowb, highb},Method -> "Normalize"];
          zvalueqqbar=RandomVariate[distribqqbar,1][[1]];
          If [zvalueqqbar<0. || zvalueqqbar>1., Print["ERROR!!! z value extracted is not in the correct boundaries [0,1], z=", zvalueqqbar]];
          qsquarethreshold = (tscalesplitting*tscalesplitting);
@@ -190,6 +212,7 @@ RunShowerMulti[maxevents_:1.,tscaleinit_:100.,tscalecutoff_:1.,sudakovgtogg_:Sud
   nmultiplicitytot = {};
   nmultiplicityquarkstot = {};
   nquarkstot = {};
+  zvaluesquarkstot={};
   For[i = 0, i < maxevents, i++,
     If[dodebug==1,Print["---------------------- New event, id= ",i, " --------------------- "];];
     Clear[descendentevent, zvaluesevent]; 
@@ -198,18 +221,25 @@ RunShowerMulti[maxevents_:1.,tscaleinit_:100.,tscalecutoff_:1.,sudakovgtogg_:Sud
                                       dodebug, maxiteration,activateqqbar,qmassthresh];
     zvaluesevent = Table[descendentevent[[jendex]][[3]], {jendex, Length[descendentevent]}];
     nquarks = Count[descendentevent[[;; , 2]], "q"];
+    zvaluesquarksevent = {};
+    For[j=0,j<Length[descendentevent],j++,
+      If[descendentevent[[j+1]][[2]]=="q", AppendTo[zvaluesquarksevent, descendentevent[[j+1]][[3]]];];
+    ];
     AppendTo[descendtot, descendentevent];
     AppendTo[zvaluestot, zvaluesevent];
     AppendTo[nmultiplicitytot, Length[descendentevent]];
     AppendTo[nmultiplicityquarkstot, nquarks];
+    If[Length[zvaluesquarksevent]>0, AppendTo[zvaluesquarkstot, zvaluesquarksevent];];
   ];  
-  PlotShowerQuantities[nmultiplicitytot, nmultiplicityquarkstot, zvaluestot,tscaleinit];
+  PlotShowerQuantities[nmultiplicitytot, nmultiplicityquarkstot, zvaluestot, zvaluesquarkstot, tscaleinit];
   Export[StringJoin[path,StringTemplate["histomultinit_maxevents`1`_tscalecutoff`2`_scale`3`GeVc_qqbar`4`.pdf"][maxevents,tscalecutoff,tscaleinit,activateqqbar]], histomult];
   Export[StringJoin[path,StringTemplate["histonquarks_maxevents`1`_tscalecutoff`2`_scale`3`GeVc_qqbar`4`.pdf"][maxevents,tscalecutoff,tscaleinit,activateqqbar]], histonquarks];
   Export[StringJoin[path,StringTemplate["histolog1overz_maxevents`1`_tscalecutoff`2`_scale`3`GeVc_qqbar`4`.pdf"][maxevents,tscalecutoff,tscaleinit,activateqqbar]], histolog1overz];
+  Export[StringJoin[path,StringTemplate["histolog1overzquarks_maxevents`1`_tscalecutoff`2`_scale`3`GeVc_qqbar`4`.pdf"][maxevents,tscalecutoff,tscaleinit,activateqqbar]], histolog1overzquarks];
   histomult
   histonquarks
   histolog1overz
+  histolog1overzquarks
 )
 
 
@@ -241,10 +271,11 @@ Plot[{functGavin,functLT,functNTnopol,functNT},{pt0,1,inputpthigh},Frame->True, 
                                                        PlotLegends->{"exp{-2*\[Alpha]s*\!\(\*SubscriptBox[\(C\), \(A\)]\)/\[Pi]*Log(\!\(\*SubscriptBox[\(p\), \(T, 1\)]\)/\!\(\*SubscriptBox[\(p\), \(T, 0\)]\)\!\(\*SuperscriptBox[\()\), \(2\)]\)} from Gavin ","P(g to gg)= 2*1/z","P(g to gg)= 2*(1-z)/z", "P(g to gg)= 2*(1-z)/z +z*(1-z)"}]]
 
 
-PlotShowerQuantities[nmultiplicitytot_,nmultiplicityquarkstot_,zvaluestot_,ptinitial_]:=(
+PlotShowerQuantities[nmultiplicitytot_,nmultiplicityquarkstot_,zvaluestot_,zvaluesquarkstot_, ptinitial_]:=(
 meanmult=Mean[nmultiplicitytot]*1.000000001;
 meanmultquark=Mean[nmultiplicityquarkstot]*1.000000001;
 meanlogz=Mean[Log[1/Flatten[zvaluestot]]]*1.000000001;
+meanlogzquarks=Mean[Log[1/Flatten[zvaluesquarkstot]]]*1.000000001;
 histomult= Histogram[nmultiplicitytot,{-0.5,40.5,1.},"Probability", (*ScalingFunctions\[Rule]{"Log","Log"},*) Frame -> True, AxesLabel->{HoldForm["Parton multiplicity"],
           HoldForm[Entries]}, PlotLabel->StringTemplate["Distribution of parton multiplicity for initial gluon with t=`1` GeV"][ptinitial],
           LabelStyle->{FontFamily->"Helvetica", 12, GrayLevel[0]},ImageSize->Large,Epilog->{Text[Style["<Mean>="<>ToString[meanmult],18,Black],Scaled[{0.55,0.85}]]}];
@@ -254,6 +285,9 @@ histonquarks= Histogram[nmultiplicityquarkstot,{-0.5,10.5,1.},"Probability", Axe
 histolog1overz = Histogram[Log[1/Flatten[zvaluestot]],{0.,15.,0.5},"Probability", AxesLabel->{HoldForm[Log[1/x]],HoldForm[Entries]}, 
                            PlotLabel->StringTemplate["Distribution of Log[\!\(\*FractionBox[\(1\), \(x\)]\)] for initial gluon with t=`1` GeV"][ptinitial],
                            LabelStyle->{FontFamily->"Helvetica", 12, GrayLevel[0]},ImageSize->Large,Epilog->{Text[Style["<Mean>="<>ToString[meanlogz],18,Black],Scaled[{0.55,0.85}]]}];
+histolog1overzquarks = Histogram[Log[1/Flatten[zvaluesquarkstot]],{0.,15.,0.5}, AxesLabel->{HoldForm[Log[1/x]],HoldForm[Entries]},
+                       PlotLabel->StringTemplate["Quark distribution of Log[\!\(\*FractionBox[\(1\), \(x\)]\)] for initial gluon with t=`1` GeV"][ptinitial],
+                       LabelStyle->{FontFamily->"Helvetica", 12, GrayLevel[0]},ImageSize->Large,Epilog->{Text[Style["<Mean>="<>ToString[meanlogzquarks],18,Black],Scaled[{0.55,0.85}]]}]
 )
 
 
@@ -336,3 +370,7 @@ End[];
 
 
 EndPackage[];
+
+
+(* ::PageBreak:: *)
+(**)
