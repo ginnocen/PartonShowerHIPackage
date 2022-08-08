@@ -212,6 +212,7 @@ RunShowerMulti[maxevents_:1.,tscaleinit_:100.,tscalecutoff_:1.,sudakovgtogg_:Sud
   nmultiplicitytot = {};
   nmultiplicityquarkstot = {};
   nquarkstot = {};
+  zvaluesquarkstot={};
   For[i = 0, i < maxevents, i++,
     If[dodebug==1,Print["---------------------- New event, id= ",i, " --------------------- "];];
     Clear[descendentevent, zvaluesevent]; 
@@ -220,18 +221,25 @@ RunShowerMulti[maxevents_:1.,tscaleinit_:100.,tscalecutoff_:1.,sudakovgtogg_:Sud
                                       dodebug, maxiteration,activateqqbar,qmassthresh];
     zvaluesevent = Table[descendentevent[[jendex]][[3]], {jendex, Length[descendentevent]}];
     nquarks = Count[descendentevent[[;; , 2]], "q"];
+    zvaluesquarksevent = {};
+    For[j=0,j<Length[descendentevent],j++,
+      If[descendentevent[[j+1]][[2]]=="q", AppendTo[zvaluesquarksevent, descendentevent[[j+1]][[3]]];];
+    ];
     AppendTo[descendtot, descendentevent];
     AppendTo[zvaluestot, zvaluesevent];
     AppendTo[nmultiplicitytot, Length[descendentevent]];
     AppendTo[nmultiplicityquarkstot, nquarks];
+    If[Length[zvaluesquarksevent]>0, AppendTo[zvaluesquarkstot, zvaluesquarksevent];];
   ];  
-  PlotShowerQuantities[nmultiplicitytot, nmultiplicityquarkstot, zvaluestot,tscaleinit];
+  PlotShowerQuantities[nmultiplicitytot, nmultiplicityquarkstot, zvaluestot, zvaluesquarkstot, tscaleinit];
   Export[StringJoin[path,StringTemplate["histomultinit_maxevents`1`_tscalecutoff`2`_scale`3`GeVc_qqbar`4`.pdf"][maxevents,tscalecutoff,tscaleinit,activateqqbar]], histomult];
   Export[StringJoin[path,StringTemplate["histonquarks_maxevents`1`_tscalecutoff`2`_scale`3`GeVc_qqbar`4`.pdf"][maxevents,tscalecutoff,tscaleinit,activateqqbar]], histonquarks];
   Export[StringJoin[path,StringTemplate["histolog1overz_maxevents`1`_tscalecutoff`2`_scale`3`GeVc_qqbar`4`.pdf"][maxevents,tscalecutoff,tscaleinit,activateqqbar]], histolog1overz];
+  Export[StringJoin[path,StringTemplate["histolog1overzquarks_maxevents`1`_tscalecutoff`2`_scale`3`GeVc_qqbar`4`.pdf"][maxevents,tscalecutoff,tscaleinit,activateqqbar]], histolog1overzquarks];
   histomult
   histonquarks
   histolog1overz
+  histolog1overzquarks
 )
 
 
@@ -263,10 +271,11 @@ Plot[{functGavin,functLT,functNTnopol,functNT},{pt0,1,inputpthigh},Frame->True, 
                                                        PlotLegends->{"exp{-2*\[Alpha]s*\!\(\*SubscriptBox[\(C\), \(A\)]\)/\[Pi]*Log(\!\(\*SubscriptBox[\(p\), \(T, 1\)]\)/\!\(\*SubscriptBox[\(p\), \(T, 0\)]\)\!\(\*SuperscriptBox[\()\), \(2\)]\)} from Gavin ","P(g to gg)= 2*1/z","P(g to gg)= 2*(1-z)/z", "P(g to gg)= 2*(1-z)/z +z*(1-z)"}]]
 
 
-PlotShowerQuantities[nmultiplicitytot_,nmultiplicityquarkstot_,zvaluestot_,ptinitial_]:=(
+PlotShowerQuantities[nmultiplicitytot_,nmultiplicityquarkstot_,zvaluestot_,zvaluesquarkstot_, ptinitial_]:=(
 meanmult=Mean[nmultiplicitytot]*1.000000001;
 meanmultquark=Mean[nmultiplicityquarkstot]*1.000000001;
 meanlogz=Mean[Log[1/Flatten[zvaluestot]]]*1.000000001;
+meanlogzquarks=Mean[Log[1/Flatten[zvaluesquarkstot]]]*1.000000001;
 histomult= Histogram[nmultiplicitytot,{-0.5,40.5,1.},"Probability", (*ScalingFunctions\[Rule]{"Log","Log"},*) Frame -> True, AxesLabel->{HoldForm["Parton multiplicity"],
           HoldForm[Entries]}, PlotLabel->StringTemplate["Distribution of parton multiplicity for initial gluon with t=`1` GeV"][ptinitial],
           LabelStyle->{FontFamily->"Helvetica", 12, GrayLevel[0]},ImageSize->Large,Epilog->{Text[Style["<Mean>="<>ToString[meanmult],18,Black],Scaled[{0.55,0.85}]]}];
@@ -276,6 +285,9 @@ histonquarks= Histogram[nmultiplicityquarkstot,{-0.5,10.5,1.},"Probability", Axe
 histolog1overz = Histogram[Log[1/Flatten[zvaluestot]],{0.,15.,0.5},"Probability", AxesLabel->{HoldForm[Log[1/x]],HoldForm[Entries]}, 
                            PlotLabel->StringTemplate["Distribution of Log[\!\(\*FractionBox[\(1\), \(x\)]\)] for initial gluon with t=`1` GeV"][ptinitial],
                            LabelStyle->{FontFamily->"Helvetica", 12, GrayLevel[0]},ImageSize->Large,Epilog->{Text[Style["<Mean>="<>ToString[meanlogz],18,Black],Scaled[{0.55,0.85}]]}];
+histolog1overzquarks = Histogram[Log[1/Flatten[zvaluesquarkstot]],{0.,15.,0.5}, AxesLabel->{HoldForm[Log[1/x]],HoldForm[Entries]},
+                       PlotLabel->StringTemplate["Quark distribution of Log[\!\(\*FractionBox[\(1\), \(x\)]\)] for initial gluon with t=`1` GeV"][ptinitial],
+                       LabelStyle->{FontFamily->"Helvetica", 12, GrayLevel[0]},ImageSize->Large,Epilog->{Text[Style["<Mean>="<>ToString[meanlogzquarks],18,Black],Scaled[{0.55,0.85}]]}]
 )
 
 
